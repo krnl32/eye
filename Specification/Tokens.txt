@@ -1,0 +1,61 @@
+Types:
+{
+	int,
+	float,
+	double,
+	char,
+	str,
+	bool,
+	void,
+}
+
+Keywords:
+{
+	int, float, double, char, str, bool, void,
+	const,
+	true, false,
+	null,
+	if,	else,
+	while, do, for, continue, break,
+	function, return, 
+}
+
+Operators:
+{
+	+, -, *, /, %, ++, --, 
+	=, +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>=
+	==, !=, <, >, <=, >=,
+	&&, ||, !,
+	&, |, ^, <<, >>, ~,
+	(, [, ?, ., ,,
+}
+
+Symbols:
+{
+	), ], {, }, :, ;, \,
+}
+
+Commenting:
+{
+	Single Line -> // Comment
+	Multi Line -> /* Comment */
+}
+
+Numbers:
+{
+	Decimal->Base 10
+	Hex->Base 16
+	Binary->Base 2
+}
+
+Decimal Numbers:
+{
+	Integer,
+	Double (Default Decimal Number),
+	Float (Suffix F/f, Required (.)) -> 3.1f ALLOWED, 3f NOT ALLOWED,
+}
+
+Escape Characters:
+{
+	\\, \t, \n, \'
+}
