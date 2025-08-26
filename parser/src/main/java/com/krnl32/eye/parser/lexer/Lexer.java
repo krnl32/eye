@@ -7,10 +7,14 @@ import com.krnl32.eye.common.utility.SourceSpan;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Lexer {
 	private final String source;
 	private final List<Token> tokens;
+
+	// Language Specific
+	private final Map<Character, TokenType> symbolTokens;
 
 	// Track Source
 	private int startLine, currentLine;
@@ -20,6 +24,16 @@ public class Lexer {
 	public Lexer(String source) {
 		this.source = source;
 		this.tokens = new ArrayList<>();
+
+		this.symbolTokens = Map.of(
+			')', TokenType.SYMBOL_RIGHT_PARENTHESIS,
+			']', TokenType.SYMBOL_RIGHT_BRACKET,
+			'{', TokenType.SYMBOL_LEFT_BRACE,
+			'}', TokenType.SYMBOL_RIGHT_BRACE,
+			':', TokenType.SYMBOL_COLON,
+			';', TokenType.SYMBOL_SEMI_COLON,
+			'\\', TokenType.SYMBOL_BACKSLASH
+		);
 
 		this.startLine = 1;
 		this.currentLine = 1;
@@ -89,6 +103,17 @@ public class Lexer {
 			case 'x':
 			case 'b':
 				token = makeNumberBaseToken();
+				break;
+
+			// Symbols
+			case ')':
+			case ']':
+			case '{':
+			case '}':
+			case ':':
+			case ';':
+			case '\\':
+				token = makeSymbolToken();
 				break;
 
 			default:
@@ -184,6 +209,16 @@ public class Lexer {
 		SourceSpan span = makeSourceSpan();
 		return new Token(TokenType.LITERAL_INTEGER, value, span);
 	}
+
+	private Token makeSymbolToken() {
+		SourceSpan span = makeSourceSpan();
+
+		char symbol = nextChar();
+		TokenType symbolType = symbolTokens.get(symbol);
+
+		return new Token(symbolType, null, span);
+	}
+
 
 	private Token makeEndOfFileToken() {
 		SourceSpan span = makeSourceSpan();
