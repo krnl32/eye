@@ -1,11 +1,11 @@
-Types:
+Datatypes:
 {
-	int,
-	float,
-	double,
-	char,
-	str,
-	bool,
+	int = 4 Bytes,
+	float = 4 Bytes,
+	double = 8 Bytes,
+	char = 1 Byte,
+	str = N Bytes,
+	bool = 1 Byte,
 	void,
 }
 
@@ -39,20 +39,6 @@ Commenting:
 {
 	Single Line -> // Comment
 	Multi Line -> /* Comment */
-}
-
-Numbers:
-{
-	Decimal->Base 10
-	Hex->Base 16
-	Binary->Base 2
-}
-
-Decimal Numbers:
-{
-	Integer,
-	Double (Default Decimal Number),
-	Float (Suffix F/f, Required (.)) -> 3.1f ALLOWED, 3f NOT ALLOWED,
 }
 
 Escape Characters:

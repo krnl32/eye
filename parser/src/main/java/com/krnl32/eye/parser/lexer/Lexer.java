@@ -1,6 +1,7 @@
 package com.krnl32.eye.parser.lexer;
 
 import com.krnl32.eye.common.core.Logger;
+import com.krnl32.eye.common.exceptions.UnexpectedTokenException;
 import com.krnl32.eye.common.utility.SourceSpan;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class Lexer {
 				token = handleWhitespace();
 				break;
 
-				// New Line
+				// Newline
 			case '\n':
 				token = handleNewline();
 				break;
@@ -91,11 +92,7 @@ public class Lexer {
 				break;
 
 			default:
-				SourceSpan span = makeSourceSpan();
-				String errorMessage = "SyntaxError: Unexpected token '" + ch + "'"
-					+ "\n\tat line " + span.getLine()
-					+ ", column " + span.getColumn();
-				throw new RuntimeException(errorMessage);
+				throw new UnexpectedTokenException(Character.toString(ch), makeSourceSpan());
 		}
 
 		return token;
