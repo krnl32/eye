@@ -1,12 +1,16 @@
 package com.krnl32.eye.sandbox;
 
+import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.parser.lexer.Lexer;
 import com.krnl32.eye.parser.lexer.Token;
+import com.krnl32.eye.parser.lexer.TokenType;
 
 import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
+		Lexer lexer;
+
 //		Lexer lexer = new Lexer("123 456\n789");
 		/*
 			Token{type=LITERAL_INTEGER, value=123, span=SourceSpan{line=1, column=1, start=0, end=3}}
@@ -27,10 +31,16 @@ public class Main {
 
 		//Lexer lexer = new Lexer("123.12 56.12f 99.f 44f");
 
-		Lexer lexer = new Lexer("123.12 56.12f 99.f 44");
+		//Lexer lexer = new Lexer("123.12 56.12f 99.f 44");
 
+		// 0x1234 = 4660, 0b1000100111=551
+		lexer = new Lexer("0x1234\n0b1000100111");
 
 		List<Token> tokens = lexer.tokenize();
+		if (tokens == null) {
+			Logger.error("Tokenizer Failed");
+			return;
+		}
 
 		for (var token : tokens) {
 			System.out.println(token);

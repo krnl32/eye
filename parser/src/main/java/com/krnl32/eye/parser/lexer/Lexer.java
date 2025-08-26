@@ -1,12 +1,15 @@
 package com.krnl32.eye.parser.lexer;
 
+import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.common.utility.SourceSpan;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lexer {
 	private final String source;
+	private final List<Token> tokens;
 
 	// Track Source
 	private int startLine, currentLine;
@@ -15,6 +18,8 @@ public class Lexer {
 
 	public Lexer(String source) {
 		this.source = source;
+		this.tokens = new ArrayList<>();
+
 		this.startLine = 1;
 		this.currentLine = 1;
 		this.startColumn = 1;
@@ -24,17 +29,20 @@ public class Lexer {
 	}
 
 	public List<Token> tokenize() {
-		List<Token> tokens = new ArrayList<>();
+		try {
+			Token token = nextToken();
 
-		Token token = nextToken();
-
-		while (token != null) {
-			tokens.add(token);
-			token = nextToken();
+			while (token != null) {
+				tokens.add(token);
+				token = nextToken();
+			}
+		} catch (Exception e) {
+			Logger.error(e.getMessage());
+			return null;
 		}
 
 		tokens.add(makeEndOfFileToken());
-		return tokens;
+		return Collections.unmodifiableList(tokens);
 	}
 
 	private Token nextToken() {
@@ -74,6 +82,12 @@ public class Lexer {
 			case '8':
 			case '9':
 				token = makeNumberToken();
+				break;
+
+				// Hexadecimal: 0x12AB, Binary: 0b1111
+			case 'x':
+			case 'b':
+				token = makeNumberBaseToken();
 				break;
 
 			default:
@@ -132,6 +146,46 @@ public class Lexer {
 
 		SourceSpan span = makeSourceSpan();
 		return new Token(tokenType, value, span);
+	}
+
+	private Token makeNumberBaseToken() {
+		// If Last Token is not "0", Then Make Identifier Instead
+		Token lastToken = tokens.getLast();
+
+		boolean isLastTokenZero = lastToken != null &&
+			lastToken.getType() == TokenType.LITERAL_INTEGER &&
+			lastToken.<Integer>getValue() == 0;
+
+		if (!isLastTokenZero) {
+			// return makeIdentifierToken();
+		}
+
+		// Make Other Base Numbers (Hex->0x1234, Binary->0b1111)
+		// Remove the '0' from Token List
+		tokens.removeLast();
+
+		char baseType = peekChar();
+
+		return switch (baseType) {
+			case 'x' -> makeNumberBaseToken(16);
+			case 'b' -> makeNumberBaseToken(2);
+			default -> null;
+		};
+	}
+
+	private Token makeNumberBaseToken(int radix) {
+		// Skip 'x' or 'b'
+		nextChar();
+
+		for (char ch = peekChar(); Character.digit(ch, radix) != -1; ch = peekChar()) {
+			nextChar();
+		}
+
+		String numbers = source.substring(startIndex + 1, currentIndex);
+		int value = Integer.parseInt(numbers, radix);
+
+		SourceSpan span = makeSourceSpan();
+		return new Token(TokenType.LITERAL_INTEGER, value, span);
 	}
 
 	private Token makeEndOfFileToken() {
