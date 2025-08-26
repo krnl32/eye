@@ -109,4 +109,21 @@ class LexerLiteralTest {
 		assertEquals(TokenType.LITERAL_DOUBLE, tokens.get(7).getType());
 		assertEquals(12.0, tokens.get(7).<Double>getValue());
 	}
+
+	@Test
+	void testString() throws IOException {
+		String source = FileIO.readResourceFileContent("lexer/literal/String.eye");
+
+		Lexer lexer = new Lexer(source);
+		List<Token> tokens = lexer.tokenize();
+
+		assertEquals(TokenType.LITERAL_STRING, tokens.get(0).getType());
+		assertEquals("Hello World", tokens.get(0).<String>getValue());
+
+		assertEquals(TokenType.LITERAL_STRING, tokens.get(1).getType());
+		assertEquals("Test", tokens.get(1).<String>getValue());
+
+		assertEquals(TokenType.LITERAL_STRING, tokens.get(3).getType());
+		assertEquals("bye World", tokens.get(3).<String>getValue());
+	}
 }

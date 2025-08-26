@@ -34,7 +34,9 @@ public class Main {
 		//Lexer lexer = new Lexer("123.12 56.12f 99.f 44");
 
 		// 0x1234 = 4660, 0b1000100111=551
-		lexer = new Lexer("0x1234\n0b1000100111");
+		//lexer = new Lexer("0x1234\n0b1000100111");
+
+		lexer = new Lexer("\"Hello World\"");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

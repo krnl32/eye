@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Lexer {
+	private static final char EOF = '\0';
+
 	private final String source;
 	private final List<Token> tokens;
 
@@ -105,7 +107,7 @@ public class Lexer {
 				token = makeNumberBaseToken();
 				break;
 
-			// Symbols
+				// Symbols
 			case ')':
 			case ']':
 			case '{':
@@ -114,6 +116,11 @@ public class Lexer {
 			case ';':
 			case '\\':
 				token = makeSymbolToken();
+				break;
+
+				// Strings
+			case '"':
+				token = makeStringToken('"', '"');
 				break;
 
 			default:
@@ -211,14 +218,27 @@ public class Lexer {
 	}
 
 	private Token makeSymbolToken() {
-		SourceSpan span = makeSourceSpan();
-
 		char symbol = nextChar();
 		TokenType symbolType = symbolTokens.get(symbol);
 
+		SourceSpan span = makeSourceSpan();
 		return new Token(symbolType, null, span);
 	}
 
+	private Token makeStringToken(char sdelim, char edelim) {
+		// Skip Initial '"'
+		if (nextChar() != sdelim) {
+			throw new UnexpectedTokenException(Character.toString(sdelim), makeSourceSpan());
+		}
+
+		for (char ch = nextChar(); ch != edelim && ch != EOF; ch = nextChar());
+
+		// Exclude Delims
+		String str = source.substring(startIndex + 1, currentIndex - 1);
+
+		SourceSpan span = makeSourceSpan();
+		return new Token(TokenType.LITERAL_STRING, str, span);
+	}
 
 	private Token makeEndOfFileToken() {
 		SourceSpan span = makeSourceSpan();
@@ -232,7 +252,7 @@ public class Lexer {
 	// Source Manipulation
 	private char nextChar() {
 		if (isAtEnd()) {
-			return '\0';
+			return EOF;
 		}
 
 		char ch = source.charAt(currentIndex);
@@ -250,7 +270,7 @@ public class Lexer {
 
 	private char peekChar() {
 		if (isAtEnd()) {
-			return '\0';
+			return EOF;
 		}
 
 		return source.charAt(currentIndex);
