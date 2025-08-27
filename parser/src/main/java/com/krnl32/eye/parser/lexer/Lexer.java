@@ -301,10 +301,10 @@ public class Lexer {
 		}
 
 		// Another Special Case for Bitwise Shift Operators '<<', '>>' to handle '>>=' or '<<=', since by default Lexer is only capable of tokenizing 2 Operators at a time.
-		boolean isBitwiseOperator = (opType == TokenType.OPERATOR_BITWISE_LEFT_SHIFT ||
-			opType == TokenType.OPERATOR_ASSIGNMENT_BITWISE_RIGHT_SHIFT);
+		boolean isBitwiseShiftOperator = (opType == TokenType.OPERATOR_BITWISE_LEFT_SHIFT ||
+			opType == TokenType.OPERATOR_BITWISE_RIGHT_SHIFT);
 
-		if (isBitwiseOperator && peekChar() == '=') {
+		if (isBitwiseShiftOperator && peekChar() == '=') {
 			char eq = nextChar();
 			opStr += eq;
 			opType = LexerUtility.getOperatorTokenType(opStr);
