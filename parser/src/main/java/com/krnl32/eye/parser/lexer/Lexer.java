@@ -16,7 +16,7 @@ public class Lexer {
 	private final List<Token> tokens;
 
 	// Language Specific
-	private final Map<Character, TokenType> symbolTokens;
+	private final Map<Character, TokenType> symbolTokenTypes;
 
 	// Track Source
 	private int startLine, currentLine;
@@ -27,7 +27,7 @@ public class Lexer {
 		this.source = source;
 		this.tokens = new ArrayList<>();
 
-		this.symbolTokens = Map.of(
+		this.symbolTokenTypes = Map.of(
 			')', TokenType.SYMBOL_RIGHT_PARENTHESIS,
 			']', TokenType.SYMBOL_RIGHT_BRACKET,
 			'{', TokenType.SYMBOL_LEFT_BRACE,
@@ -84,7 +84,7 @@ public class Lexer {
 				break;
 
 				// EOF
-			case '\0':
+			case EOF:
 				break;
 
 				// Decimal: Integer, Float, Double Literals
@@ -116,6 +116,27 @@ public class Lexer {
 			case ';':
 			case '\\':
 				token = makeSymbolToken();
+				break;
+
+				// Operators
+			case '+':
+			case '-':
+			case '*':
+			case '%':
+			case '=':
+			case '<':
+			case '>':
+			case '!':
+			case '&':
+			case '|':
+			case '^':
+			case '~':
+			case '[':
+			case '(':
+			case '?':
+			case ',':
+			case '.':
+				token = makeOperatorToken();
 				break;
 
 				// Strings
@@ -179,7 +200,7 @@ public class Lexer {
 
 	private Token makeNumberBaseToken() {
 		// If Last Token is not "0", Then Make Identifier Instead
-		Token lastToken = tokens.getLast();
+		Token lastToken = !tokens.isEmpty() ? tokens.getLast() : null;
 
 		boolean isLastTokenZero = lastToken != null &&
 			lastToken.getType() == TokenType.LITERAL_INTEGER &&
@@ -219,10 +240,68 @@ public class Lexer {
 
 	private Token makeSymbolToken() {
 		char symbol = nextChar();
-		TokenType symbolType = symbolTokens.get(symbol);
+		TokenType symbolType = symbolTokenTypes.get(symbol);
 
 		SourceSpan span = makeSourceSpan();
 		return new Token(symbolType, null, span);
+	}
+
+	private Token makeOperatorToken() {
+		boolean multiCharOperator = false;
+		char ch = nextChar();
+
+		String opStr = String.valueOf(ch);
+		TokenType opType = LexerUtility.getOperatorTokenType(opStr);
+
+		if (opType == null) {
+			throw new UnexpectedTokenException(opStr, makeSourceSpan());
+		}
+
+		// if MultiCharOperator, LookAhead -> if Operator, then Add it to opStr.
+		// A Special Case for '*' and '*=', Since '*' is not considered a Multi Char Operator by Specs
+		if (opType == TokenType.OPERATOR_BINARY_STAR && peekChar() == '=') {
+			char eq = nextChar();
+			opStr += eq;
+			opType = LexerUtility.getOperatorTokenType(opStr);
+			multiCharOperator = true;
+		}  else if (LexerUtility.isMultiCharOperator(opType)) {
+			ch = peekChar();
+
+			if (LexerUtility.isOperator(ch)) {
+				opStr += ch;
+				opType = LexerUtility.getOperatorTokenType(opStr);
+				multiCharOperator = true;
+				nextChar();
+			}
+		}
+
+		// Another Special Case for Bitwise Shift Operators '<<', '>>' to handle '>>=' or '<<=', since by default Lexer is only capable of tokenizing 2 Operators at a time.
+		boolean isBitwiseOperator = (opType == TokenType.OPERATOR_BITWISE_LEFT_SHIFT ||
+			opType == TokenType.OPERATOR_ASSIGNMENT_BITWISE_RIGHT_SHIFT);
+
+		if (isBitwiseOperator && peekChar() == '=') {
+			char eq = nextChar();
+			opStr += eq;
+			opType = LexerUtility.getOperatorTokenType(opStr);
+		}
+
+		// If Multi Char Operator but not Valid: e.g. '+(' -> Put All Back Except first One "+"
+		if (multiCharOperator && !LexerUtility.isOperator(opStr)) {
+			for (int i = opStr.length() - 1; i >= 1; i--) {
+				ungetChar();
+			}
+
+			opStr = opStr.substring(0, 1);
+			opType = LexerUtility.getOperatorTokenType(opStr);
+		}
+
+		// If Some Weird Unsupported Operator
+		if (!multiCharOperator && !LexerUtility.isOperator(opStr)) {
+			throw new UnexpectedTokenException(opStr, makeSourceSpan());
+		}
+
+		SourceSpan span = makeSourceSpan();
+		return new Token(opType, null, span);
 	}
 
 	private Token makeStringToken(char sdelim, char edelim) {
@@ -266,6 +345,29 @@ public class Lexer {
 		}
 
 		return ch;
+	}
+
+	private void ungetChar() {
+		if (currentIndex == 0) {
+			return;
+		}
+
+		currentIndex--;
+		currentColumn--;
+
+		char ch = source.charAt(currentIndex);
+
+		if (ch == '\n') {
+			currentLine--;
+
+			int lineStart = source.lastIndexOf('\n', currentIndex - 1);
+
+			if (lineStart == -1) {
+				currentColumn = currentIndex + 1;
+			} else {
+				currentColumn = currentIndex - lineStart;
+			}
+		}
 	}
 
 	private char peekChar() {

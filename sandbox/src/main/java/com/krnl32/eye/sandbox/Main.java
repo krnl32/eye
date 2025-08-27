@@ -36,7 +36,10 @@ public class Main {
 		// 0x1234 = 4660, 0b1000100111=551
 		//lexer = new Lexer("0x1234\n0b1000100111");
 
-		lexer = new Lexer("\"Hello World\"");
+//		lexer = new Lexer("\"Hello World\"");
+
+
+		lexer = new Lexer("+,+++ --+ *=* << >> < >>=< <<=");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
