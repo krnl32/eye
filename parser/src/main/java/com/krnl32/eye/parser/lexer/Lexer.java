@@ -107,6 +107,11 @@ public class Lexer {
 				token = makeNumberBaseToken();
 				break;
 
+				// Strings
+			case '"':
+				token = makeStringToken('"', '"');
+				break;
+
 				// Symbols
 			case ')':
 			case ']':
@@ -139,9 +144,9 @@ public class Lexer {
 				token = makeOperatorToken();
 				break;
 
-				// Strings
-			case '"':
-				token = makeStringToken('"', '"');
+				// Slash Operator
+			case '/':
+				token = handleSlashOperator();
 				break;
 
 			default:
@@ -161,6 +166,11 @@ public class Lexer {
 		nextChar();
 		SourceSpan span = makeSourceSpan();
 		return new Token(TokenType.NEWLINE, null, span);
+	}
+
+	private Token makeEndOfFileToken() {
+		SourceSpan span = makeSourceSpan();
+		return new Token(TokenType.END_OF_FILE, null, span);
 	}
 
 	private Token makeNumberToken() {
@@ -238,6 +248,21 @@ public class Lexer {
 		return new Token(TokenType.LITERAL_INTEGER, value, span);
 	}
 
+	private Token makeStringToken(char sdelim, char edelim) {
+		// Skip Initial '"'
+		if (nextChar() != sdelim) {
+			throw new UnexpectedTokenException(Character.toString(sdelim), makeSourceSpan());
+		}
+
+		for (char ch = nextChar(); ch != edelim && ch != EOF; ch = nextChar());
+
+		// Exclude Delims
+		String str = source.substring(startIndex + 1, currentIndex - 1);
+
+		SourceSpan span = makeSourceSpan();
+		return new Token(TokenType.LITERAL_STRING, str, span);
+	}
+
 	private Token makeSymbolToken() {
 		char symbol = nextChar();
 		TokenType symbolType = symbolTokenTypes.get(symbol);
@@ -304,24 +329,61 @@ public class Lexer {
 		return new Token(opType, null, span);
 	}
 
-	private Token makeStringToken(char sdelim, char edelim) {
-		// Skip Initial '"'
-		if (nextChar() != sdelim) {
-			throw new UnexpectedTokenException(Character.toString(sdelim), makeSourceSpan());
+	private Token handleSlashOperator() {
+		nextChar(); // Skip '/'
+
+		char ch = peekChar();
+
+		// Handle Comments
+		if (ch == '/') {
+			nextChar(); // Skip 2nd '/'
+			return makeSingleLineCommentToken();
+		} else if(ch == '*') {
+			nextChar(); // Skip '*'
+			return makeMultiLineCommentToken();
 		}
 
-		for (char ch = nextChar(); ch != edelim && ch != EOF; ch = nextChar());
-
-		// Exclude Delims
-		String str = source.substring(startIndex + 1, currentIndex - 1);
-
-		SourceSpan span = makeSourceSpan();
-		return new Token(TokenType.LITERAL_STRING, str, span);
+		// If Not Comment, Math Operator '/'
+		ungetChar();
+		return makeOperatorToken();
 	}
 
-	private Token makeEndOfFileToken() {
+	private Token makeSingleLineCommentToken() {
+		for (char ch = peekChar(); (ch != '\n' && ch != EOF); ch = peekChar()) {
+			nextChar();
+		}
+
+		String comment = source.substring(startIndex + 2, currentIndex);
 		SourceSpan span = makeSourceSpan();
-		return new Token(TokenType.END_OF_FILE, null, span);
+		return new Token(TokenType.COMMENT, comment, span);
+	}
+
+	private Token makeMultiLineCommentToken() {
+		while (true) {
+			char ch;
+
+			for (ch = peekChar(); (ch != '*' && ch != EOF); ch = peekChar()) {
+				nextChar();
+			}
+
+			if (ch == EOF) {
+				throw new UnexpectedTokenException(String.valueOf(ch), makeSourceSpan());
+			}
+
+			if (ch == '*') {
+				nextChar();
+
+				// if '/' then end of MultiLine Comment -> /* Comment */
+				if (peekChar() == '/') {
+					nextChar();
+					break;
+				}
+			}
+		}
+
+		String comment = source.substring(startIndex + 2, currentIndex - 2);
+		SourceSpan span = makeSourceSpan();
+		return new Token(TokenType.COMMENT, comment, span);
 	}
 
 	SourceSpan makeSourceSpan() {

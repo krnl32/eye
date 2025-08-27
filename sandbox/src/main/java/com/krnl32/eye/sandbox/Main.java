@@ -39,7 +39,12 @@ public class Main {
 //		lexer = new Lexer("\"Hello World\"");
 
 
-		lexer = new Lexer("+,+++ --+ *=* << >> < >>=< <<=");
+		//lexer = new Lexer("+,+++ --+ *=* << >> < >>=< <<=");
+//		lexer = new Lexer("+*");
+//		lexer = new Lexer("5 / 12, 5 /= 12");
+		//lexer = new Lexer("//Hello");
+		//lexer = new Lexer("/* Hello World \n * Max Man \n *New Guy*/");
+		lexer = new Lexer("/* Hello World */");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
