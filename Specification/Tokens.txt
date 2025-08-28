@@ -1,14 +1,3 @@
-Datatypes:
-{
-	int = 4 Bytes,
-	float = 4 Bytes,
-	double = 8 Bytes,
-	char = 1 Byte,
-	str = N Bytes,
-	bool = 1 Byte,
-	void,
-}
-
 Keywords:
 {
 	int, float, double, char, str, bool, void,

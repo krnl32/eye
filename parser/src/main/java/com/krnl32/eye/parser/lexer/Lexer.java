@@ -414,7 +414,7 @@ public class Lexer {
 			return new Token(TokenType.LITERAL_NULL, null, span);
 		} else if (LexerUtility.isKeyword(identifier)) {
 			TokenType type = LexerUtility.getKeywordTokenType(identifier);
-			return new Token(type, identifier, span);
+			return new Token(type, null, span);
 		}
 
 		return new Token(TokenType.IDENTIFIER, identifier, span);

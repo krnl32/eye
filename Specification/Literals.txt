@@ -1,0 +1,54 @@
+Number Formats:
+{
+	Decimal->Base 10 (1234, 123u, 123l)
+	Hex->Base 16 (0x1234, 0x1234u, 0x1234L)
+	Binary->Base 2 (0b0101, 0b0101u, 0b01010L)
+}
+
+Number
+{
+	// Signed Integer Types
+	INT8   = Integer Type, (e.g. 123, -123),
+	INT16  = Integer Type, (e.g. 123, -123),
+	INT32  = DEFAULT Integer Type, (e.g. 123, -123),
+	INT64  = Integer Type with 'l/L' Suffix, (e.g. 123l, -123L),
+	INT128 = Integer Type with 'll/LL' Suffix, (e.g. 123ll, -123LL)
+
+	// Unsigned Integer Types
+	UINT8   = Integer Type with 'u/U' Suffix, (e.g. 123u, 123U),
+	UINT16  = Integer Type with 'u/U' Suffix, (e.g. 123u, 123U),
+	UINT32  = Integer Type with 'u/U' Suffix, (e.g. 123u, 123U),
+	UINT64  = Integer Type with 'ul/UL' Suffix, (e.g. 123ul, 123UL),
+	UINT128 = Integer Type with 'ull/ULL' Suffix, (e.g. 123ull, 123ULL)
+
+	// Floating-Point Types
+	FLOAT64  = DEFAULT Floating-Point Numbers Type,
+	FLOAT32  = Floating-Point Number Type with 'f/F' Suffix, (DOT is Required -> 3.0f ALLOWED, 3f NOT ALLOWED) (e.g. 123.1f, 123.F),
+	FLOAT128 = Floating-Point Number Type with 'lf/LF' Suffix, (DOT is Required -> 3.0lf ALLOWED, 3lf NOT ALLOWED) (e.g. 123.1lf, 123.LF)
+
+	// Pointer Types
+	INTPTR = Signed Pointer Type, (e.g. 0x1234, -1234),
+	UINTPTR = Unsigned Pointer Type, (e.g. 0x1234)
+}
+
+Character
+{
+	// Character Type
+	CHAR8 = DEFAULT Character Type, (e.g. 'a'),
+    CHAR16 = Character Type with 'u/U' Prefix, (e.g. u'a', U'a'),
+    CHAR16 = Character Type with 'l/L' Prefix, (e.g. l'a', L'a')
+}
+
+String
+{
+	// String Types
+    STR8 = DEFAULT String Type, (e.g. "Hello"),
+    STR16 = String Type with 'u/U' Prefix, (e.g. u"Hello", U"Hello"),
+    STR32 = String Type with 'l/L' Prefix, (e.g. l"Hello", L"Hello")
+}
+
+Boolean
+{
+	// Boolean Type
+	BOOL8 = Default Boolean Type, (e.g. true, false)
+}

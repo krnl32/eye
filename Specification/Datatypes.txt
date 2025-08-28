@@ -1,0 +1,44 @@
+Datatypes:
+{
+    // Type Qualifiers (can be combined and applied to any base type)
+    const,
+
+    // Signed Integer Types
+    int8_t    = Signed 1-byte  integer (−128 to 127),
+    int16_t   = Signed 2-byte  integer (−32,768 to 32,767),
+    int32_t   = Signed 4-byte  integer (−2,147,483,648 to 2,147,483,647),
+    int64_t   = Signed 8-byte  integer (−9.22×10¹⁸ to 9.22×10¹⁸),
+    int128_t  = Signed 16-byte integer (−1.7×10³⁸ to 1.7×10³⁸) (optional / platform dependent)
+
+    // Unsigned Integer Types
+    uint8_t   = Unsigned 1-byte  integer (0 to 255),
+    uint16_t  = Unsigned 2-byte  integer (0 to 65,535),
+    uint32_t  = Unsigned 4-byte  integer (0 to 4.29×10⁹),
+    uint64_t  = Unsigned 8-byte  integer (0 to 1.84×10¹⁹),
+    uint128_t = Unsigned 16-byte integer (0 to 3.4×10³⁸) (optional / platform dependent)
+
+    // Floating-point Types (IEEE 754 compliant)
+    float32_t  = 4-byte single-precision floating-point number,
+    float64_t  = 8-byte double-precision floating-point number,
+    float128_t = 16-byte double-precision floating-point number
+
+    // Character Types (Unicode support)
+    char8_t   = 1-byte UTF-8 code unit, (e.g. 'a'),
+    char16_t  = 2-byte UTF-16 code unit, (e.g. u'x', U'x'),
+    char32_t  = 4-byte Unicode scalar value (UTF-32), (e.g. l'x', L'x')
+
+    // String Type
+    str8_t    = UTF-8  encoded string, (e.g. "hello"), (length metadata and mutability TBD),
+    str16_t   = UTF-16 encoded string, (e.g. u"hello", U"Hello"), (length metadata and mutability TBD),
+    str32_t   = UTF-32 encoded string, (e.g. l"hello", L"Hello"), (length metadata and mutability TBD)
+
+    // Pointer Type (platform dependent size)
+	intptr_t  = Signed integer of pointer size (4 or 8 bytes)
+	uintptr_t = Unsigned integer of pointer size (4 or 8 bytes),
+
+    // Boolean Type
+    bool8_t   = 1-byte boolean (true or false)
+
+	// Void Type
+	void      = Represents absence of a value (e.g., function returns nothing)
+}
