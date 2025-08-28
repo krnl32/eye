@@ -4,6 +4,8 @@ import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.common.exceptions.UnexpectedTokenException;
 import com.krnl32.eye.common.utility.SourceSpan;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -177,38 +179,92 @@ public class Lexer {
 	}
 
 	private Token makeNumberToken() {
-		boolean decimalNumber = false;
+		boolean floatingPointNumber = false;
+		boolean unsignedNumber = false;
+		TokenType tokenType = TokenType.LITERAL_INT32; // Default Integer Type
+		Object tokenValue;
 
-		TokenType tokenType = TokenType.LITERAL_INT32;
-		Object value = null;
-
+		// Parse digits and check for floating point
 		for (char ch = peekChar(); Character.isDigit(ch); ch = peekChar()) {
 			nextChar();
 
-			if (!decimalNumber && peekChar() == '.') {
+			// Catch Floating Point Numbers (e.g. 12.31)
+			if (!floatingPointNumber && peekChar() == '.') {
 				nextChar();
-				decimalNumber = true;
-				tokenType = TokenType.LITERAL_DOUBLE;
-			}
-
-			if (decimalNumber && (peekChar() == 'f' || peekChar() == 'F')) {
-				nextChar();
-				tokenType = TokenType.LITERAL_FLOAT;
+				floatingPointNumber = true;
+				tokenType = TokenType.LITERAL_FLOAT64; // Default Floating-Point Type
 			}
 		}
 
-		String numbers = source.substring(startIndex, currentIndex);
+		int sourceIndexBeforeSuffix = currentIndex;
 
-		if (tokenType == TokenType.LITERAL_INT32) {
-			value = Integer.parseInt(numbers);
-		} else if(tokenType == TokenType.LITERAL_FLOAT) {
-			value = Float.parseFloat(numbers);
-		} else if(tokenType == TokenType.LITERAL_DOUBLE) {
-			value = Double.parseDouble(numbers);
+		// Check for Unsigned Suffix 'u/U' only if not floating point, (e.g. 123u)
+		char charAfterNumber = peekChar();
+
+		if (!floatingPointNumber && (charAfterNumber == 'u' || charAfterNumber == 'U')) {
+			nextChar();
+			unsignedNumber = true;
+			tokenType = TokenType.LITERAL_UINT32;
 		}
+
+		// Check for type Suffixes 'l/L', 'll/LL', 'f/F', (e.g. 123L or 124LL or 12.34f)
+		char firstSuffix = peekChar();
+		boolean hasSuffix = ((firstSuffix == 'l' || firstSuffix == 'L') || (firstSuffix == 'f' || firstSuffix == 'F'));
+
+		if (hasSuffix) {
+			char secondSuffix = lookahead(1);
+
+			boolean isINT64 = (!floatingPointNumber && ((firstSuffix == 'l' && secondSuffix != 'l') || (firstSuffix == 'L' && secondSuffix != 'L')));
+			boolean isINT128 = (!floatingPointNumber && ((firstSuffix == 'l' && secondSuffix == 'l') || (firstSuffix == 'L' && secondSuffix == 'L')));
+
+			// There must be '.' before 'f/F', Otherwise Don't Skip Letter, (e.g. 12.f ALLOWED, 12f NOT ALLOWED)
+			boolean isFLOAT32 = (floatingPointNumber && (firstSuffix == 'f' || firstSuffix == 'F'));
+			boolean isFLOAT128 = (floatingPointNumber && ((firstSuffix == 'l' && secondSuffix == 'f') || (firstSuffix == 'L' && secondSuffix == 'F')));
+
+			if (isINT64 || isFLOAT32) {
+				nextChar(); // Skip First Suffix
+			} else if (isINT128 || isFLOAT128) {
+				nextChar(); // Skip First Suffix
+				nextChar(); // Skip Second Suffix
+			}
+
+			// Get Token Type
+			if (isINT64) {
+				tokenType = unsignedNumber ? TokenType.LITERAL_UINT64 : TokenType.LITERAL_INT64;
+			} else if (isINT128) {
+				tokenType = unsignedNumber ? TokenType.LITERAL_UINT128 : TokenType.LITERAL_INT128;
+			} else if(isFLOAT32) {
+				tokenType = TokenType.LITERAL_FLOAT32;
+			} else if(isFLOAT128) {
+				tokenType = TokenType.LITERAL_FLOAT128;
+			}
+		}
+
+		// Tokenize Numbers String
+		String numbers = source.substring(startIndex, sourceIndexBeforeSuffix);
+
+		tokenValue = switch (tokenType) {
+			case LITERAL_INT8 -> Byte.parseByte(numbers);
+			case LITERAL_INT16 -> Short.parseShort(numbers);
+			case LITERAL_INT32 -> Integer.parseInt(numbers);
+			case LITERAL_INT64 -> Long.parseLong(numbers);
+			case LITERAL_INT128 -> new BigInteger(numbers);
+
+			case LITERAL_UINT8 -> NumberUtility.parseUnsignedByte(numbers);
+			case LITERAL_UINT16 -> NumberUtility.parseUnsignedShort(numbers);
+			case LITERAL_UINT32 -> Integer.parseUnsignedInt(numbers);
+			case LITERAL_UINT64 -> Long.parseUnsignedLong(numbers);
+			case LITERAL_UINT128 -> new BigInteger(numbers);
+
+			case LITERAL_FLOAT32 -> Float.parseFloat(numbers);
+			case LITERAL_FLOAT64 -> Double.parseDouble(numbers);
+			case LITERAL_FLOAT128 -> new BigDecimal(numbers);
+
+			default -> null;
+		};
 
 		SourceSpan span = makeSourceSpan();
-		return new Token(tokenType, value, span);
+		return new Token(tokenType, tokenValue, span);
 	}
 
 	private Token makeNumberBaseToken() {
@@ -472,6 +528,14 @@ public class Lexer {
 		}
 
 		return source.charAt(currentIndex);
+	}
+
+	private char lookahead(int idx) {
+		if (isAtEnd() || (currentIndex + idx) >= source.length()) {
+			return EOF;
+		}
+
+		return source.charAt(currentIndex + idx);
 	}
 
 	private boolean isAtEnd() {

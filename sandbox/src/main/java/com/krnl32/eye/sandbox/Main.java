@@ -47,7 +47,9 @@ public class Main {
 		//lexer = new Lexer("/* Hello World */");
 
 		//lexer = new Lexer("int x = 12;");
-		lexer = new Lexer("hello,_var1, bye\nboolean x = 12; float y = true; double ptr = null; int x = false");
+		//lexer = new Lexer("hello,_var1, bye\nboolean x = 12; float y = true; double ptr = null; int x = false");
+
+		lexer = new Lexer("123 123l 123LL 123lL\n123uL 123ULL, 123u, 12.14f 12.13 15.13lf 11f 15uf 17.uf 19.");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

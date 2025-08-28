@@ -6,8 +6,6 @@ import java.util.Set;
 public class LexerUtility {
 	private static final Map<String, TokenType> KEYWORD_TYPES = Map.ofEntries(
 		// TEMP REMOVE
-		Map.entry("float", TokenType.KEYWORD_DATATYPE_FLOAT),
-		Map.entry("double", TokenType.KEYWORD_DATATYPE_DOUBLE),
 		Map.entry("char", TokenType.KEYWORD_DATATYPE_CHAR),
 		Map.entry("str", TokenType.KEYWORD_DATATYPE_STR),
 		Map.entry("bool", TokenType.KEYWORD_DATATYPE_BOOL),
