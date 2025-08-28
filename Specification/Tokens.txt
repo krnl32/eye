@@ -35,6 +35,12 @@ Symbols:
 	), ], {, }, :, ;, \,
 }
 
+Identifiers/Variables:
+{
+	Starting Letter '_' -> _Var1
+	Start Letter Alpha -> Var1
+}
+
 Commenting:
 {
 	Single Line -> // Comment

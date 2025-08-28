@@ -150,7 +150,10 @@ public class Lexer {
 				break;
 
 			default:
-				throw new UnexpectedTokenException(Character.toString(ch), makeSourceSpan());
+				token = makeSpecialToken();
+
+				if (token == null)
+					throw new UnexpectedTokenException(Character.toString(ch), makeSourceSpan());
 		}
 
 		return token;
@@ -217,7 +220,7 @@ public class Lexer {
 			lastToken.<Integer>getValue() == 0;
 
 		if (!isLastTokenZero) {
-			// return makeIdentifierToken();
+			return makeIdentifierToken();
 		}
 
 		// Make Other Base Numbers (Hex->0x1234, Binary->0b1111)
@@ -384,6 +387,37 @@ public class Lexer {
 		String comment = source.substring(startIndex + 2, currentIndex - 2);
 		SourceSpan span = makeSourceSpan();
 		return new Token(TokenType.COMMENT, comment, span);
+	}
+
+	private Token makeSpecialToken() {
+		char ch = peekChar();
+
+		if (Character.isLetter(ch) || ch == '_') {
+			return makeIdentifierToken();
+		}
+
+		return null;
+	}
+
+	private Token makeIdentifierToken() {
+		for (char ch = peekChar(); Character.isLetterOrDigit(ch) || ch == '_'; ch = peekChar()) {
+			nextChar();
+		}
+
+		SourceSpan span = makeSourceSpan();
+		String identifier = source.substring(startIndex, currentIndex);
+
+		// Handle Keywords -> Add Special Case for Literals: true, false, null
+		if (identifier.equals("true") || identifier.equals("false")) {
+			return new Token(TokenType.LITERAL_BOOLEAN, identifier.equals("true"), span);
+		} else if(identifier.equals("null")) {
+			return new Token(TokenType.LITERAL_NULL, null, span);
+		} else if (LexerUtility.isKeyword(identifier)) {
+			TokenType type = LexerUtility.getKeywordTokenType(identifier);
+			return new Token(type, identifier, span);
+		}
+
+		return new Token(TokenType.IDENTIFIER, identifier, span);
 	}
 
 	SourceSpan makeSourceSpan() {

@@ -4,6 +4,26 @@ import java.util.Map;
 import java.util.Set;
 
 public class LexerUtility {
+	private static final Map<String, TokenType> KEYWORD_TYPES = Map.ofEntries(
+		Map.entry("int", TokenType.KEYWORD_DATATYPE_INT),
+		Map.entry("float", TokenType.KEYWORD_DATATYPE_FLOAT),
+		Map.entry("double", TokenType.KEYWORD_DATATYPE_DOUBLE),
+		Map.entry("char", TokenType.KEYWORD_DATATYPE_CHAR),
+		Map.entry("str", TokenType.KEYWORD_DATATYPE_STR),
+		Map.entry("bool", TokenType.KEYWORD_DATATYPE_BOOL),
+		Map.entry("void", TokenType.KEYWORD_DATATYPE_VOID),
+		Map.entry("const", TokenType.KEYWORD_TYPE_QUALIFIER_CONST),
+		Map.entry("if", TokenType.KEYWORD_CONTROL_IF),
+		Map.entry("else", TokenType.KEYWORD_CONTROL_ELSE),
+		Map.entry("while", TokenType.KEYWORD_ITERATION_WHILE),
+		Map.entry("do", TokenType.KEYWORD_ITERATION_DO),
+		Map.entry("for", TokenType.KEYWORD_ITERATION_FOR),
+		Map.entry("continue", TokenType.KEYWORD_ITERATION_CONTINUE),
+		Map.entry("break", TokenType.KEYWORD_ITERATION_BREAK),
+		Map.entry("function", TokenType.KEYWORD_FUNCTION),
+		Map.entry("return", TokenType.KEYWORD_RETURN)
+	);
+
 	private static final Map<String, TokenType> OPERATOR_TOKEN_TYPES = Map.ofEntries(
 		Map.entry("+", TokenType.OPERATOR_BINARY_PLUS),
 		Map.entry("-", TokenType.OPERATOR_BINARY_MINUS),
@@ -49,6 +69,14 @@ public class LexerUtility {
 		TokenType.OPERATOR_LEFT_PARENTHESIS, TokenType.OPERATOR_LEFT_BRACKET, TokenType.OPERATOR_QUESTION_MARK,
 		TokenType.OPERATOR_BINARY_STAR, TokenType.OPERATOR_DOT, TokenType.OPERATOR_COMMA
 	);
+
+	public static TokenType getKeywordTokenType(String keyword) {
+		return KEYWORD_TYPES.get(keyword);
+	}
+
+	public static boolean isKeyword(String keyword) {
+		return KEYWORD_TYPES.get(keyword) != null;
+	}
 
 	public static TokenType getOperatorTokenType(String op) {
 		return OPERATOR_TOKEN_TYPES.get(op);

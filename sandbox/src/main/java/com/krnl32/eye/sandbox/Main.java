@@ -44,7 +44,10 @@ public class Main {
 //		lexer = new Lexer("5 / 12, 5 /= 12");
 		//lexer = new Lexer("//Hello");
 		//lexer = new Lexer("/* Hello World \n * Max Man \n *New Guy*/");
-		lexer = new Lexer("/* Hello World */");
+		//lexer = new Lexer("/* Hello World */");
+
+		//lexer = new Lexer("int x = 12;");
+		lexer = new Lexer("hello,_var1, bye\nboolean x = 12; float y = true; double ptr = null; int x = false");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
