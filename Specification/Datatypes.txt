@@ -1,8 +1,5 @@
 Datatypes:
 {
-    // Type Qualifiers (can be combined and applied to any base type)
-    const,
-
     // Signed Integer Types
     int8_t    = Signed 1-byte  integer (−128 to 127),
     int16_t   = Signed 2-byte  integer (−32,768 to 32,767),
@@ -41,4 +38,10 @@ Datatypes:
 
 	// Void Type
 	void      = Represents absence of a value (e.g., function returns nothing)
+}
+
+Type Qualifiers:
+{
+    // Type Qualifiers (can be combined and applied to any base type)
+    const = Make Immutable
 }

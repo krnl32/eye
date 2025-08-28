@@ -24,7 +24,7 @@ public class Lexer {
 	private int startIndex, currentIndex;
 
 	public Lexer(String source) {
-		this.source = source;
+		this.source = source.replace("\r\n", "\n").replace("\r", "\n");
 		this.tokens = new ArrayList<>();
 
 		this.symbolTokenTypes = Map.of(
@@ -87,7 +87,7 @@ public class Lexer {
 			case EOF:
 				break;
 
-				// Decimal: Integer, Float, Double Literals
+				// Decimal: Integer, Float Literals
 			case '0':
 			case '1':
 			case '2':
@@ -179,7 +179,7 @@ public class Lexer {
 	private Token makeNumberToken() {
 		boolean decimalNumber = false;
 
-		TokenType tokenType = TokenType.LITERAL_INTEGER;
+		TokenType tokenType = TokenType.LITERAL_INT32;
 		Object value = null;
 
 		for (char ch = peekChar(); Character.isDigit(ch); ch = peekChar()) {
@@ -199,7 +199,7 @@ public class Lexer {
 
 		String numbers = source.substring(startIndex, currentIndex);
 
-		if (tokenType == TokenType.LITERAL_INTEGER) {
+		if (tokenType == TokenType.LITERAL_INT32) {
 			value = Integer.parseInt(numbers);
 		} else if(tokenType == TokenType.LITERAL_FLOAT) {
 			value = Float.parseFloat(numbers);
@@ -216,7 +216,7 @@ public class Lexer {
 		Token lastToken = !tokens.isEmpty() ? tokens.getLast() : null;
 
 		boolean isLastTokenZero = lastToken != null &&
-			lastToken.getType() == TokenType.LITERAL_INTEGER &&
+			lastToken.getType() == TokenType.LITERAL_INT32 &&
 			lastToken.<Integer>getValue() == 0;
 
 		if (!isLastTokenZero) {
@@ -248,7 +248,7 @@ public class Lexer {
 		int value = Integer.parseInt(numbers, radix);
 
 		SourceSpan span = makeSourceSpan();
-		return new Token(TokenType.LITERAL_INTEGER, value, span);
+		return new Token(TokenType.LITERAL_INT32, value, span);
 	}
 
 	private Token makeStringToken(char sdelim, char edelim) {
