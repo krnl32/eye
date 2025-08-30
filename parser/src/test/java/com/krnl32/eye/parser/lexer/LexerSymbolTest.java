@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LexerSymbolTest {
 	@Test
 	void testSymbols() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/symbol/Symbols.eye");
+		String source = FileIO.readResourceFileContent("lexer/symbol/symbols.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -27,7 +27,7 @@ public class LexerSymbolTest {
 
 	@Test
 	void testSymbols2() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/symbol/Symbols2.eye");
+		String source = FileIO.readResourceFileContent("lexer/symbol/symbols2.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();

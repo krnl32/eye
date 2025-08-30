@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LexerOperatorTest {
 	@Test
 	void testArithmetic() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Arithmetic.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/arithmetic.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -22,7 +22,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testBinary() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Binary.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/binary.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -36,7 +36,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testAssignment() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Assignment.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/assignment.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -56,7 +56,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testRelational() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Relational.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/relational.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -71,7 +71,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testLogical() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Logical.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/logical.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -83,7 +83,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testBitwise() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Bitwise.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/bitwise.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -98,7 +98,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testOther() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Other.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/other.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -112,7 +112,7 @@ public class LexerOperatorTest {
 
 	@Test
 	void testChained() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/operator/Chained.eye");
+		String source = FileIO.readResourceFileContent("lexer/operator/chained.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();

@@ -4,8 +4,6 @@ import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.common.exceptions.UnexpectedTokenException;
 import com.krnl32.eye.common.utility.SourceSpan;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -180,7 +178,6 @@ public class Lexer {
 
 	private Token makeNumberToken() {
 		boolean floatingPointNumber = false;
-		boolean unsignedNumber = false;
 		TokenType tokenType = TokenType.LITERAL_INT32; // Default Integer Type
 		Object tokenValue;
 
@@ -198,68 +195,29 @@ public class Lexer {
 
 		int sourceIndexBeforeSuffix = currentIndex;
 
-		// Check for Unsigned Suffix 'u/U' only if not floating point, (e.g. 123u)
+		// Check for Number Suffix
 		char charAfterNumber = peekChar();
 
-		if (!floatingPointNumber && (charAfterNumber == 'u' || charAfterNumber == 'U')) {
+		// If Number is FLOAT, Check for Float32 Suffix 'f/F' Suffix, (e.g. 1234.15f)
+		if (floatingPointNumber && (charAfterNumber == 'f' || charAfterNumber == 'F')) {
 			nextChar();
-			unsignedNumber = true;
-			tokenType = TokenType.LITERAL_UINT32;
+			tokenType = TokenType.LITERAL_FLOAT32;
 		}
 
-		// Check for type Suffixes 'l/L', 'll/LL', 'f/F', (e.g. 123L or 124LL or 12.34f)
-		char firstSuffix = peekChar();
-		boolean hasSuffix = ((firstSuffix == 'l' || firstSuffix == 'L') || (firstSuffix == 'f' || firstSuffix == 'F'));
-
-		if (hasSuffix) {
-			char secondSuffix = lookahead(1);
-
-			boolean isINT64 = (!floatingPointNumber && ((firstSuffix == 'l' && secondSuffix != 'l') || (firstSuffix == 'L' && secondSuffix != 'L')));
-			boolean isINT128 = (!floatingPointNumber && ((firstSuffix == 'l' && secondSuffix == 'l') || (firstSuffix == 'L' && secondSuffix == 'L')));
-
-			// There must be '.' before 'f/F', Otherwise Don't Skip Letter, (e.g. 12.f ALLOWED, 12f NOT ALLOWED)
-			boolean isFLOAT32 = (floatingPointNumber && (firstSuffix == 'f' || firstSuffix == 'F'));
-			boolean isFLOAT128 = (floatingPointNumber && ((firstSuffix == 'l' && secondSuffix == 'f') || (firstSuffix == 'L' && secondSuffix == 'F')));
-
-			if (isINT64 || isFLOAT32) {
-				nextChar(); // Skip First Suffix
-			} else if (isINT128 || isFLOAT128) {
-				nextChar(); // Skip First Suffix
-				nextChar(); // Skip Second Suffix
-			}
-
-			// Get Token Type
-			if (isINT64) {
-				tokenType = unsignedNumber ? TokenType.LITERAL_UINT64 : TokenType.LITERAL_INT64;
-			} else if (isINT128) {
-				tokenType = unsignedNumber ? TokenType.LITERAL_UINT128 : TokenType.LITERAL_INT128;
-			} else if(isFLOAT32) {
-				tokenType = TokenType.LITERAL_FLOAT32;
-			} else if(isFLOAT128) {
-				tokenType = TokenType.LITERAL_FLOAT128;
-			}
+		// If Number is INTEGER, Check for Unsigned Suffix 'u/U', (e.g. 123u)
+		if (!floatingPointNumber && (charAfterNumber == 'u' || charAfterNumber == 'U')) {
+			nextChar();
+			tokenType = TokenType.LITERAL_UINT32;
 		}
 
 		// Tokenize Numbers String
 		String numbers = source.substring(startIndex, sourceIndexBeforeSuffix);
 
 		tokenValue = switch (tokenType) {
-			case LITERAL_INT8 -> Byte.parseByte(numbers);
-			case LITERAL_INT16 -> Short.parseShort(numbers);
 			case LITERAL_INT32 -> Integer.parseInt(numbers);
-			case LITERAL_INT64 -> Long.parseLong(numbers);
-			case LITERAL_INT128 -> new BigInteger(numbers);
-
-			case LITERAL_UINT8 -> NumberUtility.parseUnsignedByte(numbers);
-			case LITERAL_UINT16 -> NumberUtility.parseUnsignedShort(numbers);
 			case LITERAL_UINT32 -> Integer.parseUnsignedInt(numbers);
-			case LITERAL_UINT64 -> Long.parseUnsignedLong(numbers);
-			case LITERAL_UINT128 -> new BigInteger(numbers);
-
 			case LITERAL_FLOAT32 -> Float.parseFloat(numbers);
 			case LITERAL_FLOAT64 -> Double.parseDouble(numbers);
-			case LITERAL_FLOAT128 -> new BigDecimal(numbers);
-
 			default -> null;
 		};
 
@@ -286,25 +244,46 @@ public class Lexer {
 		char baseType = peekChar();
 
 		return switch (baseType) {
-			case 'x' -> makeNumberBaseToken(16);
-			case 'b' -> makeNumberBaseToken(2);
+			case 'x' -> makeNumberBaseToken(16); // Hex
+			case 'b' -> makeNumberBaseToken(2); // Binary
 			default -> null;
 		};
 	}
 
 	private Token makeNumberBaseToken(int radix) {
+		TokenType tokenType = TokenType.LITERAL_INT32; // Default Integer Type
+		Object tokenValue;
+
 		// Skip 'x' or 'b'
 		nextChar();
 
+		// Parse digits
 		for (char ch = peekChar(); Character.digit(ch, radix) != -1; ch = peekChar()) {
 			nextChar();
 		}
 
-		String numbers = source.substring(startIndex + 1, currentIndex);
-		int value = Integer.parseInt(numbers, radix);
+		int sourceIndexBeforeSuffix = currentIndex;
 
-		SourceSpan span = makeSourceSpan();
-		return new Token(TokenType.LITERAL_INT32, value, span);
+		// Check for Number Suffix
+		char charAfterNumber = peekChar();
+
+		// Check for Unsigned Suffix 'u/U', (e.g. 0x1234u)
+		if (charAfterNumber == 'u' || charAfterNumber == 'U') {
+			nextChar();
+			tokenType = TokenType.LITERAL_UINT32;
+		}
+
+		String numbers = source.substring(startIndex + 1, sourceIndexBeforeSuffix);
+
+		tokenValue = switch (tokenType) {
+			case LITERAL_INT32 -> Integer.parseInt(numbers, radix);
+			case LITERAL_UINT32 -> Integer.parseUnsignedInt(numbers, radix);
+			default -> null;
+		};
+
+		// startIndex - 1 to include the '0'
+		SourceSpan span = new SourceSpan(startLine, startColumn, startIndex - 1, currentIndex);
+		return new Token(tokenType, tokenValue, span);
 	}
 
 	private Token makeStringToken(char sdelim, char edelim) {
@@ -319,7 +298,7 @@ public class Lexer {
 		String str = source.substring(startIndex + 1, currentIndex - 1);
 
 		SourceSpan span = makeSourceSpan();
-		return new Token(TokenType.LITERAL_STRING, str, span);
+		return new Token(TokenType.LITERAL_STR8, str, span);
 	}
 
 	private Token makeSymbolToken() {
@@ -465,7 +444,7 @@ public class Lexer {
 
 		// Handle Keywords -> Add Special Case for Literals: true, false, null
 		if (identifier.equals("true") || identifier.equals("false")) {
-			return new Token(TokenType.LITERAL_BOOLEAN, identifier.equals("true"), span);
+			return new Token(TokenType.LITERAL_BOOL8, identifier.equals("true"), span);
 		} else if(identifier.equals("null")) {
 			return new Token(TokenType.LITERAL_NULL, null, span);
 		} else if (LexerUtility.isKeyword(identifier)) {

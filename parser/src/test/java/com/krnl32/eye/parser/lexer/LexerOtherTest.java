@@ -30,7 +30,7 @@ public class LexerOtherTest {
 
 	@Test
 	void testSingleLineComment() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/other/Comment.eye");
+		String source = FileIO.readResourceFileContent("lexer/other/comment.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();
@@ -44,7 +44,7 @@ public class LexerOtherTest {
 
 	@Test
 	void testMultiLineComment() throws IOException {
-		String source = FileIO.readResourceFileContent("lexer/other/Comment.eye");
+		String source = FileIO.readResourceFileContent("lexer/other/comment.eye");
 
 		Lexer lexer = new Lexer(source);
 		List<Token> tokens = lexer.tokenize();

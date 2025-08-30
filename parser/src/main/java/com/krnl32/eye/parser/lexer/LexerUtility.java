@@ -5,40 +5,13 @@ import java.util.Set;
 
 public class LexerUtility {
 	private static final Map<String, TokenType> KEYWORD_TYPES = Map.ofEntries(
-		// TEMP REMOVE
-		Map.entry("char", TokenType.KEYWORD_DATATYPE_CHAR),
-		Map.entry("str", TokenType.KEYWORD_DATATYPE_STR),
-		Map.entry("bool", TokenType.KEYWORD_DATATYPE_BOOL),
-
-
-		Map.entry("int8_t", TokenType.KEYWORD_DATATYPE_INT8_T),
-		Map.entry("int16_t", TokenType.KEYWORD_DATATYPE_INT16_T),
 		Map.entry("int32_t", TokenType.KEYWORD_DATATYPE_INT32_T),
-		Map.entry("int64_t", TokenType.KEYWORD_DATATYPE_INT64_T),
-		Map.entry("int128_t", TokenType.KEYWORD_DATATYPE_INT128_T),
-
-		Map.entry("uint8_t", TokenType.KEYWORD_DATATYPE_UINT8_T),
-		Map.entry("uint16_t", TokenType.KEYWORD_DATATYPE_UINT16_T),
 		Map.entry("uint32_t", TokenType.KEYWORD_DATATYPE_UINT32_T),
-		Map.entry("uint64_t", TokenType.KEYWORD_DATATYPE_UINT64_T),
-		Map.entry("uint128_t", TokenType.KEYWORD_DATATYPE_UINT128_T),
-
 		Map.entry("float32_t", TokenType.KEYWORD_DATATYPE_FLOAT32_T),
 		Map.entry("float64_t", TokenType.KEYWORD_DATATYPE_FLOAT64_T),
-
 		Map.entry("char8_t", TokenType.KEYWORD_DATATYPE_CHAR8_T),
-		Map.entry("char16_t", TokenType.KEYWORD_DATATYPE_CHAR16_T),
-		Map.entry("char32_t", TokenType.KEYWORD_DATATYPE_CHAR32_T),
-
-		Map.entry("bool8_t", TokenType.KEYWORD_DATATYPE_BOOL8_T),
-
 		Map.entry("str8_t", TokenType.KEYWORD_DATATYPE_STR8_T),
-		Map.entry("str16_t", TokenType.KEYWORD_DATATYPE_STR16_T),
-		Map.entry("str32_t", TokenType.KEYWORD_DATATYPE_STR32_T),
-
-		Map.entry("intptr_t", TokenType.KEYWORD_DATATYPE_INTPTR_T),
-		Map.entry("uintptr_t", TokenType.KEYWORD_DATATYPE_UINTPTR_T),
-
+		Map.entry("bool8_t", TokenType.KEYWORD_DATATYPE_BOOL8_T),
 		Map.entry("void", TokenType.KEYWORD_DATATYPE_VOID),
 
 		Map.entry("const", TokenType.KEYWORD_TYPE_QUALIFIER_CONST),
