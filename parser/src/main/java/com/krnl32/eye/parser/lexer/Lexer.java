@@ -55,7 +55,7 @@ public class Lexer {
 			}
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
-			return null;
+			throw e;
 		}
 
 		tokens.add(makeEndOfFileToken());
@@ -105,6 +105,11 @@ public class Lexer {
 			case 'x':
 			case 'b':
 				token = makeNumberBaseToken();
+				break;
+
+				// Characters
+			case '\'':
+				token = makeCharacterToken();
 				break;
 
 				// Strings
@@ -286,6 +291,40 @@ public class Lexer {
 		return new Token(tokenType, tokenValue, span);
 	}
 
+	private Token makeCharacterToken() {
+		char initialQuote = nextChar(); // Skip Initial "'"
+
+		if (initialQuote != '\'') {
+			throw new UnexpectedTokenException(initialQuote, "Invalid Starting Delimter for Character", makeSourceSpan());
+		}
+
+		// Read Char
+		char ch = nextChar();
+
+		// Handle Escape Characters
+		if (ch == '\\') {
+			char escapeCode = nextChar();
+			Character escapeCharacter = LexerUtility.getEscapeCharacter(escapeCode);
+
+			if (escapeCharacter == null) {
+				throw new UnexpectedTokenException(escapeCode, "Invalid Escape Character", makeSourceSpan());
+			}
+
+			ch = escapeCharacter;
+		}
+
+		if (ch == '\'' && peekChar() != '\'') {
+			throw new UnexpectedTokenException(ch, "Empty Character Not Allowed", makeSourceSpan());
+		}
+
+		if (nextChar() != '\'') {
+			throw new UnexpectedTokenException(ch, "No Closing Delimter for Character", makeSourceSpan());
+		}
+
+		SourceSpan span = makeSourceSpan();
+		return new Token(TokenType.LITERAL_CHAR8, ch, span);
+	}
+
 	private Token makeStringToken(char sdelim, char edelim) {
 		// Skip Initial '"'
 		if (nextChar() != sdelim) {
@@ -296,6 +335,7 @@ public class Lexer {
 
 		char ch;
 		for (ch = nextChar(); ch != edelim && ch != EOF; ch = nextChar()) {
+			// Handle Escape Characters
 			if (ch == '\\') {
 				char escapeCode = nextChar();
 				Character escapeCharacter = LexerUtility.getEscapeCharacter(escapeCode);

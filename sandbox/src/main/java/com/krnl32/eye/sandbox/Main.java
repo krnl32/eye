@@ -54,7 +54,8 @@ public class Main {
 
 //		lexer = new Lexer("Hello: 'A B'");
 
-		lexer = new Lexer("\"hello\\tworld\"");
+		lexer = new Lexer("A\'a\'");
+
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
 			Logger.error("Tokenizer Failed");
