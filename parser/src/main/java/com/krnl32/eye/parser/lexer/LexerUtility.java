@@ -81,6 +81,18 @@ public class LexerUtility {
 		TokenType.OPERATOR_BINARY_STAR, TokenType.OPERATOR_DOT, TokenType.OPERATOR_COMMA
 	);
 
+	public static final Map<Character, Character> ESCAPE_CHARACTERS = Map.ofEntries(
+		Map.entry('\\', '\\'),
+		Map.entry('\'', '\''),
+		Map.entry('\"', '\"'),
+		Map.entry('n', '\n'),
+		Map.entry('t', '\t'),
+		Map.entry('r', '\r'),
+		Map.entry('b', '\b'),
+		Map.entry('f', '\f'),
+		Map.entry('v', '\u000B')
+	);
+
 	public static TokenType getKeywordTokenType(String keyword) {
 		return KEYWORD_TYPES.get(keyword);
 	}
@@ -109,5 +121,9 @@ public class LexerUtility {
 	// Stackable Operators: + -> ++, - -> --, + -> +=
 	public static boolean isMultiCharOperator(TokenType op) {
 		return !SINGLE_CHARACTER_OPERATORS.contains(op);
+	}
+
+	public static Character getEscapeCharacter(char code) {
+		return ESCAPE_CHARACTERS.get(code);
 	}
 }

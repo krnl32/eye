@@ -38,5 +38,7 @@ Commenting:
 
 Escape Characters:
 {
-	\\, \t, \n, \'
+	\\, \', \",
+	\n, \r, \t,
+	\b, \f, \v
 }

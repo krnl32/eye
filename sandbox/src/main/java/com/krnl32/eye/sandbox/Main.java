@@ -3,7 +3,6 @@ package com.krnl32.eye.sandbox;
 import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.parser.lexer.Lexer;
 import com.krnl32.eye.parser.lexer.Token;
-import com.krnl32.eye.parser.lexer.TokenType;
 
 import java.util.List;
 
@@ -51,8 +50,11 @@ public class Main {
 
 		//lexer = new Lexer("123 123l 123LL 123lL\n123uL 123ULL, 123u, 12.14f 12.13 15.13lf 11f 15uf 17.uf 19.");
 
-		lexer = new Lexer("0xAf5U");
+//		lexer = new Lexer("0xAf5U");
 
+//		lexer = new Lexer("Hello: 'A B'");
+
+		lexer = new Lexer("\"hello\\tworld\"");
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
 			Logger.error("Tokenizer Failed");

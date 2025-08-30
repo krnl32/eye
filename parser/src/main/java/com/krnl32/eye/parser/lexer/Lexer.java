@@ -153,7 +153,7 @@ public class Lexer {
 				token = makeSpecialToken();
 
 				if (token == null)
-					throw new UnexpectedTokenException(Character.toString(ch), makeSourceSpan());
+					throw new UnexpectedTokenException(ch, "", makeSourceSpan());
 		}
 
 		return token;
@@ -289,16 +289,33 @@ public class Lexer {
 	private Token makeStringToken(char sdelim, char edelim) {
 		// Skip Initial '"'
 		if (nextChar() != sdelim) {
-			throw new UnexpectedTokenException(Character.toString(sdelim), makeSourceSpan());
+			throw new UnexpectedTokenException(sdelim, "Invalid Starting Delimter for String", makeSourceSpan());
 		}
 
-		for (char ch = nextChar(); ch != edelim && ch != EOF; ch = nextChar());
+		StringBuilder strBuilder = new StringBuilder();
 
-		// Exclude Delims
-		String str = source.substring(startIndex + 1, currentIndex - 1);
+		char ch;
+		for (ch = nextChar(); ch != edelim && ch != EOF; ch = nextChar()) {
+			if (ch == '\\') {
+				char escapeCode = nextChar();
+				Character escapeCharacter = LexerUtility.getEscapeCharacter(escapeCode);
+
+				if (escapeCharacter == null) {
+					throw new UnexpectedTokenException(escapeCode, "Invalid Escape Character", makeSourceSpan());
+				}
+
+				strBuilder.append(escapeCharacter);
+			} else {
+				strBuilder.append(ch);
+			}
+		}
+
+		if (ch == EOF) {
+			throw new UnexpectedTokenException(ch, "No Closing Delimter for String", makeSourceSpan());
+		}
 
 		SourceSpan span = makeSourceSpan();
-		return new Token(TokenType.LITERAL_STR8, str, span);
+		return new Token(TokenType.LITERAL_STR8, strBuilder.toString(), span);
 	}
 
 	private Token makeSymbolToken() {
@@ -317,7 +334,7 @@ public class Lexer {
 		TokenType opType = LexerUtility.getOperatorTokenType(opStr);
 
 		if (opType == null) {
-			throw new UnexpectedTokenException(opStr, makeSourceSpan());
+			throw new UnexpectedTokenException(opStr, "Invalid Operator", makeSourceSpan());
 		}
 
 		// if MultiCharOperator, LookAhead -> if Operator, then Add it to opStr.
@@ -360,7 +377,7 @@ public class Lexer {
 
 		// If Some Weird Unsupported Operator
 		if (!multiCharOperator && !LexerUtility.isOperator(opStr)) {
-			throw new UnexpectedTokenException(opStr, makeSourceSpan());
+			throw new UnexpectedTokenException(opStr, "Unsupported Operator", makeSourceSpan());
 		}
 
 		SourceSpan span = makeSourceSpan();
@@ -405,7 +422,7 @@ public class Lexer {
 			}
 
 			if (ch == EOF) {
-				throw new UnexpectedTokenException(String.valueOf(ch), makeSourceSpan());
+				throw new UnexpectedTokenException(ch, "No Closing Delimter for Comment", makeSourceSpan());
 			}
 
 			if (ch == '*') {
