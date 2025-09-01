@@ -3,6 +3,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 
 	implementation(project(":common"))
+	implementation(project(":ast"))
 }
 
 tasks.test {

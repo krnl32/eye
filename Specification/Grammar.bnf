@@ -1,0 +1,243 @@
+// =======================================
+// Program Structure
+// =======================================
+
+<program> ::= <top-level-statement-list>
+
+<top-level-statement-list> ::= <top-level-statement>
+                             | <top-level-statement-list> <top-level-statement>
+
+<top-level-statement> ::= <function-statement>
+                        | <variable-statement>
+                        | <statement>
+
+
+// =======================================
+// Statements
+// =======================================
+
+<statement> ::= <expression-statement>
+              | <block-statement>
+              | <variable-statement>
+              | <control-statement>
+              | <iteration-statement>
+              | <continue-statement>
+              | <break-statement>
+              | <return-statement>
+
+<expression-statement> ::= <expression> ";"
+
+<block-statement> ::= "{" <optional-statement-list> "}"
+
+<optional-statement-list> ::= <statement-list>
+                            | /* empty */
+
+<statement-list> ::= <statement>
+                   | <statement-list> <statement>
+
+
+// =======================================
+// Variable Declarations
+// =======================================
+
+<variable-statement> ::= <optional-type-qualifier> <datatype-keyword> <variable-declaration-list> ";"
+
+<variable-declaration-list> ::= <variable-declaration>
+                              | <variable-declaration-list> "," <variable-declaration>
+
+<variable-declaration> ::= <identifier-expression> <optional-variable-initializer>
+
+<optional-variable-initializer> ::= <variable-initializer>
+                                  | /* empty */
+
+<variable-initializer> ::= "=" <assignment-expression>
+
+
+// =======================================
+// Function Declarations (Top-level Only)
+// =======================================
+
+<function-statement> ::= "function" <datatype-keyword> <identifier-token> "(" <optional-parameter-list> ")" <block-statement>
+
+<optional-parameter-list> ::= <parameter-list>
+                            | /* empty */
+
+<parameter-list> ::= <parameter>
+                   | <parameter-list> "," <parameter>
+
+<parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-expression> <optional-variable-initializer>
+
+
+// =======================================
+// Control Flow Statements
+// =======================================
+
+<control-statement> ::= "if" "(" <expression> ")" <statement>
+                      | "if" "(" <expression> ")" <statement> "else" <statement>
+
+<iteration-statement> ::= <while-statement>
+                        | <do-while-statement>
+                        | <for-statement>
+
+<while-statement> ::= "while" "(" <expression> ")" <statement>
+
+<do-while-statement> ::= "do" <statement> "while" "(" <expression> ")" ";"
+
+<for-statement> ::= "for" "(" <optional-for-initializer> ";" <optional-expression> ";" <optional-expression> ")" <statement>
+
+<optional-for-initializer> ::= <variable-statement>
+                             | <expression>
+                             | /* empty */
+
+<optional-expression> ::= <expression>
+                        | /* empty */
+
+<continue-statement> ::= "continue" ";"
+
+<break-statement> ::= "break" ";"
+
+<return-statement> ::= "return" <optional-expression> ";"
+
+
+// =======================================
+// Expressions
+// =======================================
+
+<expression> ::= <assignment-expression>
+
+<assignment-expression> ::= <logical-or-expression>
+                          | <lhs-expression> <assignment-operator> <assignment-expression>
+
+<logical-or-expression> ::= <logical-and-expression>
+                          | <logical-and-expression> "||" <logical-or-expression>
+
+<logical-and-expression> ::= <equality-expression>
+                           | <equality-expression> "&&" <logical-and-expression>
+
+<equality-expression> ::= <relational-expression>
+                        | <relational-expression> <equality-operator> <equality-expression>
+
+<relational-expression> ::= <additive-expression>
+                          | <additive-expression> <relational-operator> <relational-expression>
+
+<additive-expression> ::= <multiplicative-expression>
+                        | <additive-expression> <additive-operator> <multiplicative-expression>
+
+<multiplicative-expression> ::= <unary-expression>
+                              | <multiplicative-expression> <multiplicative-operator> <unary-expression>
+
+<unary-expression> ::= <unary-operator> <unary-expression>
+                     | <lhs-expression>
+
+<lhs-expression> ::= <member-expression>
+                   | <call-expression>
+
+<call-expression> ::= <callee> <call-arguments>
+
+<callee> ::= <member-expression>
+           | <call-expression>
+
+<call-arguments> ::= "(" <optional-call-argument-list> ")"
+
+<optional-call-argument-list> ::= <call-argument-list>
+                                | /* empty */
+
+<call-argument-list> ::= <assignment-expression>
+                       | <call-argument-list> "," <assignment-expression>
+
+<member-expression> ::= <primary-expression>
+                      | <member-expression> "." <identifier-expression>
+                      | <member-expression> "[" <expression> "]"
+
+<primary-expression> ::= <literal-expression>
+                       | <parenthesized-expression>
+                       | <identifier-expression>
+
+<parenthesized-expression> ::= "(" <expression> ")"
+
+
+// =======================================
+// Literals and Identifiers
+// =======================================
+
+<literal-expression> ::= <int32-literal>
+                       | <uint32-literal>
+                       | <float32-literal>
+                       | <float64-literal>
+                       | <char8-literal>
+                       | <str8-literal>
+                       | <bool8-literal>
+                       | <null-literal>
+
+<identifier-expression> ::= <identifier-token>
+
+<int32-literal> ::= LITERAL_INT32
+<uint32-literal> ::= LITERAL_UINT32
+<float32-literal> ::= LITERAL_FLOAT32
+<float64-literal> ::= LITERAL_FLOAT64
+<char8-literal> ::= LITERAL_CHAR8
+<str8-literal> ::= LITERAL_STR8
+<bool8-literal> ::= LITERAL_BOOL8
+<null-literal> ::= LITERAL_NULL
+
+<identifier-token> ::= IDENTIFIER
+
+
+// =======================================
+// Types and Qualifiers
+// =======================================
+
+<optional-type-qualifier> ::= <type-qualifier-keyword>
+                            | /* empty */
+
+<type-qualifier-keyword> ::= "const"
+
+<datatype-keyword> ::= "int32_t"
+                     | "uint32_t"
+                     | "float32_t"
+                     | "float64_t"
+                     | "char8_t"
+                     | "str8_t"
+                     | "bool8_t"
+                     | "void"
+
+
+// =======================================
+// Operators
+// =======================================
+
+<assignment-operator> ::= "="
+                        | "+="
+                        | "-="
+                        | "*="
+                        | "/="
+                        | "%="
+                        | "&="
+                        | "|="
+                        | "^="
+                        | ">>="
+                        | "<<="
+
+<relational-operator> ::= "<"
+                        | "<="
+                        | ">"
+                        | ">="
+
+<equality-operator> ::= "=="
+                      | "!="
+
+<additive-operator> ::= "+"
+                      | "-"
+
+<multiplicative-operator> ::= "*"
+                            | "/"
+                            | "%"
+
+<unary-operator> ::= "+"
+                   | "-"
+                   | "!"
+                   | "++"
+                   | "--"
+
+<postfix-operator> ::= "++"
+                     | "--"

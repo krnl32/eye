@@ -3,3 +3,4 @@ include("parser")
 include("sandbox")
 
 include("common")
+include("ast")

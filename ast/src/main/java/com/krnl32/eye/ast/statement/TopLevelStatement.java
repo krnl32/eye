@@ -1,0 +1,4 @@
+package com.krnl32.eye.ast.statement;
+
+public interface TopLevelStatement {
+}

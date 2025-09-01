@@ -12,6 +12,7 @@ application {
 dependencies {
 	implementation(project(":common"))
 	implementation(project(":parser"))
+	implementation(project(":ast"))
 }
 
 tasks.test {
