@@ -1,6 +1,7 @@
 package com.krnl32.eye.parser.parser;
 
 import com.krnl32.eye.ast.Program;
+import com.krnl32.eye.ast.expression.BinaryExpression;
 import com.krnl32.eye.ast.expression.Expression;
 import com.krnl32.eye.ast.expression.LiteralExpression;
 import com.krnl32.eye.ast.expression.PrimaryExpression;
@@ -8,10 +9,10 @@ import com.krnl32.eye.ast.literal.*;
 import com.krnl32.eye.ast.statement.ExpressionStatement;
 import com.krnl32.eye.ast.statement.Statement;
 import com.krnl32.eye.ast.statement.TopLevelStatement;
+import com.krnl32.eye.ast.types.OperatorType;
 import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.common.exceptions.SyntaxErrorException;
 import com.krnl32.eye.common.utility.SourceSpan;
-import com.krnl32.eye.parser.lexer.LexerUtility;
 import com.krnl32.eye.parser.lexer.Token;
 import com.krnl32.eye.parser.lexer.TokenType;
 
@@ -102,8 +103,29 @@ public class Parser {
 		return expressionStatement;
 	}
 
+	/*
+		<expression> ::= <additive-expression>
+	 */
 	private Expression expression() {
-		return primaryExpression();
+		return additiveBinaryExpression();
+	}
+
+	/*
+		<additive-expression> ::= <primary-expression>
+							| <additive-expression> <additive-operator> <primary-expression>
+	 */
+	private Expression additiveBinaryExpression() {
+		Expression left = primaryExpression();
+
+		while (ParserUtility.isAdditiveOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operatorType = ParserUtility.toOperatorType(token.getType());
+
+			Expression right = primaryExpression();
+			left = new BinaryExpression(operatorType, left, right);
+		}
+
+		return left;
 	}
 
 	/*
@@ -112,7 +134,7 @@ public class Parser {
 								| <identifier-expression>
 	 */
 	private PrimaryExpression primaryExpression() {
-		if (LexerUtility.isLiteral(lookAheadToken.getType())) {
+		if (ParserUtility.isLiteral(lookAheadToken.getType())) {
 			return literalExpression();
 		}
 

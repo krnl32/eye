@@ -10,7 +10,10 @@ import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
-		Lexer lexer = new Lexer("1; 123.11f; 1559; 9958.155; null; true; false; 'A'; \"Hello World\";");
+		Lexer lexer;
+
+		//lexer = new Lexer("1; 123.11f; 1559; 9958.155; null; true; false; 'A'; \"Hello World\";");
+		lexer = new Lexer("1 + 1;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
@@ -18,14 +21,15 @@ public class Main {
 			return;
 		}
 
-		System.out.println("Tokens Start: ");
-		for (var token : tokens) {
-			System.out.println(token);
-		}
-		System.out.println("Tokens END: ");
+//		System.out.println("Tokens Start: ");
+//		for (var token : tokens) {
+//			System.out.println(token);
+//		}
+//		System.out.println("Tokens END: ");
 
 
 		Parser parser = new Parser(tokens);
+		System.out.println("Parsing: ");
 
 		Program program = parser.parse();
 		if (program == null) {

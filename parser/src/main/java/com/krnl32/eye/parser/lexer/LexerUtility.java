@@ -126,12 +126,4 @@ public class LexerUtility {
 	public static Character getEscapeCharacter(char code) {
 		return ESCAPE_CHARACTERS.get(code);
 	}
-
-	public static boolean isLiteral(TokenType type) {
-		return (type == TokenType.LITERAL_INT32 || type == TokenType.LITERAL_UINT32 ||
-			type == TokenType.LITERAL_FLOAT32 || type == TokenType.LITERAL_FLOAT64 ||
-			type == TokenType.LITERAL_CHAR8 || type == TokenType.LITERAL_STR8 ||
-			type == TokenType.LITERAL_BOOL8 || type == TokenType.LITERAL_NULL
-		);
-	}
 }
