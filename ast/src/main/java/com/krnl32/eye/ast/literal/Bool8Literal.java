@@ -1,5 +1,7 @@
 package com.krnl32.eye.ast.literal;
 
+import com.krnl32.eye.ast.types.LiteralType;
+
 public class Bool8Literal implements Literal {
 	private final boolean value;
 
@@ -7,7 +9,12 @@ public class Bool8Literal implements Literal {
 		this.value = value;
 	}
 
-	public boolean isValue() {
+	@Override
+	public LiteralType getType() {
+		return LiteralType.BOOL8;
+	}
+
+	public boolean getValue() {
 		return value;
 	}
 

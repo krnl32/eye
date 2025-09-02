@@ -1,10 +1,17 @@
 package com.krnl32.eye.ast.literal;
 
+import com.krnl32.eye.ast.types.LiteralType;
+
 public class Float32Literal implements Literal {
 	private final float value;
 
 	public Float32Literal(float value) {
 		this.value = value;
+	}
+
+	@Override
+	public LiteralType getType() {
+		return LiteralType.FLOAT32;
 	}
 
 	public float getValue() {

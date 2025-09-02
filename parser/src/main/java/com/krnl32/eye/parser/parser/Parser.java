@@ -4,7 +4,6 @@ import com.krnl32.eye.ast.Program;
 import com.krnl32.eye.ast.expression.BinaryExpression;
 import com.krnl32.eye.ast.expression.Expression;
 import com.krnl32.eye.ast.expression.LiteralExpression;
-import com.krnl32.eye.ast.expression.PrimaryExpression;
 import com.krnl32.eye.ast.literal.*;
 import com.krnl32.eye.ast.statement.ExpressionStatement;
 import com.krnl32.eye.ast.statement.Statement;
@@ -98,9 +97,9 @@ public class Parser {
 			return null;
 		}
 
-		ExpressionStatement expressionStatement = new ExpressionStatement(expression());
+		ExpressionStatement exprStmt = new ExpressionStatement(expression());
 		eatToken(TokenType.SYMBOL_SEMI_COLON);
-		return expressionStatement;
+		return exprStmt;
 	}
 
 	/*
@@ -133,7 +132,7 @@ public class Parser {
 								| <parenthesized-expression>
 								| <identifier-expression>
 	 */
-	private PrimaryExpression primaryExpression() {
+	private Expression primaryExpression() {
 		if (ParserUtility.isLiteral(lookAheadToken.getType())) {
 			return literalExpression();
 		}
