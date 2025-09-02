@@ -19,6 +19,8 @@ public class Main {
 		//lexer = new Lexer("1; 123.11f; 1559; 9958.155; null; true; false; 'A'; \"Hello World\";");
 		lexer = new Lexer("12; 55.14f; 99.995; 'C'; \"Hello World\";");
 		lexer = new Lexer("1 + 2 + 3;");
+		lexer = new Lexer("1,2,3;");
+
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

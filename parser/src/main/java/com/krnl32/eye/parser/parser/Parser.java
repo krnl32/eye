@@ -103,15 +103,33 @@ public class Parser {
 	}
 
 	/*
-		<expression> ::= <additive-expression>
+		<expression> ::= <comma-expression>
 	 */
 	private Expression expression() {
-		return additiveBinaryExpression();
+		return commaExpression();
+	}
+
+	/*
+		<comma-expression> ::= <comma-expression> "," <additive-expression>
+							| <additive-expression>
+	 */
+	private Expression commaExpression() {
+		Expression left = additiveBinaryExpression();
+
+		while (isLookAheadToken(TokenType.OPERATOR_COMMA)) {
+			eatToken(TokenType.OPERATOR_COMMA);
+			OperatorType operatorType = ParserUtility.toOperatorType(TokenType.OPERATOR_COMMA);
+
+			Expression right = additiveBinaryExpression();
+			left = new BinaryExpression(operatorType, left, right);
+		}
+
+		return left;
 	}
 
 	/*
 		<additive-expression> ::= <primary-expression>
-							| <additive-expression> <additive-operator> <primary-expression>
+								| <additive-expression> <additive-operator> <primary-expression>
 	 */
 	private Expression additiveBinaryExpression() {
 		Expression left = primaryExpression();

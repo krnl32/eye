@@ -103,7 +103,10 @@
 // Expressions
 // =======================================
 
-<expression> ::= <assignment-expression>
+<expression> ::= <comma-expression>
+
+<comma-expression> ::= <comma-expression> "," <assignment-expression>
+					 | <assignment-expression>
 
 <assignment-expression> ::= <logical-or-expression>
                           | <lhs-expression> <assignment-operator> <assignment-expression>
