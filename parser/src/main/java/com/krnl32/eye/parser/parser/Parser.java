@@ -91,7 +91,7 @@ public class Parser {
 	 */
 	private ExpressionStatement expressionStatement() {
 		if (isLookAheadToken(TokenType.SYMBOL_SEMI_COLON)) {
-			throw new SyntaxErrorException("Unexpected: " + lookAheadToken.getType().name(), lookAheadToken.getSpan());
+			throw new SyntaxErrorException("Expected Expression Before: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
 		}
 
 		ExpressionStatement exprStmt = new ExpressionStatement(expression());
@@ -125,11 +125,11 @@ public class Parser {
 	}
 
 	/*
-		<assignment-expression> ::= <additive-expression>
-								  | <lhs-expression> <assignment-operator> <assignment-expression>
+		<assignment-expression> ::= <ternary-expression>
+                          		  | <lhs-expression> <assignment-operator> <assignment-expression>
 	 */
 	private Expression assignmentExpression() {
-		Expression left = additiveExpression();
+		Expression left = ternaryExpression();
 
 		if (!ParserUtility.isAssignmentOperator(lookAheadToken.getType())) {
 			return left;
@@ -143,6 +143,24 @@ public class Parser {
 		OperatorType operatorType = ParserUtility.toOperatorType(operatorToken.getType());
 
 		return new AssignmentExpression(operatorType, left, assignmentExpression());
+	}
+
+	/*
+		<ternary-expression> ::= <additive-expression>
+							   | <additive-expression> "?" <expression> ":" <ternary-expression>
+	 */
+	private Expression ternaryExpression() {
+		Expression condition = additiveExpression();
+
+		if (!ParserUtility.isTernaryOperator(lookAheadToken.getType())) {
+			return condition;
+		}
+
+		eatToken(lookAheadToken.getType());
+		Expression consequent = expression();
+		eatToken(TokenType.SYMBOL_COLON);
+
+		return new TernaryExpression(condition, consequent, ternaryExpression());
 	}
 
 	/*

@@ -31,6 +31,10 @@ public class ParserUtility {
 			type == TokenType.OPERATOR_ASSIGNMENT_BITWISE_RIGHT_SHIFT);
 	}
 
+	public static boolean isTernaryOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_QUESTION_MARK);
+	}
+
 	public static OperatorType toOperatorType(TokenType type) {
 		return switch (type) {
 			case OPERATOR_BINARY_PLUS -> OperatorType.BINARY_PLUS;

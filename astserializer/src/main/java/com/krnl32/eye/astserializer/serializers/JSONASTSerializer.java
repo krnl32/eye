@@ -58,6 +58,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case IdentifierExpression -> serializeIdentifierExpression((IdentifierExpression) expr);
 			case AssignmentExpression -> serializeAssignmentExpression((AssignmentExpression) expr);
 			case BinaryExpression -> serializeBinaryExpression((BinaryExpression) expr);
+			case TernaryExpression -> serializeTernaryExpression((TernaryExpression) expr);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Expression Type: " + expr.getClass().getSimpleName());
 		};
 	}
@@ -106,5 +107,14 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		binaryNode.set("left", serializeExpression(expr.getLeft()));
 		binaryNode.set("right", serializeExpression(expr.getRight()));
 		return binaryNode;
+	}
+
+	private ObjectNode serializeTernaryExpression(TernaryExpression expr) {
+		ObjectNode ternaryNode = mapper.createObjectNode();
+		ternaryNode.put("type", expr.getType().name());
+		ternaryNode.set("condition", serializeExpression(expr.getCondition()));
+		ternaryNode.set("consequent", serializeExpression(expr.getConsequent()));
+		ternaryNode.set("alternate", serializeExpression(expr.getAlternate()));
+		return ternaryNode;
 	}
 }

@@ -21,6 +21,7 @@ public class Main {
 		lexer = new Lexer("1 + 2 + 3;");
 		lexer = new Lexer("1,2,3;");
 		lexer = new Lexer("x = y = 3;");
+		lexer = new Lexer("true ? y = 5 : 1;");
 
 
 		List<Token> tokens = lexer.tokenize();

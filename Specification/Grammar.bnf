@@ -108,8 +108,11 @@
 <comma-expression> ::= <comma-expression> "," <assignment-expression>
 					 | <assignment-expression>
 
-<assignment-expression> ::= <logical-or-expression>
+<assignment-expression> ::= <ternary-expression>
                           | <lhs-expression> <assignment-operator> <assignment-expression>
+
+<ternary-expression> ::= <logical-or-expression>
+                       | <logical-or-expression> "?" <expression> ":" <ternary-expression>
 
 <logical-or-expression> ::= <logical-and-expression>
                           | <logical-and-expression> "||" <logical-or-expression>
