@@ -114,23 +114,35 @@
 <ternary-expression> ::= <logical-or-expression>
                        | <logical-or-expression> "?" <expression> ":" <ternary-expression>
 
-<logical-or-expression> ::= <logical-and-expression>
-                          | <logical-and-expression> "||" <logical-or-expression>
+<logical-or-expression> ::= <logical-or-expression> "||" <logical-and-expression>
+                          | <logical-and-expression>
 
-<logical-and-expression> ::= <equality-expression>
-                           | <equality-expression> "&&" <logical-and-expression>
+<logical-and-expression> ::= <logical-and-expression> "&&" <bitwise-or-expression>
+                           | <bitwise-or-expression>
 
-<equality-expression> ::= <relational-expression>
-                        | <relational-expression> <equality-operator> <equality-expression>
+<bitwise-or-expression> ::= <bitwise-or-expression> "|" <bitwise-xor-expression>
+                          | <bitwise-xor-expression>
 
-<relational-expression> ::= <additive-expression>
-                          | <additive-expression> <relational-operator> <relational-expression>
+<bitwise-xor-expression> ::= <bitwise-xor-expression> "^" <bitwise-and-expression>
+                           | <bitwise-and-expression>
 
-<additive-expression> ::= <multiplicative-expression>
-                        | <additive-expression> <additive-operator> <multiplicative-expression>
+<bitwise-and-expression> ::= <bitwise-and-expression> "&" <equality-expression>
+                           | <equality-expression>
 
-<multiplicative-expression> ::= <unary-expression>
-                              | <multiplicative-expression> <multiplicative-operator> <unary-expression>
+<equality-expression> ::= <equality-expression> <equality-operator> <relational-expression>
+                        | <relational-expression>
+
+<relational-expression> ::= <relational-expression> <relational-operator> <bitwise-shift-expression>
+                          | <bitwise-shift-expression>
+
+<bitwise-shift-expression> ::= <bitwise-shift-expression> <bitwise-shift-operator> <additive-expression>
+                          | <additive-expression>
+
+<additive-expression> ::= <additive-expression> <additive-operator> <multiplicative-expression>
+                        | <multiplicative-expression>
+
+<multiplicative-expression> ::= <multiplicative-expression> <multiplicative-operator> <unary-expression>
+                              | <unary-expression>
 
 <unary-expression> ::= <unary-operator> <unary-expression>
                      | <lhs-expression>
@@ -224,13 +236,16 @@
                         | ">>="
                         | "<<="
 
+<equality-operator> ::= "=="
+                      | "!="
+
 <relational-operator> ::= "<"
                         | "<="
                         | ">"
                         | ">="
 
-<equality-operator> ::= "=="
-                      | "!="
+<bitwise-shift-operator> ::= "<<"
+                        | ">>"
 
 <additive-operator> ::= "+"
                       | "-"

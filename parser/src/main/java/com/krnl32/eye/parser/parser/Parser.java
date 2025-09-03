@@ -146,11 +146,11 @@ public class Parser {
 	}
 
 	/*
-		<ternary-expression> ::= <additive-expression>
-							   | <additive-expression> "?" <expression> ":" <ternary-expression>
+		<ternary-expression> ::= <logical-or-expression>
+							   | <logical-or-expression> "?" <expression> ":" <ternary-expression>
 	 */
 	private Expression ternaryExpression() {
-		Expression condition = additiveExpression();
+		Expression condition = logicalOrExpression();
 
 		if (!ParserUtility.isTernaryOperator(lookAheadToken.getType())) {
 			return condition;
@@ -164,18 +164,175 @@ public class Parser {
 	}
 
 	/*
-		<additive-expression> ::= <primary-expression>
-								| <additive-expression> <additive-operator> <primary-expression>
+		<logical-or-expression> ::= <logical-or-expression> "||" <logical-and-expression>
+                         		  | <logical-and-expression>
+	 */
+	private Expression logicalOrExpression() {
+		Expression left = logicalAndExpression();
+
+		while (isLookAheadToken(TokenType.OPERATOR_LOGICAL_OR)) {
+			eatToken(TokenType.OPERATOR_LOGICAL_OR);
+
+			Expression right = logicalAndExpression();
+			left = new BinaryExpression(OperatorType.LOGICAL_OR, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<logical-and-expression> ::= <logical-and-expression> "&&" <bitwise-or-expression>
+								   | <bitwise-or-expression>
+	 */
+	private Expression logicalAndExpression() {
+		Expression left = bitwiseOrExpression();
+
+		while (isLookAheadToken(TokenType.OPERATOR_LOGICAL_AND)) {
+			eatToken(TokenType.OPERATOR_LOGICAL_AND);
+
+			Expression right = bitwiseOrExpression();
+			left = new BinaryExpression(OperatorType.LOGICAL_AND, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<bitwise-or-expression> ::= <bitwise-or-expression> "|" <bitwise-xor-expression>
+								  | <bitwise-xor-expression>
+	 */
+	private Expression bitwiseOrExpression() {
+		Expression left = bitwiseXorExpression();
+
+		while (isLookAheadToken(TokenType.OPERATOR_BITWISE_BINARY_OR)) {
+			eatToken(TokenType.OPERATOR_BITWISE_BINARY_OR);
+
+			Expression right = bitwiseXorExpression();
+			left = new BinaryExpression(OperatorType.BITWISE_BINARY_OR, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<bitwise-xor-expression> ::= <bitwise-xor-expression> "^" <bitwise-and-expression>
+								   | <bitwise-and-expression>
+	 */
+	private Expression bitwiseXorExpression() {
+		Expression left = bitwiseAndExpression();
+
+		while (isLookAheadToken(TokenType.OPERATOR_BITWISE_BINARY_XOR)) {
+			eatToken(TokenType.OPERATOR_BITWISE_BINARY_XOR);
+
+			Expression right = bitwiseAndExpression();
+			left = new BinaryExpression(OperatorType.BITWISE_BINARY_XOR, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<bitwise-and-expression> ::= <bitwise-and-expression> "&" <equality-expression>
+								   | <equality-expression>
+	 */
+	private Expression bitwiseAndExpression() {
+		Expression left = equalityExpression();
+
+		while (isLookAheadToken(TokenType.OPERATOR_BITWISE_BINARY_AND)) {
+			eatToken(TokenType.OPERATOR_BITWISE_BINARY_AND);
+
+			Expression right = equalityExpression();
+			left = new BinaryExpression(OperatorType.BITWISE_BINARY_AND, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<equality-expression> ::= <equality-expression> <equality-operator> <relational-expression>
+								| <relational-expression>
+	 */
+	private Expression equalityExpression() {
+		Expression left = relationalExpression();
+
+		while (ParserUtility.isEqualityOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+			Expression right = relationalExpression();
+			left = new BinaryExpression(operator, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<relational-expression> ::= <relational-expression> <relational-operator> <bitwise-shift-expression>
+								  | <bitwise-shift-expression>
+	 */
+	private Expression relationalExpression() {
+		Expression left = bitwiseShiftExpression();
+
+		while (ParserUtility.isRelationalOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+			Expression right = bitwiseShiftExpression();
+			left = new BinaryExpression(operator, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<bitwise-shift-expression> ::= <bitwise-shift-expression> <bitwise-shift-operator> <additive-expression>
+									 | <additive-expression>
+	 */
+	private Expression bitwiseShiftExpression() {
+		Expression left = additiveExpression();
+
+		while (ParserUtility.isBitwiseShiftOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+			Expression right = additiveExpression();
+			left = new BinaryExpression(operator, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<additive-expression> ::= <additive-expression> <additive-operator> <multiplicative-expression>
+								| <multiplicative-expression>
 	 */
 	private Expression additiveExpression() {
-		Expression left = primaryExpression();
+		Expression left = multiplicativeExpression();
 
 		while (ParserUtility.isAdditiveOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
-			OperatorType operatorType = ParserUtility.toOperatorType(token.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+			Expression right = multiplicativeExpression();
+			left = new BinaryExpression(operator, left, right);
+		}
+
+		return left;
+	}
+
+	/*
+		<multiplicative-expression> ::= <multiplicative-expression> <multiplicative-operator> <primary-expression>
+									  | <primary-expression>
+	 */
+	private Expression multiplicativeExpression() {
+		Expression left = primaryExpression();
+
+		while (ParserUtility.isMultiplicativeOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
 			Expression right = primaryExpression();
-			left = new BinaryExpression(operatorType, left, right);
+			left = new BinaryExpression(operator, left, right);
 		}
 
 		return left;

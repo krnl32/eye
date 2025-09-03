@@ -18,10 +18,6 @@ public class ParserUtility {
 		);
 	}
 
-	public static boolean isAdditiveOperator(TokenType type) {
-		return (type == TokenType.OPERATOR_BINARY_PLUS || type == TokenType.OPERATOR_BINARY_MINUS);
-	}
-
 	public static boolean isAssignmentOperator(TokenType type) {
 		return (type == TokenType.OPERATOR_ASSIGNMENT || type == TokenType.OPERATOR_ASSIGNMENT_PLUS ||
 			type == TokenType.OPERATOR_ASSIGNMENT_MINUS || type == TokenType.OPERATOR_ASSIGNMENT_STAR ||
@@ -33,6 +29,27 @@ public class ParserUtility {
 
 	public static boolean isTernaryOperator(TokenType type) {
 		return (type == TokenType.OPERATOR_QUESTION_MARK);
+	}
+
+	public static boolean isEqualityOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_RELATIONAL_EQUALS || type == TokenType.OPERATOR_RELATIONAL_NOT_EQUALS);
+	}
+
+	public static boolean isRelationalOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_RELATIONAL_SMALLER || type == TokenType.OPERATOR_RELATIONAL_SMALLER_EQUALS ||
+			type == TokenType.OPERATOR_RELATIONAL_GREATER || type == TokenType.OPERATOR_RELATIONAL_GREATER_EQUALS);
+	}
+
+	public static boolean isBitwiseShiftOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_BITWISE_LEFT_SHIFT || type == TokenType.OPERATOR_BITWISE_RIGHT_SHIFT);
+	}
+
+	public static boolean isAdditiveOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_BINARY_PLUS || type == TokenType.OPERATOR_BINARY_MINUS);
+	}
+
+	public static boolean isMultiplicativeOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_BINARY_STAR || type == TokenType.OPERATOR_BINARY_SLASH || type == TokenType.OPERATOR_BINARY_MODULO);
 	}
 
 	public static OperatorType toOperatorType(TokenType type) {

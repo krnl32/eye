@@ -22,7 +22,16 @@ public class Main {
 		lexer = new Lexer("1,2,3;");
 		lexer = new Lexer("x = y = 3;");
 		lexer = new Lexer("true ? y = 5 : 1;");
-
+		lexer = new Lexer("1 + 1; 2 - 2;");
+		lexer = new Lexer("1 * 1; 2 / 2; 3 % 3;");
+		lexer = new Lexer("x << 5; 10 >> 5;");
+		lexer = new Lexer("1 < 2; x <= 10; 55 > 10; y >= 99;");
+		lexer = new Lexer("x == 12; t != 9;");
+		lexer = new Lexer("x | y;");
+		lexer = new Lexer("x ^ y;");
+		lexer = new Lexer("x && y;");
+		lexer = new Lexer("x || y;");
+		lexer = new Lexer("x & y;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
