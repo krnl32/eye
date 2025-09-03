@@ -1,9 +1,15 @@
 package com.krnl32.eye.parser.parser;
 
+import com.krnl32.eye.ast.expression.Expression;
+import com.krnl32.eye.ast.types.ExpressionType;
 import com.krnl32.eye.ast.types.OperatorType;
 import com.krnl32.eye.parser.lexer.TokenType;
 
 public class ParserUtility {
+	public static boolean isLHSExpression(Expression expr) {
+		return (expr.getType() == ExpressionType.IdentifierExpression || expr.getType() == ExpressionType.MemberExpression);
+	}
+
 	public static boolean isLiteral(TokenType type) {
 		return (type == TokenType.LITERAL_INT32 || type == TokenType.LITERAL_UINT32 ||
 			type == TokenType.LITERAL_FLOAT32 || type == TokenType.LITERAL_FLOAT64 ||
@@ -14,6 +20,15 @@ public class ParserUtility {
 
 	public static boolean isAdditiveOperator(TokenType type) {
 		return (type == TokenType.OPERATOR_BINARY_PLUS || type == TokenType.OPERATOR_BINARY_MINUS);
+	}
+
+	public static boolean isAssignmentOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_ASSIGNMENT || type == TokenType.OPERATOR_ASSIGNMENT_PLUS ||
+			type == TokenType.OPERATOR_ASSIGNMENT_MINUS || type == TokenType.OPERATOR_ASSIGNMENT_STAR ||
+			type == TokenType.OPERATOR_ASSIGNMENT_SLASH || type == TokenType.OPERATOR_ASSIGNMENT_MODULO ||
+			type == TokenType.OPERATOR_ASSIGNMENT_BITWISE_AND || type == TokenType.OPERATOR_ASSIGNMENT_BITWISE_OR ||
+			type == TokenType.OPERATOR_ASSIGNMENT_BITWISE_XOR || type == TokenType.OPERATOR_ASSIGNMENT_BITWISE_LEFT_SHIFT ||
+			type == TokenType.OPERATOR_ASSIGNMENT_BITWISE_RIGHT_SHIFT);
 	}
 
 	public static OperatorType toOperatorType(TokenType type) {

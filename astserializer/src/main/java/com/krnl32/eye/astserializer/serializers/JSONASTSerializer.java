@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.krnl32.eye.ast.Program;
-import com.krnl32.eye.ast.expression.BinaryExpression;
-import com.krnl32.eye.ast.expression.Expression;
-import com.krnl32.eye.ast.expression.LiteralExpression;
+import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
 import com.krnl32.eye.ast.statement.ExpressionStatement;
 import com.krnl32.eye.ast.statement.Statement;
@@ -57,6 +55,8 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializeExpression(Expression expr) {
 		return 	switch (expr.getType()) {
 			case LiteralExpression -> serializeLiteralExpression((LiteralExpression) expr);
+			case IdentifierExpression -> serializeIdentifierExpression((IdentifierExpression) expr);
+			case AssignmentExpression -> serializeAssignmentExpression((AssignmentExpression) expr);
 			case BinaryExpression -> serializeBinaryExpression((BinaryExpression) expr);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Expression Type: " + expr.getClass().getSimpleName());
 		};
@@ -83,10 +83,26 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		return literalNode;
 	}
 
+	private ObjectNode serializeIdentifierExpression(IdentifierExpression expr) {
+		ObjectNode identifierNode = mapper.createObjectNode();
+		identifierNode.put("type", expr.getType().name());
+		identifierNode.put("value", expr.getIdentifier());
+		return identifierNode;
+	}
+
+	private ObjectNode serializeAssignmentExpression(AssignmentExpression expr) {
+		ObjectNode assignmentNode = mapper.createObjectNode();
+		assignmentNode.put("type", expr.getType().name());
+		assignmentNode.put("operator", expr.getOperator().name());
+		assignmentNode.set("left", serializeExpression(expr.getLeft()));
+		assignmentNode.set("right", serializeExpression(expr.getRight()));
+		return assignmentNode;
+	}
+
 	private ObjectNode serializeBinaryExpression(BinaryExpression expr) {
 		ObjectNode binaryNode = mapper.createObjectNode();
 		binaryNode.put("type", expr.getType().name());
-		binaryNode.put("operator", expr.getOperatorType().name());
+		binaryNode.put("operator", expr.getOperator().name());
 		binaryNode.set("left", serializeExpression(expr.getLeft()));
 		binaryNode.set("right", serializeExpression(expr.getRight()));
 		return binaryNode;

@@ -1,9 +1,7 @@
 package com.krnl32.eye.parser.parser;
 
 import com.krnl32.eye.ast.Program;
-import com.krnl32.eye.ast.expression.BinaryExpression;
-import com.krnl32.eye.ast.expression.Expression;
-import com.krnl32.eye.ast.expression.LiteralExpression;
+import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
 import com.krnl32.eye.ast.statement.ExpressionStatement;
 import com.krnl32.eye.ast.statement.Statement;
@@ -64,7 +62,7 @@ public class Parser {
 	/*
 		<top-level-statement> ::= <function-statement>
               					| <variable-statement>
-								| <statement>
+								| <statement> // TEMPORARY
 	 */
 	private TopLevelStatement topLevelStatement() {
 		return switch (lookAheadToken.getType()) {
@@ -93,8 +91,7 @@ public class Parser {
 	 */
 	private ExpressionStatement expressionStatement() {
 		if (isLookAheadToken(TokenType.SYMBOL_SEMI_COLON)) {
-			eatToken(TokenType.SYMBOL_SEMI_COLON);
-			return null;
+			throw new SyntaxErrorException("Unexpected: " + lookAheadToken.getType().name(), lookAheadToken.getSpan());
 		}
 
 		ExpressionStatement exprStmt = new ExpressionStatement(expression());
@@ -110,17 +107,17 @@ public class Parser {
 	}
 
 	/*
-		<comma-expression> ::= <comma-expression> "," <additive-expression>
-							| <additive-expression>
+		<comma-expression> ::= <comma-expression> "," <assignment-expression>
+							 | <assignment-expression>
 	 */
 	private Expression commaExpression() {
-		Expression left = additiveBinaryExpression();
+		Expression left = assignmentExpression();
 
 		while (isLookAheadToken(TokenType.OPERATOR_COMMA)) {
 			eatToken(TokenType.OPERATOR_COMMA);
 			OperatorType operatorType = ParserUtility.toOperatorType(TokenType.OPERATOR_COMMA);
 
-			Expression right = additiveBinaryExpression();
+			Expression right = assignmentExpression();
 			left = new BinaryExpression(operatorType, left, right);
 		}
 
@@ -128,10 +125,31 @@ public class Parser {
 	}
 
 	/*
+		<assignment-expression> ::= <additive-expression>
+								  | <lhs-expression> <assignment-operator> <assignment-expression>
+	 */
+	private Expression assignmentExpression() {
+		Expression left = additiveExpression();
+
+		if (!ParserUtility.isAssignmentOperator(lookAheadToken.getType())) {
+			return left;
+		}
+
+		if (!ParserUtility.isLHSExpression(left)) {
+			throw new SyntaxErrorException("Unexpected LValue Expression '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
+		Token operatorToken = eatToken(lookAheadToken.getType());
+		OperatorType operatorType = ParserUtility.toOperatorType(operatorToken.getType());
+
+		return new AssignmentExpression(operatorType, left, assignmentExpression());
+	}
+
+	/*
 		<additive-expression> ::= <primary-expression>
 								| <additive-expression> <additive-operator> <primary-expression>
 	 */
-	private Expression additiveBinaryExpression() {
+	private Expression additiveExpression() {
 		Expression left = primaryExpression();
 
 		while (ParserUtility.isAdditiveOperator(lookAheadToken.getType())) {
@@ -147,15 +165,17 @@ public class Parser {
 
 	/*
 		<primary-expression> ::= <literal-expression>
-								| <parenthesized-expression>
-								| <identifier-expression>
+							   | <parenthesized-expression>
+							   | <identifier-expression>
 	 */
 	private Expression primaryExpression() {
 		if (ParserUtility.isLiteral(lookAheadToken.getType())) {
 			return literalExpression();
+		} else if (lookAheadToken.getType() == TokenType.IDENTIFIER) {
+			return identifierExpression();
 		}
 
-		return null;
+		throw new SyntaxErrorException("Unexpected PrimaryExpression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
 	}
 
 	/*
@@ -244,6 +264,14 @@ public class Parser {
 	private LiteralExpression nullLiteral() {
 		eatToken(TokenType.LITERAL_NULL);
 		return new LiteralExpression(new NullLiteral());
+	}
+
+	/*
+		<identifier-token> ::= IDENTIFIER
+	 */
+	private IdentifierExpression identifierExpression() {
+		Token token = eatToken(TokenType.IDENTIFIER);
+		return new IdentifierExpression(token.<String>getValue());
 	}
 
 	// Token Manipulation

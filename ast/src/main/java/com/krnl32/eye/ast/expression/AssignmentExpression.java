@@ -3,12 +3,12 @@ package com.krnl32.eye.ast.expression;
 import com.krnl32.eye.ast.types.ExpressionType;
 import com.krnl32.eye.ast.types.OperatorType;
 
-public class BinaryExpression implements Expression {
+public class AssignmentExpression implements Expression {
 	private final OperatorType operator;
 	private final Expression left;
 	private final Expression right;
 
-	public BinaryExpression(OperatorType operator, Expression left, Expression right) {
+	public AssignmentExpression(OperatorType operator, Expression left, Expression right) {
 		this.operator = operator;
 		this.left = left;
 		this.right = right;
@@ -16,7 +16,7 @@ public class BinaryExpression implements Expression {
 
 	@Override
 	public ExpressionType getType() {
-		return ExpressionType.BinaryExpression;
+		return ExpressionType.AssignmentExpression;
 	}
 
 	public OperatorType getOperator() {
@@ -29,14 +29,5 @@ public class BinaryExpression implements Expression {
 
 	public Expression getRight() {
 		return right;
-	}
-
-	@Override
-	public String toString() {
-		return "BinaryExpression{" +
-			"operator=" + operator +
-			", left=" + left +
-			", right=" + right +
-			'}';
 	}
 }
