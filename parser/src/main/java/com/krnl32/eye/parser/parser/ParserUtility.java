@@ -52,6 +52,12 @@ public class ParserUtility {
 		return (type == TokenType.OPERATOR_BINARY_STAR || type == TokenType.OPERATOR_BINARY_SLASH || type == TokenType.OPERATOR_BINARY_MODULO);
 	}
 
+	public static boolean isUnaryOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_LOGICAL_NOT || type == TokenType.OPERATOR_BITWISE_NOT ||
+			type == TokenType.OPERATOR_BINARY_PLUS || type == TokenType.OPERATOR_BINARY_MINUS ||
+			type == TokenType.OPERATOR_ARITHMETIC_INCREMENT || type == TokenType.OPERATOR_ARITHMETIC_DECREMENT);
+	}
+
 	public static OperatorType toOperatorType(TokenType type) {
 		return switch (type) {
 			case OPERATOR_BINARY_PLUS -> OperatorType.BINARY_PLUS;

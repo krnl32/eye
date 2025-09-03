@@ -32,6 +32,12 @@ public class Main {
 		lexer = new Lexer("x && y;");
 		lexer = new Lexer("x || y;");
 		lexer = new Lexer("x & y;");
+		lexer = new Lexer("+1;");
+		lexer = new Lexer("-5;");
+		lexer = new Lexer("!5;");
+		lexer = new Lexer("~5;");
+		lexer = new Lexer("++5;");
+		lexer = new Lexer("--x;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

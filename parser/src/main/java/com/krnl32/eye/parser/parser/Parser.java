@@ -321,22 +321,38 @@ public class Parser {
 	}
 
 	/*
-		<multiplicative-expression> ::= <multiplicative-expression> <multiplicative-operator> <primary-expression>
-									  | <primary-expression>
+		<multiplicative-expression> ::= <multiplicative-expression> <multiplicative-operator> <unary-expression>
+									  | <unary-expression>
 	 */
 	private Expression multiplicativeExpression() {
-		Expression left = primaryExpression();
+		Expression left = unaryExpression();
 
 		while (ParserUtility.isMultiplicativeOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
-			Expression right = primaryExpression();
+			Expression right = unaryExpression();
 			left = new BinaryExpression(operator, left, right);
 		}
 
 		return left;
 	}
+
+	/*
+		<unary-expression> ::= <unary-operator> <unary-expression>
+							 | <primary-expression>
+	 */
+	private Expression unaryExpression() {
+		if (ParserUtility.isUnaryOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+			return new UnaryExpression(operator, unaryExpression());
+		}
+
+		return primaryExpression();
+	}
+
 
 	/*
 		<primary-expression> ::= <literal-expression>

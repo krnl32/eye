@@ -57,6 +57,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case LiteralExpression -> serializeLiteralExpression((LiteralExpression) expr);
 			case IdentifierExpression -> serializeIdentifierExpression((IdentifierExpression) expr);
 			case AssignmentExpression -> serializeAssignmentExpression((AssignmentExpression) expr);
+			case UnaryExpression -> serializeUnaryExpression((UnaryExpression) expr);
 			case BinaryExpression -> serializeBinaryExpression((BinaryExpression) expr);
 			case TernaryExpression -> serializeTernaryExpression((TernaryExpression) expr);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Expression Type: " + expr.getClass().getSimpleName());
@@ -98,6 +99,14 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		assignmentNode.set("left", serializeExpression(expr.getLeft()));
 		assignmentNode.set("right", serializeExpression(expr.getRight()));
 		return assignmentNode;
+	}
+
+	private ObjectNode serializeUnaryExpression(UnaryExpression expr) {
+		ObjectNode unaryNode = mapper.createObjectNode();
+		unaryNode.put("type", expr.getType().name());
+		unaryNode.put("operator", expr.getOperator().name());
+		unaryNode.set("expression", serializeExpression(expr.getExpression()));
+		return unaryNode;
 	}
 
 	private ObjectNode serializeBinaryExpression(BinaryExpression expr) {
