@@ -58,6 +58,10 @@ public class ParserUtility {
 			type == TokenType.OPERATOR_ARITHMETIC_INCREMENT || type == TokenType.OPERATOR_ARITHMETIC_DECREMENT);
 	}
 
+	public static boolean isPostfixOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_ARITHMETIC_INCREMENT || type == TokenType.OPERATOR_ARITHMETIC_DECREMENT);
+	}
+
 	public static OperatorType toOperatorType(TokenType type) {
 		return switch (type) {
 			case OPERATOR_BINARY_PLUS -> OperatorType.BINARY_PLUS;

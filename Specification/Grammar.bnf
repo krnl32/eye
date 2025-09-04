@@ -150,6 +150,13 @@
 <lhs-expression> ::= <member-expression>
                    | <call-expression>
 
+<member-expression> ::= <postfix-expression>
+                      | <member-expression> "." <identifier-expression>
+                      | <member-expression> "[" <expression> "]"
+
+<postfix-expression> ::= <primary-expression>
+                       | <postfix-expression> <postfix-operator>
+
 <call-expression> ::= <callee> <call-arguments>
 
 <callee> ::= <member-expression>
@@ -162,10 +169,6 @@
 
 <call-argument-list> ::= <assignment-expression>
                        | <call-argument-list> "," <assignment-expression>
-
-<member-expression> ::= <primary-expression>
-                      | <member-expression> "." <identifier-expression>
-                      | <member-expression> "[" <expression> "]"
 
 <primary-expression> ::= <literal-expression>
                        | <parenthesized-expression>

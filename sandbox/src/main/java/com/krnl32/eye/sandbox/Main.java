@@ -38,6 +38,7 @@ public class Main {
 		lexer = new Lexer("~5;");
 		lexer = new Lexer("++5;");
 		lexer = new Lexer("--x;");
+		lexer = new Lexer("1++;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

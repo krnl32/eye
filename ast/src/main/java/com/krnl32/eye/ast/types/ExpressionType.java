@@ -6,6 +6,7 @@ public enum ExpressionType {
 	UnaryExpression,
 	BinaryExpression,
 	TernaryExpression,
+	PostfixExpression,
 	AssignmentExpression,
 	MemberExpression
 }

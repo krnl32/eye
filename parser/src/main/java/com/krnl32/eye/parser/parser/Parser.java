@@ -340,7 +340,7 @@ public class Parser {
 
 	/*
 		<unary-expression> ::= <unary-operator> <unary-expression>
-							 | <primary-expression>
+							 | <lhs-expression>
 	 */
 	private Expression unaryExpression() {
 		if (ParserUtility.isUnaryOperator(lookAheadToken.getType())) {
@@ -350,9 +350,43 @@ public class Parser {
 			return new UnaryExpression(operator, unaryExpression());
 		}
 
-		return primaryExpression();
+		return lhsExpression();
 	}
 
+	/*
+		<lhs-expression> ::= <member-expression>
+						   | <call-expression>
+	 */
+	private Expression lhsExpression() {
+		return memberExpression();
+	}
+
+	/*
+		<member-expression> ::= <postfix-expression>
+							  | <member-expression> "." <identifier-expression>
+							  | <member-expression> "[" <expression> "]"
+	 */
+	private Expression memberExpression() {
+		Expression expression = postfixExpression();
+		return expression;
+	}
+
+	/*
+		<postfix-expression> ::= <primary-expression>
+							   | <postfix-expression> <postfix-operator>
+	 */
+	private Expression postfixExpression() {
+		Expression primaryExpression = primaryExpression();
+
+		if (ParserUtility.isPostfixOperator(lookAheadToken.getType())) {
+			Token token = eatToken(lookAheadToken.getType());
+			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+			return new PostfixExpression(operator, primaryExpression);
+		}
+
+		return primaryExpression;
+	}
 
 	/*
 		<primary-expression> ::= <literal-expression>
