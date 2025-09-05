@@ -360,9 +360,19 @@ public class Parser {
 
 	/*
 		<postfix-expression> ::= <primary-member-expression>
-							   | <postfix-expression> "." <identifier-expression>
-							   | <postfix-expression> "[" <expression> "]"
+							   | <postfix-expression> <member-access-operator> <identifier-expression>
+							   | <postfix-expression> "[" <assignment-expression> "]"
+							   | <postfix-expression> "(" <optional-argument-list> ")"
 							   | <postfix-expression> <postfix-operator>
+
+		<primary-member-expression> ::= <identifier-expression>
+									  | <parenthesized-expression>
+
+		<optional-argument-list> ::= <argument-list>
+								   |
+
+		<argument-list> ::= <expression>
+						  | <argument-list> "," <expression>
 	 */
 	private Expression postfixExpression() {
 		// Only allow identifier or parenthesized expression
@@ -375,6 +385,7 @@ public class Parser {
 		while (true) {
 			TokenType type = lookAheadToken.getType();
 
+			// Parse Member Access Expression
 			if (ParserUtility.isMemberAccessOperator(type)) {
 				Token token = eatToken(lookAheadToken.getType());
 				OperatorType operator = ParserUtility.toOperatorType(token.getType());
@@ -386,14 +397,35 @@ public class Parser {
 				Expression right = identifierExpression();
 				left = new MemberAccessExpression(operator, left, right);
 
-			} else if (type == TokenType.OPERATOR_LEFT_BRACKET) {
+			}
+			// Parse Array Access Expression
+			else if (type == TokenType.OPERATOR_LEFT_BRACKET) {
 				eatToken(TokenType.OPERATOR_LEFT_BRACKET);
 				Expression indexExpr = expression();
 				eatToken(TokenType.SYMBOL_RIGHT_BRACKET);
 
 				left = new ArrayAccessExpression(left, indexExpr);
 
-			} else if (ParserUtility.isPostfixOperator(type)) {
+			}
+			// Parse Function Calls
+			else if (type == TokenType.OPERATOR_LEFT_PARENTHESIS) {
+				eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+
+				List<Expression> arguments = new ArrayList<>();
+
+				if (!isLookAheadToken(TokenType.SYMBOL_RIGHT_PARENTHESIS)) {
+					do {
+						arguments.add(assignmentExpression());
+					} while (isLookAheadToken(TokenType.OPERATOR_COMMA) && eatToken(TokenType.OPERATOR_COMMA) != null);
+				}
+
+				eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+
+				left = new FunctionCallExpression(left, arguments);
+
+			}
+			// Parse Postfix Expression
+			else if (ParserUtility.isPostfixOperator(type)) {
 				Token token = eatToken(lookAheadToken.getType());
 				OperatorType operator = ParserUtility.toOperatorType(token.getType());
 

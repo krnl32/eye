@@ -45,6 +45,11 @@ public class Main {
 		lexer = new Lexer("+x;");
 		lexer = new Lexer("x.y.z;");
 		lexer = new Lexer("arr[1];");
+		lexer = new Lexer("func();");
+		lexer = new Lexer("func(1);");
+		lexer = new Lexer("func(1,x);");
+		lexer = new Lexer("func()();");
+		lexer = new Lexer("func(1,x=5, 'A');");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

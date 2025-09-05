@@ -150,13 +150,18 @@
 
 <postfix-expression> ::= <primary-member-expression>
                        | <postfix-expression> <member-access-operator> <identifier-expression>
-                       | <postfix-expression> "[" <expression> "]"
+                       | <postfix-expression> "[" <assignment-expression> "]"
+                       | <postfix-expression> "(" <optional-argument-list> ")"
                        | <postfix-expression> <postfix-operator>
 
 <primary-member-expression> ::= <identifier-expression>
                               | <parenthesized-expression>
 
-<parenthesized-expression> ::= "(" <expression> ")"
+<optional-argument-list> ::= <argument-list>
+                           | /* empty */
+
+<argument-list> ::= <expression>
+                  | <argument-list> "," <expression>
 
 
 // =======================================
@@ -173,6 +178,8 @@
                        | <null-literal>
 
 <identifier-expression> ::= <identifier-token>
+
+<parenthesized-expression> ::= "(" <expression> ")"
 
 <int32-literal> ::= LITERAL_INT32
 <uint32-literal> ::= LITERAL_UINT32

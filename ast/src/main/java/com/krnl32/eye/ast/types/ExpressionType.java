@@ -6,8 +6,9 @@ public enum ExpressionType {
 	UnaryExpression,
 	BinaryExpression,
 	TernaryExpression,
-	PostfixExpression,
 	AssignmentExpression,
 	MemberAccessExpression,
-	ArrayAccessExpression
+	ArrayAccessExpression,
+	FunctionCallExpression,
+	PostfixExpression,
 }

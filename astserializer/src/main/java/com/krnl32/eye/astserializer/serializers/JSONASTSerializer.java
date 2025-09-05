@@ -62,6 +62,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case TernaryExpression -> serializeTernaryExpression((TernaryExpression) expr);
 			case MemberAccessExpression -> serializeMemberAccessExpression((MemberAccessExpression) expr);
 			case ArrayAccessExpression -> serializeArrayAccessExpression((ArrayAccessExpression) expr);
+			case FunctionCallExpression -> serializeFunctionCallExpression((FunctionCallExpression) expr);
 			case PostfixExpression -> serializePostfixExpression((PostfixExpression) expr);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Expression Type: " + expr.getClass().getSimpleName());
 		};
@@ -144,6 +145,20 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		node.put("type", expr.getType().name());
 		node.set("array", serializeExpression(expr.getArray()));
 		node.set("index", serializeExpression(expr.getIndex()));
+		return node;
+	}
+
+	private ObjectNode serializeFunctionCallExpression(FunctionCallExpression expr) {
+		ArrayNode arrayNode = mapper.createArrayNode();
+
+		for (Expression arg : expr.getArguments()) {
+			arrayNode.add(serializeExpression(arg));
+		}
+
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.set("callee", serializeExpression(expr.getCallee()));
+		node.set("arguments", arrayNode);
 		return node;
 	}
 
