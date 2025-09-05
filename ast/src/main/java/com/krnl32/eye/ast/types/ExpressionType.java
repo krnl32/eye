@@ -8,5 +8,6 @@ public enum ExpressionType {
 	TernaryExpression,
 	PostfixExpression,
 	AssignmentExpression,
-	MemberExpression
+	MemberAccessExpression,
+	ArrayAccessExpression
 }

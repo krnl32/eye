@@ -60,6 +60,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case UnaryExpression -> serializeUnaryExpression((UnaryExpression) expr);
 			case BinaryExpression -> serializeBinaryExpression((BinaryExpression) expr);
 			case TernaryExpression -> serializeTernaryExpression((TernaryExpression) expr);
+			case MemberAccessExpression -> serializeMemberAccessExpression((MemberAccessExpression) expr);
 			case PostfixExpression -> serializePostfixExpression((PostfixExpression) expr);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Expression Type: " + expr.getClass().getSimpleName());
 		};
@@ -87,52 +88,61 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	}
 
 	private ObjectNode serializeIdentifierExpression(IdentifierExpression expr) {
-		ObjectNode identifierNode = mapper.createObjectNode();
-		identifierNode.put("type", expr.getType().name());
-		identifierNode.put("value", expr.getIdentifier());
-		return identifierNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.put("value", expr.getIdentifier());
+		return node;
 	}
 
 	private ObjectNode serializeAssignmentExpression(AssignmentExpression expr) {
-		ObjectNode assignmentNode = mapper.createObjectNode();
-		assignmentNode.put("type", expr.getType().name());
-		assignmentNode.put("operator", expr.getOperator().name());
-		assignmentNode.set("left", serializeExpression(expr.getLeft()));
-		assignmentNode.set("right", serializeExpression(expr.getRight()));
-		return assignmentNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.put("operator", expr.getOperator().name());
+		node.set("left", serializeExpression(expr.getLeft()));
+		node.set("right", serializeExpression(expr.getRight()));
+		return node;
 	}
 
 	private ObjectNode serializeUnaryExpression(UnaryExpression expr) {
-		ObjectNode unaryNode = mapper.createObjectNode();
-		unaryNode.put("type", expr.getType().name());
-		unaryNode.put("operator", expr.getOperator().name());
-		unaryNode.set("expression", serializeExpression(expr.getExpression()));
-		return unaryNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.put("operator", expr.getOperator().name());
+		node.set("expression", serializeExpression(expr.getExpression()));
+		return node;
 	}
 
 	private ObjectNode serializeBinaryExpression(BinaryExpression expr) {
-		ObjectNode binaryNode = mapper.createObjectNode();
-		binaryNode.put("type", expr.getType().name());
-		binaryNode.put("operator", expr.getOperator().name());
-		binaryNode.set("left", serializeExpression(expr.getLeft()));
-		binaryNode.set("right", serializeExpression(expr.getRight()));
-		return binaryNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.put("operator", expr.getOperator().name());
+		node.set("left", serializeExpression(expr.getLeft()));
+		node.set("right", serializeExpression(expr.getRight()));
+		return node;
 	}
 
 	private ObjectNode serializeTernaryExpression(TernaryExpression expr) {
-		ObjectNode ternaryNode = mapper.createObjectNode();
-		ternaryNode.put("type", expr.getType().name());
-		ternaryNode.set("condition", serializeExpression(expr.getCondition()));
-		ternaryNode.set("consequent", serializeExpression(expr.getConsequent()));
-		ternaryNode.set("alternate", serializeExpression(expr.getAlternate()));
-		return ternaryNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.set("condition", serializeExpression(expr.getCondition()));
+		node.set("consequent", serializeExpression(expr.getConsequent()));
+		node.set("alternate", serializeExpression(expr.getAlternate()));
+		return node;
+	}
+
+	private ObjectNode serializeMemberAccessExpression(MemberAccessExpression expr) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.put("operator", expr.getOperator().name());
+		node.set("object", serializeExpression(expr.getObject()));
+		node.set("property", serializeExpression(expr.getProperty()));
+		return node;
 	}
 
 	private ObjectNode serializePostfixExpression(PostfixExpression expr) {
-		ObjectNode postfixNode = mapper.createObjectNode();
-		postfixNode.put("type", expr.getType().name());
-		postfixNode.put("operator", expr.getOperator().name());
-		postfixNode.set("expression", serializeExpression(expr.getExpression()));
-		return postfixNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", expr.getType().name());
+		node.put("operator", expr.getOperator().name());
+		node.set("expression", serializeExpression(expr.getExpression()));
+		return node;
 	}
 }

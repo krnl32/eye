@@ -109,7 +109,7 @@
 					 | <assignment-expression>
 
 <assignment-expression> ::= <ternary-expression>
-                          | <lhs-expression> <assignment-operator> <assignment-expression>
+                          | <lvalue-expression> <assignment-operator> <assignment-expression>
 
 <ternary-expression> ::= <logical-or-expression>
                        | <logical-or-expression> "?" <expression> ":" <ternary-expression>
@@ -145,34 +145,15 @@
                               | <unary-expression>
 
 <unary-expression> ::= <unary-operator> <unary-expression>
-                     | <lhs-expression>
+                     | <literal-expression>
+                     | <postfix-expression>
 
-<lhs-expression> ::= <member-expression>
-                   | <call-expression>
-
-<member-expression> ::= <postfix-expression>
-                      | <member-expression> "." <identifier-expression>
-                      | <member-expression> "[" <expression> "]"
-
-<postfix-expression> ::= <primary-expression>
+<postfix-expression> ::= <primary-member-expression>
+                       | <postfix-expression> "." <identifier-expression>
                        | <postfix-expression> <postfix-operator>
 
-<call-expression> ::= <callee> <call-arguments>
-
-<callee> ::= <member-expression>
-           | <call-expression>
-
-<call-arguments> ::= "(" <optional-call-argument-list> ")"
-
-<optional-call-argument-list> ::= <call-argument-list>
-                                | /* empty */
-
-<call-argument-list> ::= <assignment-expression>
-                       | <call-argument-list> "," <assignment-expression>
-
-<primary-expression> ::= <literal-expression>
-                       | <parenthesized-expression>
-                       | <identifier-expression>
+<primary-member-expression> ::= <identifier-expression>
+                              | <parenthesized-expression>
 
 <parenthesized-expression> ::= "(" <expression> ")"
 
@@ -263,6 +244,8 @@
                    | "-"
                    | "++"
                    | "--"
+
+<member-access-operator> ::= "."
 
 <postfix-operator> ::= "++"
                      | "--"

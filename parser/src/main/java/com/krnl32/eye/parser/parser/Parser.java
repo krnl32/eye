@@ -126,7 +126,7 @@ public class Parser {
 
 	/*
 		<assignment-expression> ::= <ternary-expression>
-                          		  | <lhs-expression> <assignment-operator> <assignment-expression>
+                          		  | <lvalue-expression> <assignment-operator> <assignment-expression>
 	 */
 	private Expression assignmentExpression() {
 		Expression left = ternaryExpression();
@@ -135,7 +135,7 @@ public class Parser {
 			return left;
 		}
 
-		if (!ParserUtility.isLHSExpression(left)) {
+		if (!ParserUtility.isLValueExpression(left)) {
 			throw new SyntaxErrorException("Unexpected LValue Expression '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
 		}
 
@@ -340,7 +340,8 @@ public class Parser {
 
 	/*
 		<unary-expression> ::= <unary-operator> <unary-expression>
-							 | <lhs-expression>
+							 | <literal-expression>
+							 | <postfix-expression>
 	 */
 	private Expression unaryExpression() {
 		if (ParserUtility.isUnaryOperator(lookAheadToken.getType())) {
@@ -350,57 +351,48 @@ public class Parser {
 			return new UnaryExpression(operator, unaryExpression());
 		}
 
-		return lhsExpression();
+		if (ParserUtility.isLiteral(lookAheadToken.getType())) {
+			return literalExpression();
+		}
+
+		return postfixExpression();
 	}
 
 	/*
-		<lhs-expression> ::= <member-expression>
-						   | <call-expression>
-	 */
-	private Expression lhsExpression() {
-		return memberExpression();
-	}
-
-	/*
-		<member-expression> ::= <postfix-expression>
-							  | <member-expression> "." <identifier-expression>
-							  | <member-expression> "[" <expression> "]"
-	 */
-	private Expression memberExpression() {
-		Expression expression = postfixExpression();
-		return expression;
-	}
-
-	/*
-		<postfix-expression> ::= <primary-expression>
+		<postfix-expression> ::= <primary-member-expression>
+							   | <postfix-expression> "." <identifier-expression>
 							   | <postfix-expression> <postfix-operator>
 	 */
 	private Expression postfixExpression() {
-		Expression primaryExpression = primaryExpression();
+		// Only allow identifier or parenthesized expression
+		Expression left = switch (lookAheadToken.getType()) {
+			case IDENTIFIER -> identifierExpression();
+			case OPERATOR_LEFT_PARENTHESIS -> parenthesizedExpression();
+			default -> throw new SyntaxErrorException("Expected identifier or parenthesized expression", lookAheadToken.getSpan());
+		};
 
-		if (ParserUtility.isPostfixOperator(lookAheadToken.getType())) {
-			Token token = eatToken(lookAheadToken.getType());
-			OperatorType operator = ParserUtility.toOperatorType(token.getType());
+		while (ParserUtility.isMemberAccessOperator(lookAheadToken.getType()) || ParserUtility.isPostfixOperator(lookAheadToken.getType())) {
+			TokenType type = lookAheadToken.getType();
 
-			return new PostfixExpression(operator, primaryExpression);
+			if (ParserUtility.isMemberAccessOperator(type)) {
+				Token token = eatToken(lookAheadToken.getType());
+				OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+				if (lookAheadToken.getType() != TokenType.IDENTIFIER) {
+					throw new SyntaxErrorException("Expected identifier after '.' in member access", lookAheadToken.getSpan());
+				}
+
+				Expression right = identifierExpression();
+				left = new MemberAccessExpression(operator, left, right);
+
+			} else if (ParserUtility.isPostfixOperator(type)) {
+				Token token = eatToken(lookAheadToken.getType());
+				OperatorType operator = ParserUtility.toOperatorType(token.getType());
+				return new PostfixExpression(operator, left);
+			}
 		}
 
-		return primaryExpression;
-	}
-
-	/*
-		<primary-expression> ::= <literal-expression>
-							   | <parenthesized-expression>
-							   | <identifier-expression>
-	 */
-	private Expression primaryExpression() {
-		if (ParserUtility.isLiteral(lookAheadToken.getType())) {
-			return literalExpression();
-		} else if (lookAheadToken.getType() == TokenType.IDENTIFIER) {
-			return identifierExpression();
-		}
-
-		throw new SyntaxErrorException("Unexpected PrimaryExpression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		return left;
 	}
 
 	/*
@@ -492,6 +484,16 @@ public class Parser {
 	}
 
 	/*
+		<parenthesized-expression> ::= "(" <expression> ")"
+	 */
+	private Expression parenthesizedExpression() {
+		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+		Expression expression = expression();
+		eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+		return expression;
+	}
+
+	/*
 		<identifier-token> ::= IDENTIFIER
 	 */
 	private IdentifierExpression identifierExpression() {
@@ -528,8 +530,9 @@ public class Parser {
 		Token token = lookAheadToken;
 
 		if (token == null || token.getType() != type) {
+			String msg = (token != null ? token.getType().name() + ", Expected: " + type.name() : "");
 			SourceSpan span = (token != null ? token.getSpan() : null);
-			throw new SyntaxErrorException("Unexpected: " + type.name(), span);
+			throw new SyntaxErrorException("Unexpected: " + msg, span);
 		}
 
 		lookAheadToken = nextToken();

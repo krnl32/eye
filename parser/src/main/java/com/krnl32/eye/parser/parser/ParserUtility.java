@@ -6,8 +6,9 @@ import com.krnl32.eye.ast.types.OperatorType;
 import com.krnl32.eye.parser.lexer.TokenType;
 
 public class ParserUtility {
-	public static boolean isLHSExpression(Expression expr) {
-		return (expr.getType() == ExpressionType.IdentifierExpression || expr.getType() == ExpressionType.MemberExpression);
+	public static boolean isLValueExpression(Expression expr) {
+		return (expr.getType() == ExpressionType.IdentifierExpression || expr.getType() == ExpressionType.MemberAccessExpression ||
+			expr.getType() == ExpressionType.ArrayAccessExpression);
 	}
 
 	public static boolean isLiteral(TokenType type) {
@@ -56,6 +57,10 @@ public class ParserUtility {
 		return (type == TokenType.OPERATOR_LOGICAL_NOT || type == TokenType.OPERATOR_BITWISE_NOT ||
 			type == TokenType.OPERATOR_BINARY_PLUS || type == TokenType.OPERATOR_BINARY_MINUS ||
 			type == TokenType.OPERATOR_ARITHMETIC_INCREMENT || type == TokenType.OPERATOR_ARITHMETIC_DECREMENT);
+	}
+
+	public static boolean isMemberAccessOperator(TokenType type) {
+		return (type == TokenType.OPERATOR_DOT);
 	}
 
 	public static boolean isPostfixOperator(TokenType type) {
