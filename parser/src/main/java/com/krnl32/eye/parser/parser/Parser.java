@@ -363,7 +363,7 @@ public class Parser {
 							   | <postfix-expression> <member-access-operator> <identifier-expression>
 							   | <postfix-expression> "[" <assignment-expression> "]"
 							   | <postfix-expression> "(" <optional-argument-list> ")"
-							   | <postfix-expression> <postfix-operator>
+							   | <lvalue-expression> <postfix-operator>
 
 		<primary-member-expression> ::= <identifier-expression>
 									  | <parenthesized-expression>
@@ -428,6 +428,10 @@ public class Parser {
 			else if (ParserUtility.isPostfixOperator(type)) {
 				Token token = eatToken(lookAheadToken.getType());
 				OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
+				if (!ParserUtility.isLValueExpression(left)) {
+					throw new SyntaxErrorException("Unexpected LValue Expression '" + token.getType().name() + "'", token.getSpan());
+				}
 
 				return new PostfixExpression(operator, left);
 			} else {

@@ -48,8 +48,8 @@ public class Main {
 		lexer = new Lexer("func();");
 		lexer = new Lexer("func(1);");
 		lexer = new Lexer("func(1,x);");
-		lexer = new Lexer("func()();");
 		lexer = new Lexer("func(1,x=5, 'A');");
+		lexer = new Lexer("arra[1]++;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

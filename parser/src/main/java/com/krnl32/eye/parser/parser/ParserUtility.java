@@ -1,14 +1,19 @@
 package com.krnl32.eye.parser.parser;
 
+import com.krnl32.eye.ast.expression.ArrayAccessExpression;
 import com.krnl32.eye.ast.expression.Expression;
-import com.krnl32.eye.ast.types.ExpressionType;
+import com.krnl32.eye.ast.expression.MemberAccessExpression;
 import com.krnl32.eye.ast.types.OperatorType;
 import com.krnl32.eye.parser.lexer.TokenType;
 
 public class ParserUtility {
 	public static boolean isLValueExpression(Expression expr) {
-		return (expr.getType() == ExpressionType.IdentifierExpression || expr.getType() == ExpressionType.MemberAccessExpression ||
-			expr.getType() == ExpressionType.ArrayAccessExpression);
+		return switch (expr.getType()) {
+			case IdentifierExpression -> true;
+			case MemberAccessExpression -> isLValueExpression(((MemberAccessExpression) expr).getObject());
+			case ArrayAccessExpression -> isLValueExpression(((ArrayAccessExpression) expr).getArray());
+			default -> false;
+		};
 	}
 
 	public static boolean isLiteral(TokenType type) {

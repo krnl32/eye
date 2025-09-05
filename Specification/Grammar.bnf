@@ -152,7 +152,7 @@
                        | <postfix-expression> <member-access-operator> <identifier-expression>
                        | <postfix-expression> "[" <assignment-expression> "]"
                        | <postfix-expression> "(" <optional-argument-list> ")"
-                       | <postfix-expression> <postfix-operator>
+                       | <lvalue-expression> <postfix-operator>
 
 <primary-member-expression> ::= <identifier-expression>
                               | <parenthesized-expression>
@@ -162,7 +162,6 @@
 
 <argument-list> ::= <expression>
                   | <argument-list> "," <expression>
-
 
 // =======================================
 // Literals and Identifiers
