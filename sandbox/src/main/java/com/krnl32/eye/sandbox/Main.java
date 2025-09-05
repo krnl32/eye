@@ -41,9 +41,10 @@ public class Main {
 		lexer = new Lexer("1++;");
 		lexer = new Lexer("data.x;");
 		lexer = new Lexer("data.1;");
-		lexer = new Lexer("x.y.z;");
 		lexer = new Lexer("x++;");
 		lexer = new Lexer("+x;");
+		lexer = new Lexer("x.y.z;");
+		lexer = new Lexer("arr[1];");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

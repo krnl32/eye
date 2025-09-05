@@ -149,7 +149,8 @@
                      | <postfix-expression>
 
 <postfix-expression> ::= <primary-member-expression>
-                       | <postfix-expression> "." <identifier-expression>
+                       | <postfix-expression> <member-access-operator> <identifier-expression>
+                       | <postfix-expression> "[" <expression> "]"
                        | <postfix-expression> <postfix-operator>
 
 <primary-member-expression> ::= <identifier-expression>

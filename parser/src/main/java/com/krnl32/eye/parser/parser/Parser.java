@@ -361,6 +361,7 @@ public class Parser {
 	/*
 		<postfix-expression> ::= <primary-member-expression>
 							   | <postfix-expression> "." <identifier-expression>
+							   | <postfix-expression> "[" <expression> "]"
 							   | <postfix-expression> <postfix-operator>
 	 */
 	private Expression postfixExpression() {
@@ -371,7 +372,7 @@ public class Parser {
 			default -> throw new SyntaxErrorException("Expected identifier or parenthesized expression", lookAheadToken.getSpan());
 		};
 
-		while (ParserUtility.isMemberAccessOperator(lookAheadToken.getType()) || ParserUtility.isPostfixOperator(lookAheadToken.getType())) {
+		while (true) {
 			TokenType type = lookAheadToken.getType();
 
 			if (ParserUtility.isMemberAccessOperator(type)) {
@@ -385,10 +386,20 @@ public class Parser {
 				Expression right = identifierExpression();
 				left = new MemberAccessExpression(operator, left, right);
 
+			} else if (type == TokenType.OPERATOR_LEFT_BRACKET) {
+				eatToken(TokenType.OPERATOR_LEFT_BRACKET);
+				Expression indexExpr = expression();
+				eatToken(TokenType.SYMBOL_RIGHT_BRACKET);
+
+				left = new ArrayAccessExpression(left, indexExpr);
+
 			} else if (ParserUtility.isPostfixOperator(type)) {
 				Token token = eatToken(lookAheadToken.getType());
 				OperatorType operator = ParserUtility.toOperatorType(token.getType());
+
 				return new PostfixExpression(operator, left);
+			} else {
+				break;
 			}
 		}
 
