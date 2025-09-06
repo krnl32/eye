@@ -1,0 +1,97 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 5,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_NOT_EQUALS",
+				"left": {
+					"type": "BinaryExpression",
+					"operator": "RELATIONAL_EQUALS",
+					"left": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 10
+					},
+					"right": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 50
+					}
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_EQUALS",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 10
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 20
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_NOT_EQUALS",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 5
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 30
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_NOT_EQUALS",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "num"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "num2"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_EQUALS",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "num"
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 5
+				}
+			}
+		}
+	]
+}

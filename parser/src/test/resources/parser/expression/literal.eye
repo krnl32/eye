@@ -1,0 +1,12 @@
+123456;
+9512u;
+0x4DD;
+0b0110;
+883.123f;
+9929121.351;
+"hello world";
+'F';
+true;
+false;
+null;
+0xF3Du;

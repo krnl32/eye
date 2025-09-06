@@ -1,0 +1,121 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 7,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_LEFT_SHIFT",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 10
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 20
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_RIGHT_SHIFT",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 20
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 30
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_LEFT_SHIFT",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 1
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_RIGHT_SHIFT",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "FLOAT64",
+					"value": 22.12
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 25
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_LEFT_SHIFT",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "STR8",
+					"value": "Hello"
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "STR8",
+					"value": "bye"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_LEFT_SHIFT",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "number"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "number2"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_RIGHT_SHIFT",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "numbers"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "numbers2"
+				}
+			}
+		}
+	]
+}

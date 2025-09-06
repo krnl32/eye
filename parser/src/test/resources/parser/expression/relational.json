@@ -1,0 +1,116 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 6,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_SMALLER",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 10
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 5
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_GREATER_EQUALS",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 5
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 20
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_SMALLER_EQUALS",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "number"
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 20
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_GREATER",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 50
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 40
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_GREATER",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 10
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 50
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "RELATIONAL_GREATER",
+				"left": {
+					"type": "BinaryExpression",
+					"operator": "RELATIONAL_SMALLER",
+					"left": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 5
+					},
+					"right": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 10
+					}
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 30
+				}
+			}
+		}
+	]
+}

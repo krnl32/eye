@@ -1,0 +1,50 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 4,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "PostfixExpression",
+				"operator": "ARITHMETIC_INCREMENT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "x"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "PostfixExpression",
+				"operator": "ARITHMETIC_INCREMENT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "y"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "PostfixExpression",
+				"operator": "ARITHMETIC_DECREMENT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "number"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "PostfixExpression",
+				"operator": "ARITHMETIC_DECREMENT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "boss"
+				}
+			}
+		}
+	]
+}

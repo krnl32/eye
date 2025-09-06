@@ -1,0 +1,93 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 5,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "LOGICAL_OR",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "cond1"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "cond2"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "LOGICAL_AND",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "cond2"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "cond3"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "LOGICAL_OR",
+				"left": {
+					"type": "BinaryExpression",
+					"operator": "LOGICAL_AND",
+					"left": {
+						"type": "IdentifierExpression",
+						"value": "cond1"
+					},
+					"right": {
+						"type": "IdentifierExpression",
+						"value": "cond2"
+					}
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "cond1"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "LOGICAL_AND",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": false
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "LOGICAL_OR",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				}
+			}
+		}
+	]
+}

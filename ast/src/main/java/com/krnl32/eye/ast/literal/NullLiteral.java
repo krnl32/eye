@@ -5,7 +5,7 @@ import com.krnl32.eye.ast.types.LiteralType;
 public class NullLiteral implements Literal {
 	@Override
 	public LiteralType getType() {
-		return null;
+		return LiteralType.NULL;
 	}
 
 	@Override

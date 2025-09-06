@@ -1,0 +1,102 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 12,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "INT32",
+				"value": 123456
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "UINT32",
+				"value": 9512
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "INT32",
+				"value": 1245
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "INT32",
+				"value": 6
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "FLOAT32",
+				"value": 883.123
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "FLOAT64",
+				"value": 9929121.351
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "STR8",
+				"value": "hello world"
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "CHAR8",
+				"value": "F"
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "BOOL8",
+				"value": true
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "BOOL8",
+				"value": false
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "NULL",
+				"value": null
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "LiteralExpression",
+				"literalType": "UINT32",
+				"value": 3901
+			}
+		}
+	]
+}

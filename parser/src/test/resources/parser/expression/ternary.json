@@ -1,0 +1,97 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 4,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "TernaryExpression",
+				"condition": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				},
+				"consequent": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": false
+				},
+				"alternate": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "TernaryExpression",
+				"condition": {
+					"type": "IdentifierExpression",
+					"value": "x"
+				},
+				"consequent": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 1
+				},
+				"alternate": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 0
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "TernaryExpression",
+				"condition": {
+					"type": "IdentifierExpression",
+					"value": "y"
+				},
+				"consequent": {
+					"type": "IdentifierExpression",
+					"value": "z"
+				},
+				"alternate": {
+					"type": "TernaryExpression",
+					"condition": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"consequent": {
+						"type": "IdentifierExpression",
+						"value": "t"
+					},
+					"alternate": {
+						"type": "IdentifierExpression",
+						"value": "c"
+					}
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "TernaryExpression",
+				"condition": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				},
+				"consequent": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 5
+				},
+				"alternate": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 1
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,66 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 3,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BINARY_PLUS",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "FLOAT64",
+					"value": 1.0
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 25
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BINARY_MINUS",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 40
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "FLOAT64",
+					"value": 3.5
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BINARY_MINUS",
+				"left": {
+					"type": "BinaryExpression",
+					"operator": "BINARY_PLUS",
+					"left": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 295
+					},
+					"right": {
+						"type": "LiteralExpression",
+						"literalType": "FLOAT64",
+						"value": 215.45
+					}
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 5601
+				}
+			}
+		}
+	]
+}

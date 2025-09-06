@@ -78,7 +78,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case UINT32 -> literalNode.put("value", ((Uint32Literal) literal).getValue());
 			case FLOAT32 -> literalNode.put("value", ((Float32Literal) literal).getValue());
 			case FLOAT64 -> literalNode.put("value", ((Float64Literal) literal).getValue());
-			case CHAR8 -> literalNode.put("value", ((Char8Literal) literal).getValue());
+			case CHAR8 -> literalNode.put("value", String.valueOf(((Char8Literal) literal).getValue()));
 			case STR8 -> literalNode.put("value", ((Str8Literal) literal).getValue());
 			case BOOL8 -> literalNode.put("value", ((Bool8Literal) literal).getValue());
 			case NULL -> literalNode.putNull("value");

@@ -1,0 +1,27 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 3,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "IdentifierExpression",
+				"value": "numbers1"
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "IdentifierExpression",
+				"value": "_var2"
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "IdentifierExpression",
+				"value": "var33"
+			}
+		}
+	]
+}

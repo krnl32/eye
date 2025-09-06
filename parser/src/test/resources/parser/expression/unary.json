@@ -1,0 +1,77 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 6,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "LOGICAL_NOT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "number"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "BINARY_MINUS",
+				"expression": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 4
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "BINARY_PLUS",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "number"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "LOGICAL_NOT",
+				"expression": {
+					"type": "UnaryExpression",
+					"operator": "BINARY_MINUS",
+					"expression": {
+						"type": "IdentifierExpression",
+						"value": "number"
+					}
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "ARITHMETIC_INCREMENT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "x"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "ARITHMETIC_DECREMENT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "y"
+				}
+			}
+		}
+	]
+}

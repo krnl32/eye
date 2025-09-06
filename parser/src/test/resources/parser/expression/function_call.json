@@ -1,0 +1,130 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 5,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "FunctionCallExpression",
+				"callee": {
+					"type": "IdentifierExpression",
+					"value": "tests"
+				},
+				"arguments": [
+					{
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 13
+					}
+				]
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "FunctionCallExpression",
+				"callee": {
+					"type": "IdentifierExpression",
+					"value": "add"
+				},
+				"arguments": [
+					{
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 1
+					},
+					{
+						"type": "LiteralExpression",
+						"literalType": "FLOAT64",
+						"value": 2.5
+					},
+					{
+						"type": "IdentifierExpression",
+						"value": "nums"
+					}
+				]
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "FunctionCallExpression",
+				"callee": {
+					"type": "IdentifierExpression",
+					"value": "add"
+				},
+				"arguments": [
+					{
+						"type": "LiteralExpression",
+						"literalType": "FLOAT64",
+						"value": 1.56
+					},
+					{
+						"type": "IdentifierExpression",
+						"value": "nums"
+					},
+					{
+						"type": "AssignmentExpression",
+						"operator": "ASSIGNMENT",
+						"left": {
+							"type": "IdentifierExpression",
+							"value": "num"
+						},
+						"right": {
+							"type": "LiteralExpression",
+							"literalType": "INT32",
+							"value": 5
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "FunctionCallExpression",
+				"callee": {
+					"type": "IdentifierExpression",
+					"value": "nothing"
+				},
+				"arguments": []
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "FunctionCallExpression",
+				"callee": {
+					"type": "FunctionCallExpression",
+					"callee": {
+						"type": "IdentifierExpression",
+						"value": "callback"
+					},
+					"arguments": []
+				},
+				"arguments": [
+					{
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 1
+					},
+					{
+						"type": "LiteralExpression",
+						"literalType": "STR8",
+						"value": "ar1"
+					},
+					{
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 3
+					},
+					{
+						"type": "LiteralExpression",
+						"literalType": "CHAR8",
+						"value": "C"
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,196 @@
+{
+	"type": "Program",
+	"topLevelStatementSize": 11,
+	"topLevelStatements": [
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_AND",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 1
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "BOOL8",
+					"value": true
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_OR",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "FLOAT64",
+					"value": 22.12
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 25
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_XOR",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "STR8",
+					"value": "Hello"
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "STR8",
+					"value": "bye"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_AND",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 123459
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 4466
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_OR",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 123
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 4456
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_XOR",
+				"left": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 999
+				},
+				"right": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 123
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_OR",
+				"left": {
+					"type": "BinaryExpression",
+					"operator": "BITWISE_BINARY_AND",
+					"left": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 123
+					},
+					"right": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 456
+					}
+				},
+				"right": {
+					"type": "BinaryExpression",
+					"operator": "BITWISE_BINARY_XOR",
+					"left": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 789
+					},
+					"right": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 1011
+					}
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "BITWISE_NOT",
+				"expression": {
+					"type": "LiteralExpression",
+					"literalType": "INT32",
+					"value": 1235
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_AND",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "number"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "number2"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "UnaryExpression",
+				"operator": "BITWISE_NOT",
+				"expression": {
+					"type": "IdentifierExpression",
+					"value": "binaryNum"
+				}
+			}
+		},
+		{
+			"type": "ExpressionStatement",
+			"expression": {
+				"type": "BinaryExpression",
+				"operator": "BITWISE_BINARY_OR",
+				"left": {
+					"type": "IdentifierExpression",
+					"value": "numbers"
+				},
+				"right": {
+					"type": "IdentifierExpression",
+					"value": "numbers2"
+				}
+			}
+		}
+	]
+}

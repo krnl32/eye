@@ -538,7 +538,18 @@ public class Parser {
 			return null;
 		}
 
-		return tokens.get(currentTokenIndex++);
+		Token token = tokens.get(currentTokenIndex++);
+
+		// Ignore These Tokens
+		while (token != null && (token.getType() == TokenType.NEWLINE || token.getType() == TokenType.COMMENT || token.getType() == TokenType.SYMBOL_BACKSLASH)) {
+			if (!hasToken()) {
+				return null;
+			}
+
+			token = tokens.get(currentTokenIndex++);
+		}
+
+		return token;
 	}
 
 	private Token peekToken() {
@@ -546,7 +557,18 @@ public class Parser {
 			return null;
 		}
 
-		return tokens.get(currentTokenIndex);
+		Token token = tokens.get(currentTokenIndex);
+
+		// Ignore These Tokens
+		while (token != null && (token.getType() == TokenType.NEWLINE || token.getType() == TokenType.COMMENT || token.getType() == TokenType.SYMBOL_BACKSLASH)) {
+			if (!hasToken()) {
+				return null;
+			}
+
+			token = tokens.get(++currentTokenIndex);
+		}
+
+		return token;
 	}
 
 	private Token eatToken(TokenType type) {

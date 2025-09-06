@@ -1,6 +1,5 @@
 package com.krnl32.eye.sandbox;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.krnl32.eye.ast.Program;
@@ -10,12 +9,12 @@ import com.krnl32.eye.parser.lexer.Lexer;
 import com.krnl32.eye.parser.lexer.Token;
 import com.krnl32.eye.parser.parser.Parser;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Main {
-	public static void main(String[] args) throws JsonProcessingException {
+	public static void main(String[] args) throws IOException {
 		Lexer lexer;
-
 		//lexer = new Lexer("1; 123.11f; 1559; 9958.155; null; true; false; 'A'; \"Hello World\";");
 		lexer = new Lexer("12; 55.14f; 99.995; 'C'; \"Hello World\";");
 		lexer = new Lexer("1 + 2 + 3;");
