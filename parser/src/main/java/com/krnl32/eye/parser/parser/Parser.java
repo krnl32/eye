@@ -3,6 +3,7 @@ package com.krnl32.eye.parser.parser;
 import com.krnl32.eye.ast.Program;
 import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
+import com.krnl32.eye.ast.statement.BlockStatement;
 import com.krnl32.eye.ast.statement.ExpressionStatement;
 import com.krnl32.eye.ast.statement.Statement;
 import com.krnl32.eye.ast.statement.TopLevelStatement;
@@ -82,8 +83,23 @@ public class Parser {
 	 */
 	private Statement statement() {
 		return switch (lookAheadToken.getType()) {
+			case SYMBOL_LEFT_BRACE -> blockStatement();
 			default -> expressionStatement();
 		};
+	}
+
+	/*
+		<optional-statement-list> ::= <statement-list>
+									|
+	 */
+	private List<Statement> statementList(TokenType stop) {
+		List<Statement> statementList = new ArrayList<>();
+
+		while (lookAheadToken != null && lookAheadToken.getType() != TokenType.END_OF_FILE && lookAheadToken.getType() != stop) {
+			statementList.add(statement());
+		}
+
+		return statementList;
 	}
 
 	/*
@@ -97,6 +113,17 @@ public class Parser {
 		ExpressionStatement exprStmt = new ExpressionStatement(expression());
 		eatToken(TokenType.SYMBOL_SEMI_COLON);
 		return exprStmt;
+	}
+
+	/*
+		<block-statement> ::= "{" <optional-statement-list> "}"
+	 */
+	private BlockStatement blockStatement() {
+		eatToken(TokenType.SYMBOL_LEFT_BRACE);
+		List<Statement> statementList = statementList(TokenType.SYMBOL_RIGHT_BRACE);
+		eatToken(TokenType.SYMBOL_RIGHT_BRACE);
+
+		return new BlockStatement(statementList);
 	}
 
 	/*
@@ -377,7 +404,7 @@ public class Parser {
 		Expression left = switch (lookAheadToken.getType()) {
 			case IDENTIFIER -> identifierExpression();
 			case OPERATOR_LEFT_PARENTHESIS -> parenthesizedExpression();
-			default -> throw new SyntaxErrorException("Expected identifier or parenthesized expression", lookAheadToken.getSpan());
+			default -> throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
 		};
 
 		while (true) {

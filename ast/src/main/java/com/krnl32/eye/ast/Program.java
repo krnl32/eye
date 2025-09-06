@@ -2,6 +2,7 @@ package com.krnl32.eye.ast;
 
 import com.krnl32.eye.ast.statement.TopLevelStatement;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Program {
@@ -12,7 +13,7 @@ public class Program {
 	}
 
 	public List<TopLevelStatement> getTopLevelStatements() {
-		return topLevelStatements;
+		return Collections.unmodifiableList(topLevelStatements);
 	}
 
 	@Override

@@ -16,34 +16,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Lexer lexer;
 		//lexer = new Lexer("1; 123.11f; 1559; 9958.155; null; true; false; 'A'; \"Hello World\";");
-		lexer = new Lexer("12; 55.14f; 99.995; 'C'; \"Hello World\";");
-		lexer = new Lexer("1 + 2 + 3;");
-		lexer = new Lexer("1,2,3;");
-		lexer = new Lexer("x = y = 3;");
-		lexer = new Lexer("true ? y = 5 : 1;");
-		lexer = new Lexer("1 + 1; 2 - 2;");
-		lexer = new Lexer("1 * 1; 2 / 2; 3 % 3;");
-		lexer = new Lexer("x << 5; 10 >> 5;");
-		lexer = new Lexer("1 < 2; x <= 10; 55 > 10; y >= 99;");
-		lexer = new Lexer("x == 12; t != 9;");
-		lexer = new Lexer("x | y;");
-		lexer = new Lexer("x ^ y;");
-		lexer = new Lexer("x && y;");
-		lexer = new Lexer("x || y;");
-		lexer = new Lexer("x & y;");
-		lexer = new Lexer("+1;");
-		lexer = new Lexer("-5;");
-		lexer = new Lexer("!5;");
-		lexer = new Lexer("~5;");
-		lexer = new Lexer("++5;");
-		lexer = new Lexer("--x;");
-		lexer = new Lexer("1++;");
-		lexer = new Lexer("x++;");
-		lexer = new Lexer("+x;");
-		lexer = new Lexer("func();");
-		lexer = new Lexer("func(1);");
-		lexer = new Lexer("func(1,x);");
-		lexer = new Lexer("func(1,x=5, 'A');");
+		lexer = new Lexer("x; { var1; var2; } var3;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

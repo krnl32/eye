@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.krnl32.eye.ast.Program;
 import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
+import com.krnl32.eye.ast.statement.BlockStatement;
 import com.krnl32.eye.ast.statement.ExpressionStatement;
 import com.krnl32.eye.ast.statement.Statement;
 import com.krnl32.eye.ast.statement.TopLevelStatement;
@@ -20,7 +21,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	public ObjectNode serialize(Program program) {
 		ObjectNode programNode = mapper.createObjectNode();
 		programNode.put("type", "Program");
-		programNode.put("topLevelStatementSize", program.getTopLevelStatements().size());
+		programNode.put("topLevelStatementCount", program.getTopLevelStatements().size());
 		programNode.set("topLevelStatements", serializeTopLevelStatements(program.getTopLevelStatements()));
 		return programNode;
 	}
@@ -41,15 +42,30 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializeStatement(Statement stmt) {
 		return switch (stmt.getType()) {
 			case ExpressionStatement -> serializeExpressionStatement((ExpressionStatement) stmt);
+			case BlockStatement -> serializeBlockStatement((BlockStatement) stmt);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Statement Type: " + stmt.getClass().getSimpleName());
 		};
 	}
 
-	private ObjectNode serializeExpressionStatement(ExpressionStatement exprStmt) {
+	private ObjectNode serializeExpressionStatement(ExpressionStatement stmt) {
 		ObjectNode exprStmtNode = mapper.createObjectNode();
-		exprStmtNode.put("type", exprStmt.getType().name());
-		exprStmtNode.set("expression", serializeExpression(exprStmt.getExpression()));
+		exprStmtNode.put("type", stmt.getType().name());
+		exprStmtNode.set("expression", serializeExpression(stmt.getExpression()));
 		return exprStmtNode;
+	}
+
+	private ObjectNode serializeBlockStatement(BlockStatement stmt) {
+		ArrayNode arrayNode = mapper.createArrayNode();
+
+		for (Statement statement : stmt.getStatements()) {
+			arrayNode.add(serializeStatement(statement));
+		}
+
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+		node.put("statementCount", arrayNode.size());
+		node.set("statements", arrayNode);
+		return node;
 	}
 
 	private ObjectNode serializeExpression(Expression expr) {

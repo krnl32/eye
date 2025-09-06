@@ -1,6 +1,6 @@
 {
 	"type": "Program",
-	"topLevelStatementSize": 5,
+	"topLevelStatementCount": 5,
 	"topLevelStatements": [
 		{
 			"type": "ExpressionStatement",
