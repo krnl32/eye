@@ -4,7 +4,9 @@ import com.krnl32.eye.ast.Program;
 import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
 import com.krnl32.eye.ast.statement.*;
+import com.krnl32.eye.ast.types.DatatypeType;
 import com.krnl32.eye.ast.types.OperatorType;
+import com.krnl32.eye.ast.types.TypeQualifierType;
 import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.common.exceptions.SyntaxErrorException;
 import com.krnl32.eye.common.utility.SourceSpan;
@@ -81,8 +83,22 @@ public class Parser {
 	private Statement statement() {
 		return switch (lookAheadToken.getType()) {
 			case SYMBOL_LEFT_BRACE -> blockStatement();
+
+			case KEYWORD_TYPE_QUALIFIER_CONST,
+				 KEYWORD_DATATYPE_INT32_T,
+				 KEYWORD_DATATYPE_UINT32_T,
+				 KEYWORD_DATATYPE_FLOAT32_T,
+				 KEYWORD_DATATYPE_FLOAT64_T,
+				 KEYWORD_DATATYPE_CHAR8_T,
+				 KEYWORD_DATATYPE_STR8_T,
+				 KEYWORD_DATATYPE_BOOL8_T,
+				 KEYWORD_DATATYPE_VOID -> variableStatement();
+
 			case KEYWORD_CONTROL_IF	-> controlStatement();
-			case KEYWORD_ITERATION_DO, KEYWORD_ITERATION_WHILE, KEYWORD_ITERATION_FOR -> iterationStatement();
+
+			case KEYWORD_ITERATION_DO,
+				 KEYWORD_ITERATION_WHILE,
+				 KEYWORD_ITERATION_FOR -> iterationStatement();
 			default -> expressionStatement();
 		};
 	}
@@ -124,6 +140,69 @@ public class Parser {
 		eatToken(TokenType.SYMBOL_RIGHT_BRACE);
 
 		return new BlockStatement(statementList);
+	}
+
+	/*
+		<variable-statement> ::= <optional-type-qualifier> <datatype-keyword> <variable-declaration-list> ";"
+	 */
+	private VariableStatement variableStatement() {
+		TypeQualifierType typeQualifier = null;
+
+		if (ParserUtility.isTypeQualifier(lookAheadToken.getType())) {
+			Token typeQualiferToken = eatToken(lookAheadToken.getType());
+			typeQualifier = ParserUtility.toTypeQualifierType(typeQualiferToken.getType());
+		}
+
+		if (!ParserUtility.isDatatype(lookAheadToken.getType())) {
+			throw new SyntaxErrorException("Unexpected Datatype: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
+		Token datatypeToken = eatToken(lookAheadToken.getType());
+		DatatypeType datatype = ParserUtility.toDatatypeType(datatypeToken.getType());
+
+		VariableStatement variableStmt = new VariableStatement(typeQualifier, datatype, variableDeclarationList());
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+
+		return variableStmt;
+	}
+
+	/*
+		<variable-declaration-list> ::= <variable-declaration>
+									  | <variable-declaration-list> "," <variable-declaration>
+	 */
+	List<VariableDeclaration> variableDeclarationList() {
+		List<VariableDeclaration> variableDeclarationList = new ArrayList<>();
+
+		do {
+			variableDeclarationList.add(variableDeclaration());
+		} while (isLookAheadToken(TokenType.OPERATOR_COMMA) && eatToken(TokenType.OPERATOR_COMMA) != null);
+
+		return variableDeclarationList;
+	}
+
+	/*
+		<variable-declaration> ::= <identifier-expression> <optional-variable-initializer>
+
+		<optional-variable-initializer> ::= <variable-initializer>
+										  |
+	 */
+	private VariableDeclaration variableDeclaration() {
+		IdentifierExpression identifierExpr = identifierExpression();
+		Expression initializer = null;
+
+		if (!isLookAheadToken(TokenType.SYMBOL_SEMI_COLON) && !isLookAheadToken(TokenType.OPERATOR_COMMA)) {
+			initializer = variableInitializer();
+		}
+
+		return new VariableDeclaration(identifierExpr, initializer);
+	}
+
+	/*
+		<variable-initializer> ::= "=" <assignment-expression>
+	 */
+	private Expression variableInitializer() {
+		eatToken(TokenType.OPERATOR_ASSIGNMENT);
+		return assignmentExpression();
 	}
 
 	/*

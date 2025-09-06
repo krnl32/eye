@@ -40,6 +40,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		return switch (stmt.getType()) {
 			case ExpressionStatement -> serializeExpressionStatement((ExpressionStatement) stmt);
 			case BlockStatement -> serializeBlockStatement((BlockStatement) stmt);
+			case VariableStatement -> serializeVariableStatement((VariableStatement) stmt);
 			case ControlStatement -> serializeControlStatement((ControlStatement) stmt);
 			case WhileStatement -> serializeWhileStatement((WhileStatement) stmt);
 			case DoWhileStatement -> serializeDoWhileStatement((DoWhileStatement) stmt);
@@ -65,6 +66,44 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		node.put("type", stmt.getType().name());
 		node.put("statementCount", arrayNode.size());
 		node.set("statements", arrayNode);
+		return node;
+	}
+
+	private ObjectNode serializeVariableStatement(VariableStatement stmt) {
+		// Variable Declarations
+		ArrayNode varDecArrayNode = mapper.createArrayNode();
+
+		for (VariableDeclaration variableDec : stmt.getVariableDeclarations()) {
+			varDecArrayNode.add(serializeVariableDeclaration(variableDec));
+		}
+
+		// Variable Statement
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+
+		if (stmt.getTypeQualifier() != null) {
+			node.put("typeQualifier", stmt.getTypeQualifier().name());
+		} else {
+			node.putNull("typeQualifier");
+		}
+
+		node.put("datatype", stmt.getDatatype().name());
+		node.set("variableDeclarations", varDecArrayNode);
+
+		return node;
+	}
+
+	private ObjectNode serializeVariableDeclaration(VariableDeclaration variableDec) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "VariableDeclaration");
+		node.set("identifier", serializeIdentifierExpression(variableDec.getIdentifier()));
+
+		if (variableDec.getInitializer() != null) {
+			node.set("initializer", serializeExpression(variableDec.getInitializer()));
+		} else {
+			node.putNull("initializer");
+		}
+
 		return node;
 	}
 

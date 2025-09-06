@@ -25,6 +25,10 @@ public class Main {
 		lexer = new Lexer("while(true) {}");
 		lexer = new Lexer("while(true) {x = 12;}");
 		lexer = new Lexer("do ; while (y);");
+		lexer = new Lexer("int32_t x;");
+		lexer = new Lexer("int32_t x = 12;");
+		lexer = new Lexer("const int32_t x = y;");
+		lexer = new Lexer("int32_t x, y = 2, z = b;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

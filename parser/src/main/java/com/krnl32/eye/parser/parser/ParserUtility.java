@@ -1,7 +1,9 @@
 package com.krnl32.eye.parser.parser;
 
 import com.krnl32.eye.ast.expression.Expression;
+import com.krnl32.eye.ast.types.DatatypeType;
 import com.krnl32.eye.ast.types.OperatorType;
+import com.krnl32.eye.ast.types.TypeQualifierType;
 import com.krnl32.eye.parser.lexer.TokenType;
 
 public class ParserUtility {
@@ -18,6 +20,17 @@ public class ParserUtility {
 			type == TokenType.LITERAL_CHAR8 || type == TokenType.LITERAL_STR8 ||
 			type == TokenType.LITERAL_BOOL8 || type == TokenType.LITERAL_NULL
 		);
+	}
+
+	public static boolean isTypeQualifier(TokenType type) {
+		return (type == TokenType.KEYWORD_TYPE_QUALIFIER_CONST);
+	}
+
+	public static boolean isDatatype(TokenType type) {
+		return (type == TokenType.KEYWORD_DATATYPE_INT32_T || type == TokenType.KEYWORD_DATATYPE_UINT32_T ||
+			type == TokenType.KEYWORD_DATATYPE_FLOAT32_T || type == TokenType.KEYWORD_DATATYPE_FLOAT64_T ||
+			type == TokenType.KEYWORD_DATATYPE_CHAR8_T || type == TokenType.KEYWORD_DATATYPE_STR8_T ||
+			type == TokenType.KEYWORD_DATATYPE_BOOL8_T || type == TokenType.KEYWORD_DATATYPE_VOID);
 	}
 
 	public static boolean isAssignmentOperator(TokenType type) {
@@ -114,6 +127,27 @@ public class ParserUtility {
 			case OPERATOR_QUESTION_MARK -> OperatorType.QUESTION_MARK;
 			case OPERATOR_DOT -> OperatorType.DOT;
 			case OPERATOR_COMMA -> OperatorType.COMMA;
+			default -> null;
+		};
+	}
+
+	public static TypeQualifierType toTypeQualifierType(TokenType type) {
+		return switch (type) {
+			case KEYWORD_TYPE_QUALIFIER_CONST -> TypeQualifierType.CONST;
+			default -> null;
+		};
+	}
+
+	public static DatatypeType toDatatypeType(TokenType type) {
+		return switch (type) {
+			case KEYWORD_DATATYPE_INT32_T -> DatatypeType.INT32_T;
+			case KEYWORD_DATATYPE_UINT32_T -> DatatypeType.UINT32_T;
+			case KEYWORD_DATATYPE_FLOAT32_T -> DatatypeType.FLOAT32_T;
+			case KEYWORD_DATATYPE_FLOAT64_T -> DatatypeType.FLOAT64_T;
+			case KEYWORD_DATATYPE_CHAR8_T -> DatatypeType.CHAR8_T;
+			case KEYWORD_DATATYPE_STR8_T -> DatatypeType.STR8_T;
+			case KEYWORD_DATATYPE_BOOL8_T -> DatatypeType.BOOL8_T;
+			case KEYWORD_DATATYPE_VOID -> DatatypeType.VOID;
 			default -> null;
 		};
 	}
