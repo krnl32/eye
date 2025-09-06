@@ -360,8 +360,6 @@ public class Parser {
 
 	/*
 		<postfix-expression> ::= <primary-member-expression>
-							   | <postfix-expression> <member-access-operator> <identifier-expression>
-							   | <postfix-expression> "[" <assignment-expression> "]"
 							   | <postfix-expression> "(" <optional-argument-list> ")"
 							   | <lvalue-expression> <postfix-operator>
 
@@ -385,30 +383,8 @@ public class Parser {
 		while (true) {
 			TokenType type = lookAheadToken.getType();
 
-			// Parse Member Access Expression
-			if (ParserUtility.isMemberAccessOperator(type)) {
-				Token token = eatToken(lookAheadToken.getType());
-				OperatorType operator = ParserUtility.toOperatorType(token.getType());
-
-				if (lookAheadToken.getType() != TokenType.IDENTIFIER) {
-					throw new SyntaxErrorException("Expected identifier after '.' in member access", lookAheadToken.getSpan());
-				}
-
-				Expression right = identifierExpression();
-				left = new MemberAccessExpression(operator, left, right);
-
-			}
-			// Parse Array Access Expression
-			else if (type == TokenType.OPERATOR_LEFT_BRACKET) {
-				eatToken(TokenType.OPERATOR_LEFT_BRACKET);
-				Expression indexExpr = expression();
-				eatToken(TokenType.SYMBOL_RIGHT_BRACKET);
-
-				left = new ArrayAccessExpression(left, indexExpr);
-
-			}
 			// Parse Function Calls
-			else if (type == TokenType.OPERATOR_LEFT_PARENTHESIS) {
+			if (type == TokenType.OPERATOR_LEFT_PARENTHESIS) {
 				eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
 
 				List<Expression> arguments = new ArrayList<>();

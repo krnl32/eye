@@ -149,8 +149,6 @@
                      | <postfix-expression>
 
 <postfix-expression> ::= <primary-member-expression>
-                       | <postfix-expression> <member-access-operator> <identifier-expression>
-                       | <postfix-expression> "[" <assignment-expression> "]"
                        | <postfix-expression> "(" <optional-argument-list> ")"
                        | <lvalue-expression> <postfix-operator>
 

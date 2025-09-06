@@ -39,17 +39,12 @@ public class Main {
 		lexer = new Lexer("++5;");
 		lexer = new Lexer("--x;");
 		lexer = new Lexer("1++;");
-		lexer = new Lexer("data.x;");
-		lexer = new Lexer("data.1;");
 		lexer = new Lexer("x++;");
 		lexer = new Lexer("+x;");
-		lexer = new Lexer("x.y.z;");
-		lexer = new Lexer("arr[1];");
 		lexer = new Lexer("func();");
 		lexer = new Lexer("func(1);");
 		lexer = new Lexer("func(1,x);");
 		lexer = new Lexer("func(1,x=5, 'A');");
-		lexer = new Lexer("arra[1]++;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
