@@ -45,7 +45,7 @@ public class Parser {
 
 	/*
 		<top-level-statement-list> ::= <top-level-statement>
-									| <top-level-statement-list> <top-level-statement>
+									 | <top-level-statement-list> <top-level-statement>
 	 */
 	private List<TopLevelStatement> topLevelStatementList() {
 		List<TopLevelStatement> topLevelStatementList = new ArrayList<>();
@@ -105,7 +105,8 @@ public class Parser {
 	 */
 	private ExpressionStatement expressionStatement() {
 		if (isLookAheadToken(TokenType.SYMBOL_SEMI_COLON)) {
-			throw new SyntaxErrorException("Expected Expression Before: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			eatToken(TokenType.SYMBOL_SEMI_COLON);
+			return null;
 		}
 
 		ExpressionStatement exprStmt = new ExpressionStatement(expression());
@@ -183,6 +184,10 @@ public class Parser {
 	private Expression assignmentExpression() {
 		Expression left = ternaryExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		if (!ParserUtility.isAssignmentOperator(lookAheadToken.getType())) {
 			return left;
 		}
@@ -204,6 +209,10 @@ public class Parser {
 	private Expression ternaryExpression() {
 		Expression condition = logicalOrExpression();
 
+		if (condition == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		if (!ParserUtility.isTernaryOperator(lookAheadToken.getType())) {
 			return condition;
 		}
@@ -222,10 +231,19 @@ public class Parser {
 	private Expression logicalOrExpression() {
 		Expression left = logicalAndExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (isLookAheadToken(TokenType.OPERATOR_LOGICAL_OR)) {
 			eatToken(TokenType.OPERATOR_LOGICAL_OR);
 
 			Expression right = logicalAndExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(OperatorType.LOGICAL_OR, left, right);
 		}
 
@@ -239,10 +257,19 @@ public class Parser {
 	private Expression logicalAndExpression() {
 		Expression left = bitwiseOrExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (isLookAheadToken(TokenType.OPERATOR_LOGICAL_AND)) {
 			eatToken(TokenType.OPERATOR_LOGICAL_AND);
 
 			Expression right = bitwiseOrExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(OperatorType.LOGICAL_AND, left, right);
 		}
 
@@ -256,10 +283,19 @@ public class Parser {
 	private Expression bitwiseOrExpression() {
 		Expression left = bitwiseXorExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (isLookAheadToken(TokenType.OPERATOR_BITWISE_BINARY_OR)) {
 			eatToken(TokenType.OPERATOR_BITWISE_BINARY_OR);
 
 			Expression right = bitwiseXorExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(OperatorType.BITWISE_BINARY_OR, left, right);
 		}
 
@@ -273,10 +309,19 @@ public class Parser {
 	private Expression bitwiseXorExpression() {
 		Expression left = bitwiseAndExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (isLookAheadToken(TokenType.OPERATOR_BITWISE_BINARY_XOR)) {
 			eatToken(TokenType.OPERATOR_BITWISE_BINARY_XOR);
 
 			Expression right = bitwiseAndExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(OperatorType.BITWISE_BINARY_XOR, left, right);
 		}
 
@@ -290,10 +335,19 @@ public class Parser {
 	private Expression bitwiseAndExpression() {
 		Expression left = equalityExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (isLookAheadToken(TokenType.OPERATOR_BITWISE_BINARY_AND)) {
 			eatToken(TokenType.OPERATOR_BITWISE_BINARY_AND);
 
 			Expression right = equalityExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(OperatorType.BITWISE_BINARY_AND, left, right);
 		}
 
@@ -307,11 +361,20 @@ public class Parser {
 	private Expression equalityExpression() {
 		Expression left = relationalExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (ParserUtility.isEqualityOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
 			Expression right = relationalExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(operator, left, right);
 		}
 
@@ -325,11 +388,20 @@ public class Parser {
 	private Expression relationalExpression() {
 		Expression left = bitwiseShiftExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (ParserUtility.isRelationalOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
 			Expression right = bitwiseShiftExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(operator, left, right);
 		}
 
@@ -343,11 +415,20 @@ public class Parser {
 	private Expression bitwiseShiftExpression() {
 		Expression left = additiveExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (ParserUtility.isBitwiseShiftOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
 			Expression right = additiveExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(operator, left, right);
 		}
 
@@ -361,11 +442,20 @@ public class Parser {
 	private Expression additiveExpression() {
 		Expression left = multiplicativeExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (ParserUtility.isAdditiveOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
 			Expression right = multiplicativeExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(operator, left, right);
 		}
 
@@ -379,11 +469,20 @@ public class Parser {
 	private Expression multiplicativeExpression() {
 		Expression left = unaryExpression();
 
+		if (left == null) {
+			throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
 		while (ParserUtility.isMultiplicativeOperator(lookAheadToken.getType())) {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
 			Expression right = unaryExpression();
+
+			if (right == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
 			left = new BinaryExpression(operator, left, right);
 		}
 
@@ -400,7 +499,13 @@ public class Parser {
 			Token token = eatToken(lookAheadToken.getType());
 			OperatorType operator = ParserUtility.toOperatorType(token.getType());
 
-			return new UnaryExpression(operator, unaryExpression());
+			Expression unaryExpr = unaryExpression();
+
+			if (unaryExpr == null) {
+				throw new SyntaxErrorException("Unexpected Expression: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
+			return new UnaryExpression(operator, unaryExpr);
 		}
 
 		if (ParserUtility.isLiteral(lookAheadToken.getType())) {

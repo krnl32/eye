@@ -20,6 +20,7 @@ public class Main {
 		lexer = new Lexer("if (x) {x;}");
 		lexer = new Lexer("if (x) { x; } else { y; }");
 		lexer = new Lexer("if (x) x;");
+		lexer = new Lexer("x+;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
