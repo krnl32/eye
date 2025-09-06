@@ -113,7 +113,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializeAssignmentExpression(AssignmentExpression expr) {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", expr.getType().name());
-		node.put("operator", expr.getOperator().name());
+		node.put("operator", expr.getOperator().getSymbol());
 		node.set("left", serializeExpression(expr.getLeft()));
 		node.set("right", serializeExpression(expr.getRight()));
 		return node;
@@ -122,7 +122,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializeUnaryExpression(UnaryExpression expr) {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", expr.getType().name());
-		node.put("operator", expr.getOperator().name());
+		node.put("operator", expr.getOperator().getSymbol());
 		node.set("expression", serializeExpression(expr.getExpression()));
 		return node;
 	}
@@ -130,7 +130,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializeBinaryExpression(BinaryExpression expr) {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", expr.getType().name());
-		node.put("operator", expr.getOperator().name());
+		node.put("operator", expr.getOperator().getSymbol());
 		node.set("left", serializeExpression(expr.getLeft()));
 		node.set("right", serializeExpression(expr.getRight()));
 		return node;
@@ -162,7 +162,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializePostfixExpression(PostfixExpression expr) {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", expr.getType().name());
-		node.put("operator", expr.getOperator().name());
+		node.put("operator", expr.getOperator().getSymbol());
 		node.set("expression", serializeExpression(expr.getExpression()));
 		return node;
 	}

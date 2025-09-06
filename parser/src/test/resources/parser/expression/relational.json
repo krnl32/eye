@@ -6,7 +6,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "RELATIONAL_SMALLER",
+				"operator": "<",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -23,7 +23,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "RELATIONAL_GREATER_EQUALS",
+				"operator": ">=",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -40,7 +40,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "RELATIONAL_SMALLER_EQUALS",
+				"operator": "<=",
 				"left": {
 					"type": "IdentifierExpression",
 					"value": "number"
@@ -56,7 +56,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "RELATIONAL_GREATER",
+				"operator": ">",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -73,7 +73,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "RELATIONAL_GREATER",
+				"operator": ">",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -90,10 +90,10 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "RELATIONAL_GREATER",
+				"operator": ">",
 				"left": {
 					"type": "BinaryExpression",
-					"operator": "RELATIONAL_SMALLER",
+					"operator": "<",
 					"left": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",

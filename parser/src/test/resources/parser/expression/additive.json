@@ -6,7 +6,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_PLUS",
+				"operator": "+",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "FLOAT64",
@@ -23,7 +23,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_MINUS",
+				"operator": "-",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -40,10 +40,10 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_MINUS",
+				"operator": "-",
 				"left": {
 					"type": "BinaryExpression",
-					"operator": "BINARY_PLUS",
+					"operator": "+",
 					"left": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",

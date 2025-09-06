@@ -65,7 +65,7 @@
 					},
 					{
 						"type": "AssignmentExpression",
-						"operator": "ASSIGNMENT",
+						"operator": "=",
 						"left": {
 							"type": "IdentifierExpression",
 							"value": "num"

@@ -6,7 +6,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_STAR",
+				"operator": "*",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "FLOAT64",
@@ -23,7 +23,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_SLASH",
+				"operator": "/",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -40,7 +40,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_MODULO",
+				"operator": "%",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -57,7 +57,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_STAR",
+				"operator": "*",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -74,13 +74,13 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_MODULO",
+				"operator": "%",
 				"left": {
 					"type": "BinaryExpression",
-					"operator": "BINARY_STAR",
+					"operator": "*",
 					"left": {
 						"type": "BinaryExpression",
-						"operator": "BINARY_SLASH",
+						"operator": "/",
 						"left": {
 							"type": "LiteralExpression",
 							"literalType": "INT32",
@@ -109,7 +109,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BINARY_MODULO",
+				"operator": "%",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",

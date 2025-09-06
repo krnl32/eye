@@ -6,7 +6,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "PostfixExpression",
-				"operator": "ARITHMETIC_INCREMENT",
+				"operator": "++",
 				"expression": {
 					"type": "IdentifierExpression",
 					"value": "x"
@@ -17,7 +17,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "PostfixExpression",
-				"operator": "ARITHMETIC_INCREMENT",
+				"operator": "++",
 				"expression": {
 					"type": "IdentifierExpression",
 					"value": "y"
@@ -28,7 +28,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "PostfixExpression",
-				"operator": "ARITHMETIC_DECREMENT",
+				"operator": "--",
 				"expression": {
 					"type": "IdentifierExpression",
 					"value": "number"
@@ -39,7 +39,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "PostfixExpression",
-				"operator": "ARITHMETIC_DECREMENT",
+				"operator": "--",
 				"expression": {
 					"type": "IdentifierExpression",
 					"value": "boss"

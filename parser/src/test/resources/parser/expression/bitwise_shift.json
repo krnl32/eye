@@ -6,7 +6,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_LEFT_SHIFT",
+				"operator": "<<",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -23,7 +23,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_RIGHT_SHIFT",
+				"operator": ">>",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -40,7 +40,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_LEFT_SHIFT",
+				"operator": "<<",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "INT32",
@@ -57,7 +57,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_RIGHT_SHIFT",
+				"operator": ">>",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "FLOAT64",
@@ -74,7 +74,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_LEFT_SHIFT",
+				"operator": "<<",
 				"left": {
 					"type": "LiteralExpression",
 					"literalType": "STR8",
@@ -91,7 +91,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_LEFT_SHIFT",
+				"operator": "<<",
 				"left": {
 					"type": "IdentifierExpression",
 					"value": "number"
@@ -106,7 +106,7 @@
 			"type": "ExpressionStatement",
 			"expression": {
 				"type": "BinaryExpression",
-				"operator": "BITWISE_RIGHT_SHIFT",
+				"operator": ">>",
 				"left": {
 					"type": "IdentifierExpression",
 					"value": "numbers"
