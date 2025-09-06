@@ -20,7 +20,11 @@ public class Main {
 		lexer = new Lexer("if (x) {x;}");
 		lexer = new Lexer("if (x) { x; } else { y; }");
 		lexer = new Lexer("if (x) x;");
-		lexer = new Lexer("x+;");
+		lexer = new Lexer("x++;");
+		lexer = new Lexer("while(true);");
+		lexer = new Lexer("while(true) {}");
+		lexer = new Lexer("while(true) {x = 12;}");
+		lexer = new Lexer("do ; while (y);");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

@@ -82,6 +82,7 @@ public class Parser {
 		return switch (lookAheadToken.getType()) {
 			case SYMBOL_LEFT_BRACE -> blockStatement();
 			case KEYWORD_CONTROL_IF	-> controlStatement();
+			case KEYWORD_ITERATION_DO, KEYWORD_ITERATION_WHILE, KEYWORD_ITERATION_FOR -> iterationStatement();
 			default -> expressionStatement();
 		};
 	}
@@ -150,6 +151,60 @@ public class Parser {
 		}
 
 		return new ControlStatement(condition, consequent, alternate);
+	}
+
+	/*
+		<iteration-statement> ::= <while-statement>
+								| <do-while-statement>
+								| <for-statement>
+	 */
+	private Statement iterationStatement() {
+		return switch (lookAheadToken.getType()) {
+			case KEYWORD_ITERATION_WHILE -> whileStatement();
+			case KEYWORD_ITERATION_DO -> doWhileStatement();
+			default -> null;
+		};
+	}
+
+	/*
+		<while-statement> ::= "while" "(" <expression> ")" <statement>
+	 */
+	private WhileStatement whileStatement() {
+		eatToken(TokenType.KEYWORD_ITERATION_WHILE);
+		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+
+		Expression condition = expression();
+
+		if (condition == null) {
+			throw new SyntaxErrorException("Expected Expression", lookAheadToken.getSpan());
+		}
+
+		eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+
+		Statement body = statement();
+
+		return new WhileStatement(condition, body);
+	}
+
+	/*
+		<do-while-statement> ::= "do" <statement> "while" "(" <expression> ")" ";"
+	 */
+	private DoWhileStatement doWhileStatement() {
+		eatToken(TokenType.KEYWORD_ITERATION_DO);
+		Statement body = statement();
+		eatToken(TokenType.KEYWORD_ITERATION_WHILE);
+		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+
+		Expression condition = expression();
+
+		if (condition == null) {
+			throw new SyntaxErrorException("Expected Expression", lookAheadToken.getSpan());
+		}
+
+		eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+
+		return new DoWhileStatement(condition, body);
 	}
 
 	/*
