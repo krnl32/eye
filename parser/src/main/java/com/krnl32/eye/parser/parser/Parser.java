@@ -3,10 +3,7 @@ package com.krnl32.eye.parser.parser;
 import com.krnl32.eye.ast.Program;
 import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
-import com.krnl32.eye.ast.statement.BlockStatement;
-import com.krnl32.eye.ast.statement.ExpressionStatement;
-import com.krnl32.eye.ast.statement.Statement;
-import com.krnl32.eye.ast.statement.TopLevelStatement;
+import com.krnl32.eye.ast.statement.*;
 import com.krnl32.eye.ast.types.OperatorType;
 import com.krnl32.eye.common.core.Logger;
 import com.krnl32.eye.common.exceptions.SyntaxErrorException;
@@ -84,6 +81,7 @@ public class Parser {
 	private Statement statement() {
 		return switch (lookAheadToken.getType()) {
 			case SYMBOL_LEFT_BRACE -> blockStatement();
+			case KEYWORD_CONTROL_IF	-> controlStatement();
 			default -> expressionStatement();
 		};
 	}
@@ -124,6 +122,33 @@ public class Parser {
 		eatToken(TokenType.SYMBOL_RIGHT_BRACE);
 
 		return new BlockStatement(statementList);
+	}
+
+	/*
+		<control-statement> ::= "if" "(" <expression> ")" <statement>
+							  | "if" "(" <expression> ")" <statement> "else" <statement>
+	 */
+	private ControlStatement controlStatement() {
+		eatToken(TokenType.KEYWORD_CONTROL_IF);
+		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+
+		Expression condition = expression();
+
+		if (condition == null) {
+			throw new SyntaxErrorException("Expected Expression", lookAheadToken.getSpan());
+		}
+
+		eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+
+		Statement consequent = statement();
+		Statement alternate = null;
+
+		if (isLookAheadToken(TokenType.KEYWORD_CONTROL_ELSE)) {
+			eatToken(TokenType.KEYWORD_CONTROL_ELSE);
+			alternate = statement();
+		}
+
+		return new ControlStatement(condition, consequent, alternate);
 	}
 
 	/*

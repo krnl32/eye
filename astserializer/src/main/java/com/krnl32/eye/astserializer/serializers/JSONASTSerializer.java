@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.krnl32.eye.ast.Program;
 import com.krnl32.eye.ast.expression.*;
 import com.krnl32.eye.ast.literal.*;
-import com.krnl32.eye.ast.statement.BlockStatement;
-import com.krnl32.eye.ast.statement.ExpressionStatement;
-import com.krnl32.eye.ast.statement.Statement;
-import com.krnl32.eye.ast.statement.TopLevelStatement;
+import com.krnl32.eye.ast.statement.*;
 import com.krnl32.eye.astserializer.ASTSerializer;
 
 import java.util.List;
@@ -43,6 +40,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		return switch (stmt.getType()) {
 			case ExpressionStatement -> serializeExpressionStatement((ExpressionStatement) stmt);
 			case BlockStatement -> serializeBlockStatement((BlockStatement) stmt);
+			case ControlStatement -> serializeControlStatement((ControlStatement) stmt);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Statement Type: " + stmt.getClass().getSimpleName());
 		};
 	}
@@ -65,6 +63,21 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		node.put("type", stmt.getType().name());
 		node.put("statementCount", arrayNode.size());
 		node.set("statements", arrayNode);
+		return node;
+	}
+
+	private ObjectNode serializeControlStatement(ControlStatement stmt) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+		node.set("condition", serializeExpression(stmt.getCondition()));
+		node.set("consequent", serializeStatement(stmt.getConsequent()));
+
+		if (stmt.getAlternate() != null) {
+			node.set("alternate", serializeStatement(stmt.getAlternate()));
+		} else {
+			node.putNull("alternate");
+		}
+
 		return node;
 	}
 

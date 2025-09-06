@@ -17,6 +17,9 @@ public class Main {
 		Lexer lexer;
 		//lexer = new Lexer("1; 123.11f; 1559; 9958.155; null; true; false; 'A'; \"Hello World\";");
 		lexer = new Lexer("x; { var1; var2; } var3;");
+		lexer = new Lexer("if (x) {x;}");
+		lexer = new Lexer("if (x) { x; } else { y; }");
+		lexer = new Lexer("if (x) x;");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
