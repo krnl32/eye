@@ -85,9 +85,11 @@
 
 <for-statement> ::= "for" "(" <optional-for-initializer> ";" <optional-expression> ";" <optional-expression> ")" <statement>
 
-<optional-for-initializer> ::= <variable-statement>
-                             | <expression>
+<optional-for-initializer> ::= <for-initializer>
                              | /* empty */
+
+<for-initializer> ::= <variable-statement>
+                    | <expression>
 
 <continue-statement> ::= "continue" ";"
 

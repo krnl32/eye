@@ -99,6 +99,7 @@ public class Parser {
 			case KEYWORD_ITERATION_DO,
 				 KEYWORD_ITERATION_WHILE,
 				 KEYWORD_ITERATION_FOR -> iterationStatement();
+
 			default -> expressionStatement();
 		};
 	}
@@ -241,6 +242,7 @@ public class Parser {
 		return switch (lookAheadToken.getType()) {
 			case KEYWORD_ITERATION_WHILE -> whileStatement();
 			case KEYWORD_ITERATION_DO -> doWhileStatement();
+			case KEYWORD_ITERATION_FOR -> forStatement();
 			default -> null;
 		};
 	}
@@ -284,6 +286,64 @@ public class Parser {
 		eatToken(TokenType.SYMBOL_SEMI_COLON);
 
 		return new DoWhileStatement(condition, body);
+	}
+
+	/*
+		<for-statement> ::= "for" "(" <optional-for-initializer> ";" <optional-expression> ";" <optional-expression> ")" <statement>
+
+	 	<optional-for-initializer> ::= <for-initializer>
+	 								 |
+
+		<for-initializer> ::= <variable-statement>
+							| <expression>
+	 */
+	private ForStatement forStatement() {
+		eatToken(TokenType.KEYWORD_ITERATION_FOR);
+		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+
+		// Parse For Initializer
+		ForStatement.ForInitializerType initializerType = ForStatement.ForInitializerType.NULL;
+		Object initializer = null;
+
+		boolean hasInitializer = !isLookAheadToken(TokenType.SYMBOL_SEMI_COLON);
+		boolean isVariableStatementInitializer = (hasInitializer && ParserUtility.isTypeQualifier(lookAheadToken.getType()) || ParserUtility.isDatatype(lookAheadToken.getType()));
+		boolean isExpressionInitializer = (hasInitializer && !isVariableStatementInitializer);
+
+		if (isVariableStatementInitializer) {
+			TypeQualifierType typeQualifier = null;
+
+			if (ParserUtility.isTypeQualifier(lookAheadToken.getType())) {
+				Token typeQualiferToken = eatToken(lookAheadToken.getType());
+				typeQualifier = ParserUtility.toTypeQualifierType(typeQualiferToken.getType());
+			}
+
+			if (!ParserUtility.isDatatype(lookAheadToken.getType())) {
+				throw new SyntaxErrorException("Unexpected Datatype: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+			}
+
+			Token datatypeToken = eatToken(lookAheadToken.getType());
+			DatatypeType datatype = ParserUtility.toDatatypeType(datatypeToken.getType());
+
+			initializerType = ForStatement.ForInitializerType.VARIABLE_STATEMENT;
+			initializer = new VariableStatement(typeQualifier, datatype, variableDeclarationList());
+		} else if(isExpressionInitializer) {
+			initializerType = ForStatement.ForInitializerType.EXPRESSION;
+			initializer = expression();
+		}
+
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+
+		boolean hasCondition = !isLookAheadToken(TokenType.SYMBOL_SEMI_COLON);
+		Expression condition = hasCondition ? expression() : null;
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+
+		boolean hasUpdate = !isLookAheadToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+		Expression update = hasUpdate ? expression() : null;
+		eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+
+		Statement body = statement();
+
+		return new ForStatement(initializerType, initializer, condition, update, body);
 	}
 
 	/*

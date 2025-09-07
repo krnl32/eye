@@ -29,6 +29,11 @@ public class Main {
 		lexer = new Lexer("int32_t x = 12;");
 		lexer = new Lexer("const int32_t x = y;");
 		lexer = new Lexer("int32_t x, y = 2, z = b;");
+		lexer = new Lexer("for(;;);");
+		lexer = new Lexer("for(int32_t x; x > 10; x++) y;");
+		lexer = new Lexer("for(int32_t x; x > 10; x++) { Hello; }");
+		lexer = new Lexer("for(int32_t x = 12, y = 12; x > 10; x++) { Hello; }");
+		lexer = new Lexer("for(int32_t x = 12, y, x = 13; x > 10; x++) { Hello; }");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

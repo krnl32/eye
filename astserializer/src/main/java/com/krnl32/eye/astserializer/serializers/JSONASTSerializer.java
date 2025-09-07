@@ -44,6 +44,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case ControlStatement -> serializeControlStatement((ControlStatement) stmt);
 			case WhileStatement -> serializeWhileStatement((WhileStatement) stmt);
 			case DoWhileStatement -> serializeDoWhileStatement((DoWhileStatement) stmt);
+			case ForStatement -> serializeForStatement((ForStatement) stmt);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Statement Type: " + stmt.getClass().getSimpleName());
 		};
 	}
@@ -140,6 +141,39 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", stmt.getType().name());
 		node.set("condition", serializeExpression(stmt.getCondition()));
+
+		if (stmt.getBody() != null) {
+			node.set("body", serializeStatement(stmt.getBody()));
+		} else {
+			node.putNull("body");
+		}
+
+		return node;
+	}
+
+	private ObjectNode serializeForStatement(ForStatement stmt) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+
+		if (stmt.getInitializerType() == ForStatement.ForInitializerType.VARIABLE_STATEMENT) {
+			node.set("initializer", serializeVariableStatement((VariableStatement) stmt.getInitializer()));
+		} else if (stmt.getInitializerType() == ForStatement.ForInitializerType.EXPRESSION) {
+			node.set("initializer", serializeExpression((Expression) stmt.getInitializer()));
+		} else {
+			node.putNull("initializer");
+		}
+
+		if (stmt.getCondition() != null) {
+			node.set("condition", serializeExpression(stmt.getCondition()));
+		} else {
+			node.putNull("condition");
+		}
+
+		if (stmt.getUpdate() != null) {
+			node.set("update", serializeExpression(stmt.getUpdate()));
+		} else {
+			node.putNull("update");
+		}
 
 		if (stmt.getBody() != null) {
 			node.set("body", serializeStatement(stmt.getBody()));
