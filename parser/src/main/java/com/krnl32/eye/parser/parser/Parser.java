@@ -66,8 +66,83 @@ public class Parser {
 	 */
 	private TopLevelStatement topLevelStatement() {
 		return switch (lookAheadToken.getType()) {
+			case KEYWORD_FUNCTION -> functionStatement();
 			default -> statement();
 		};
+	}
+
+	/*
+		<function-statement> ::= "function" <datatype-keyword> <identifier-expression> "(" <optional-function-parameter-list> ")" <block-statement>
+
+		<optional-function-parameter-list> ::= <function-parameter-list>
+											 |
+	 */
+	private FunctionStatement functionStatement() {
+		eatToken(TokenType.KEYWORD_FUNCTION);
+
+		if (!ParserUtility.isDatatype(lookAheadToken.getType())) {
+			throw new SyntaxErrorException("Unexpected Datatype: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
+		Token datatypeToken = eatToken(lookAheadToken.getType());
+		DatatypeType returnType = ParserUtility.toDatatypeType(datatypeToken.getType());
+
+		IdentifierExpression identifier = identifierExpression();
+
+		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
+
+		boolean hasParameters = !isLookAheadToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+		List<FunctionParameter> parameters = hasParameters ? functionParameterList() : new ArrayList<>();
+
+		eatToken(TokenType.SYMBOL_RIGHT_PARENTHESIS);
+
+		Statement body = blockStatement();
+
+		return new FunctionStatement(returnType, identifier, parameters, body);
+	}
+
+	/*
+		<function-parameter-list> ::= <function-parameter>
+									| <function-parameter-list> "," <function-parameter>
+	 */
+	private List<FunctionParameter> functionParameterList() {
+		List<FunctionParameter> functionParameterList = new ArrayList<>();
+
+		do {
+			functionParameterList.add(functionParameter());
+		} while (isLookAheadToken(TokenType.OPERATOR_COMMA) && eatToken(TokenType.OPERATOR_COMMA) != null);
+
+		return functionParameterList;
+	}
+
+	/*
+		<function-parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-expression> <optional-variable-initializer>
+	 */
+	private FunctionParameter functionParameter() {
+		TypeQualifierType typeQualifier = null;
+
+		if (ParserUtility.isTypeQualifier(lookAheadToken.getType())) {
+			Token typeQualiferToken = eatToken(lookAheadToken.getType());
+			typeQualifier = ParserUtility.toTypeQualifierType(typeQualiferToken.getType());
+		}
+
+		if (!ParserUtility.isDatatype(lookAheadToken.getType())) {
+			throw new SyntaxErrorException("Unexpected Datatype: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
+		Token datatypeToken = eatToken(lookAheadToken.getType());
+		DatatypeType datatype = ParserUtility.toDatatypeType(datatypeToken.getType());
+
+		IdentifierExpression identifier = identifierExpression();
+		Expression initializer = null;
+
+		boolean hasInitializer = !isLookAheadToken(TokenType.SYMBOL_RIGHT_PARENTHESIS) && !isLookAheadToken(TokenType.OPERATOR_COMMA);
+
+		if (hasInitializer) {
+			initializer = variableInitializer();
+		}
+
+		return new FunctionParameter(typeQualifier, datatype, identifier, initializer);
 	}
 
 	/*
@@ -102,7 +177,6 @@ public class Parser {
 
 			case KEYWORD_ITERATION_CONTINUE -> continueStatement();
 			case KEYWORD_ITERATION_BREAK -> breakStatement();
-
 			case KEYWORD_RETURN -> returnStatement();
 
 			default -> expressionStatement();

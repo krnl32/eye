@@ -10,5 +10,6 @@ public enum StatementType {
 	ForStatement,
 	ContinueStatement,
 	BreakStatement,
+	FunctionStatement,
 	ReturnStatement
 }

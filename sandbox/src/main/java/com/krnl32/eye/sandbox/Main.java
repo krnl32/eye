@@ -38,6 +38,10 @@ public class Main {
 		lexer = new Lexer("while(x) { if (y) continue; }");
 		lexer = new Lexer("while(x) { if (y) return; }");
 		lexer = new Lexer("while(x) { if (y) return 12; }");
+		lexer = new Lexer("function int32_t func() {}");
+		lexer = new Lexer("function int32_t func(int32_t x, float64_t y = 12.55, const uint32_t z = 55) {}");
+		lexer = new Lexer("function int32_t func(int32_t x, float64_t y = 12.55, const uint32_t z = 55) { x = 5; y; }");
+		lexer = new Lexer("function int32_t func(int32_t x, float64_t y = 12.55, const uint32_t z = 55) { x = 5; y; }");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

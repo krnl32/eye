@@ -38,6 +38,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 
 	private ObjectNode serializeStatement(Statement stmt) {
 		return switch (stmt.getType()) {
+			case FunctionStatement -> serializeFunctionStatement((FunctionStatement) stmt);
 			case ExpressionStatement -> serializeExpressionStatement((ExpressionStatement) stmt);
 			case BlockStatement -> serializeBlockStatement((BlockStatement) stmt);
 			case VariableStatement -> serializeVariableStatement((VariableStatement) stmt);
@@ -52,11 +53,51 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		};
 	}
 
+	private ObjectNode serializeFunctionStatement(FunctionStatement stmt) {
+		// Function Parameters
+		ArrayNode paramsNode = mapper.createArrayNode();
+
+		for (FunctionParameter param : stmt.getParameters()) {
+			paramsNode.add(serializeFunctionParameter(param));
+		}
+
+		// Function
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+		node.put("returnType", stmt.getReturnType().name());
+		node.set("identifier", serializeIdentifierExpression(stmt.getIdentifier()));
+		node.set("parameters", paramsNode);
+		node.set("body", serializeStatement(stmt.getBody()));
+		return node;
+	}
+
+	private ObjectNode serializeFunctionParameter(FunctionParameter param) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", "FunctionParameter");
+
+		if (param.getTypeQualifier() != null) {
+			node.put("typeQualifier", param.getTypeQualifier().name());
+		} else {
+			node.putNull("typeQualifier");
+		}
+
+		node.put("datatype", param.getDatatype().name());
+		node.set("identifier", serializeIdentifierExpression(param.getIdentifier()));
+
+		if (param.getInitializer() != null) {
+			node.set("initializer", serializeExpression(param.getInitializer()));
+		} else {
+			node.putNull("initializer");
+		}
+
+		return node;
+	}
+
 	private ObjectNode serializeExpressionStatement(ExpressionStatement stmt) {
-		ObjectNode exprStmtNode = mapper.createObjectNode();
-		exprStmtNode.put("type", stmt.getType().name());
-		exprStmtNode.set("expression", serializeExpression(stmt.getExpression()));
-		return exprStmtNode;
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+		node.set("expression", serializeExpression(stmt.getExpression()));
+		return node;
 	}
 
 	private ObjectNode serializeBlockStatement(BlockStatement stmt) {
