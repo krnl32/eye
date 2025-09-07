@@ -9,31 +9,6 @@
 
 <top-level-statement> ::= <variable-statement>
                         | <function-statement>
-                        | <statement>
-
-
-// =======================================
-// Statements
-// =======================================
-
-<statement> ::= <expression-statement>
-              | <block-statement>
-              | <variable-statement>
-              | <control-statement>
-              | <iteration-statement>
-              | <continue-statement>
-              | <break-statement>
-              | <return-statement>
-
-<expression-statement> ::= <optional-expression> ";"
-
-<block-statement> ::= "{" <optional-statement-list> "}"
-
-<optional-statement-list> ::= <statement-list>
-                            | /* empty */
-
-<statement-list> ::= <statement>
-                   | <statement-list> <statement>
 
 
 // =======================================
@@ -66,6 +41,30 @@
                    | <function-parameter-list> "," <function-parameter>
 
 <function-parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-expression> <optional-variable-initializer>
+
+
+// =======================================
+// Statements
+// =======================================
+
+<statement> ::= <expression-statement>
+              | <block-statement>
+              | <variable-statement>
+              | <control-statement>
+              | <iteration-statement>
+              | <continue-statement>
+              | <break-statement>
+              | <return-statement>
+
+<expression-statement> ::= <optional-expression> ";"
+
+<block-statement> ::= "{" <optional-statement-list> "}"
+
+<optional-statement-list> ::= <statement-list>
+                            | /* empty */
+
+<statement-list> ::= <statement>
+                   | <statement-list> <statement>
 
 
 // =======================================
@@ -162,6 +161,7 @@
 
 <argument-list> ::= <expression>
                   | <argument-list> "," <expression>
+
 
 // =======================================
 // Literals and Identifiers

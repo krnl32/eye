@@ -62,7 +62,6 @@ public class Parser {
 	/*
 		<top-level-statement> ::= <variable-statement>
               					| <function-statement>
-								| <statement> // TEMPORARY
 	 */
 	private TopLevelStatement topLevelStatement() {
 		return switch (lookAheadToken.getType()) {
@@ -77,7 +76,8 @@ public class Parser {
 				 KEYWORD_DATATYPE_VOID -> variableStatement();
 
 			case KEYWORD_FUNCTION -> functionStatement();
-			default -> statement();
+
+			default -> throw new SyntaxErrorException("Unexpected Top Level Statement: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
 		};
 	}
 
