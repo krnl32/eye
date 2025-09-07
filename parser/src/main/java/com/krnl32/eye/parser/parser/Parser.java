@@ -60,12 +60,22 @@ public class Parser {
 	}
 
 	/*
-		<top-level-statement> ::= <function-statement>
-              					| <variable-statement>
+		<top-level-statement> ::= <variable-statement>
+              					| <function-statement>
 								| <statement> // TEMPORARY
 	 */
 	private TopLevelStatement topLevelStatement() {
 		return switch (lookAheadToken.getType()) {
+			case KEYWORD_TYPE_QUALIFIER_CONST,
+				 KEYWORD_DATATYPE_INT32_T,
+				 KEYWORD_DATATYPE_UINT32_T,
+				 KEYWORD_DATATYPE_FLOAT32_T,
+				 KEYWORD_DATATYPE_FLOAT64_T,
+				 KEYWORD_DATATYPE_CHAR8_T,
+				 KEYWORD_DATATYPE_STR8_T,
+				 KEYWORD_DATATYPE_BOOL8_T,
+				 KEYWORD_DATATYPE_VOID -> variableStatement();
+
 			case KEYWORD_FUNCTION -> functionStatement();
 			default -> statement();
 		};

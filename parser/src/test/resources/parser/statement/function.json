@@ -1,0 +1,237 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 6,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": {
+				"type": "IdentifierExpression",
+				"value": "test"
+			},
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "INT32_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "args"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 15
+					}
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 0,
+				"statements": []
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "FLOAT32_T",
+			"identifier": {
+				"type": "IdentifierExpression",
+				"value": "test2"
+			},
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "INT32_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "arg"
+					},
+					"initializer": null
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 0,
+				"statements": []
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "FLOAT32_T",
+			"identifier": {
+				"type": "IdentifierExpression",
+				"value": "add"
+			},
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": "CONST",
+					"datatype": "UINT32_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"initializer": null
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "FLOAT64_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "y"
+					},
+					"initializer": {
+						"type": "IdentifierExpression",
+						"value": "a"
+					}
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "STR8_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "z"
+					},
+					"initializer": null
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 0,
+				"statements": []
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "BOOL8_T",
+			"identifier": {
+				"type": "IdentifierExpression",
+				"value": "defaultValue"
+			},
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "BOOL8_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "def"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "BOOL8",
+						"value": false
+					}
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "y"
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "VOID",
+			"identifier": {
+				"type": "IdentifierExpression",
+				"value": "nothing"
+			},
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "FLOAT64",
+							"value": 55.12
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": {
+				"type": "IdentifierExpression",
+				"value": "func"
+			},
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "INT32_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"initializer": null
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "FLOAT64_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "y"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "FLOAT64",
+						"value": 12.55
+					}
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": "CONST",
+					"datatype": "UINT32_T",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "z"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 55
+					}
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "AssignmentExpression",
+							"operator": "=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "y"
+							}
+						}
+					}
+				]
+			}
+		}
+	]
+}

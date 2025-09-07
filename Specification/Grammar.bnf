@@ -7,8 +7,8 @@
 <top-level-statement-list> ::= <top-level-statement>
                              | <top-level-statement-list> <top-level-statement>
 
-<top-level-statement> ::= <function-statement>
-                        | <variable-statement>
+<top-level-statement> ::= <variable-statement>
+                        | <function-statement>
                         | <statement>
 
 

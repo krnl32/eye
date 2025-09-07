@@ -1,0 +1,210 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 9,
+	"topLevelStatements": [
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "BOOL8_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "isTrue"
+					},
+					"initializer": null
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "BOOL8_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "isFalse"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "BOOL8",
+						"value": true
+					}
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "FLOAT64_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "num2"
+					},
+					"initializer": {
+						"type": "IdentifierExpression",
+						"value": "number"
+					}
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "UINT32_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x1"
+					},
+					"initializer": null
+				},
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x2"
+					},
+					"initializer": null
+				},
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x3"
+					},
+					"initializer": null
+				},
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x4"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 55
+					}
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "STR8_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "text"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "STR8",
+						"value": "Hello"
+					}
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "INT32_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"initializer": null
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "INT32_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 12
+					}
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": "CONST",
+			"datatype": "INT32_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"initializer": {
+						"type": "IdentifierExpression",
+						"value": "y"
+					}
+				}
+			]
+		},
+		{
+			"type": "VariableStatement",
+			"typeQualifier": null,
+			"datatype": "INT32_T",
+			"variableDeclarations": [
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "x"
+					},
+					"initializer": null
+				},
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "y"
+					},
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 2
+					}
+				},
+				{
+					"type": "VariableDeclaration",
+					"identifier": {
+						"type": "IdentifierExpression",
+						"value": "z"
+					},
+					"initializer": {
+						"type": "IdentifierExpression",
+						"value": "b"
+					}
+				}
+			]
+		}
+	]
+}
