@@ -34,6 +34,10 @@ public class Main {
 		lexer = new Lexer("for(int32_t x; x > 10; x++) { Hello; }");
 		lexer = new Lexer("for(int32_t x = 12, y = 12; x > 10; x++) { Hello; }");
 		lexer = new Lexer("for(int32_t x = 12, y, x = 13; x > 10; x++) { Hello; }");
+		lexer = new Lexer("while(x) { if (y) break; }");
+		lexer = new Lexer("while(x) { if (y) continue; }");
+		lexer = new Lexer("while(x) { if (y) return; }");
+		lexer = new Lexer("while(x) { if (y) return 12; }");
 
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

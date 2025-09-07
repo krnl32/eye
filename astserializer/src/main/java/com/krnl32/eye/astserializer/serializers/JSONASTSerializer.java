@@ -45,6 +45,9 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			case WhileStatement -> serializeWhileStatement((WhileStatement) stmt);
 			case DoWhileStatement -> serializeDoWhileStatement((DoWhileStatement) stmt);
 			case ForStatement -> serializeForStatement((ForStatement) stmt);
+			case ContinueStatement -> serializeContinueStatement((ContinueStatement) stmt);
+			case BreakStatement -> serializeBreakStatement((BreakStatement) stmt);
+			case ReturnStatement -> serializeReturnStatement((ReturnStatement) stmt);
 			default -> throw new UnsupportedOperationException("JSONASTSerialize Unknown Statement Type: " + stmt.getClass().getSimpleName());
 		};
 	}
@@ -179,6 +182,31 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 			node.set("body", serializeStatement(stmt.getBody()));
 		} else {
 			node.putNull("body");
+		}
+
+		return node;
+	}
+
+	private ObjectNode serializeContinueStatement(ContinueStatement stmt) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+		return node;
+	}
+
+	private ObjectNode serializeBreakStatement(BreakStatement stmt) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+		return node;
+	}
+
+	private ObjectNode serializeReturnStatement(ReturnStatement stmt) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", stmt.getType().name());
+
+		if (stmt.getExpression() != null) {
+			node.set("expression", serializeExpression(stmt.getExpression()));
+		} else {
+			node.putNull("expression");
 		}
 
 		return node;

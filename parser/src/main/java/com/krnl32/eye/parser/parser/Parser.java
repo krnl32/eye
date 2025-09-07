@@ -100,6 +100,11 @@ public class Parser {
 				 KEYWORD_ITERATION_WHILE,
 				 KEYWORD_ITERATION_FOR -> iterationStatement();
 
+			case KEYWORD_ITERATION_CONTINUE -> continueStatement();
+			case KEYWORD_ITERATION_BREAK -> breakStatement();
+
+			case KEYWORD_RETURN -> returnStatement();
+
 			default -> expressionStatement();
 		};
 	}
@@ -344,6 +349,34 @@ public class Parser {
 		Statement body = statement();
 
 		return new ForStatement(initializerType, initializer, condition, update, body);
+	}
+
+	/*
+		<continue-statement> ::= "continue" ";"
+	 */
+	private ContinueStatement continueStatement() {
+		eatToken(TokenType.KEYWORD_ITERATION_CONTINUE);
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+		return new ContinueStatement();
+	}
+
+	/*
+		<break-statement> ::= "break" ";"
+	 */
+	private BreakStatement breakStatement() {
+		eatToken(TokenType.KEYWORD_ITERATION_BREAK);
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+		return new BreakStatement();
+	}
+
+	/*
+		<return-statement> ::= "return" <optional-expression> ";"
+	 */
+	private ReturnStatement returnStatement() {
+		eatToken(TokenType.KEYWORD_RETURN);
+		Expression expression = isLookAheadToken(TokenType.SYMBOL_SEMI_COLON) ? null : expression();
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+		return new ReturnStatement(expression);
 	}
 
 	/*

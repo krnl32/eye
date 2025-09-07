@@ -8,4 +8,7 @@ public enum StatementType {
 	WhileStatement,
 	DoWhileStatement,
 	ForStatement,
+	ContinueStatement,
+	BreakStatement,
+	ReturnStatement
 }
