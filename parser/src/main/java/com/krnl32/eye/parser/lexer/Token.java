@@ -5,12 +5,12 @@ import com.krnl32.eye.common.utility.SourceSpan;
 public class Token {
 	private final TokenType type;
 	private final Object value;
-	private final SourceSpan span;
+	private final SourceSpan sourceSpan;
 
-	public Token(TokenType type, Object value, SourceSpan span) {
+	public Token(TokenType type, Object value, SourceSpan sourceSpan) {
 		this.type = type;
 		this.value = value;
-		this.span = span;
+		this.sourceSpan = sourceSpan;
 	}
 
 	public TokenType getType() {
@@ -22,8 +22,8 @@ public class Token {
 		return (T) value;
 	}
 
-	public SourceSpan getSpan() {
-		return span;
+	public SourceSpan getSourceSpan() {
+		return sourceSpan;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Token {
 		return "Token{" +
 			"type=" + type +
 			", value=" + value +
-			", span=" + span +
+			", sourceSpan=" + sourceSpan +
 			'}';
 	}
 }

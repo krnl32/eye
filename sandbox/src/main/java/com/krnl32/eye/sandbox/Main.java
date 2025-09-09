@@ -15,7 +15,7 @@ import java.util.List;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		Lexer lexer;
-		lexer = new Lexer("int32_t x = 12;");
+		lexer = new Lexer("function int32_t main() { x = 12; }");
 		
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {

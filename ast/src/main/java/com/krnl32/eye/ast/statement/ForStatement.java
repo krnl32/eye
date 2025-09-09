@@ -2,15 +2,18 @@ package com.krnl32.eye.ast.statement;
 
 import com.krnl32.eye.ast.expression.Expression;
 import com.krnl32.eye.ast.types.StatementType;
+import com.krnl32.eye.common.utility.SourceSpan;
 
 public class ForStatement implements Statement {
+	private final SourceSpan sourceSpan;
 	private final ForInitializerType initializerType;
 	private final Object initializer;
 	private final Expression condition;
 	private final Expression update;
 	private final Statement body;
 
-	public ForStatement(ForInitializerType initializerType, Object initializer, Expression condition, Expression update, Statement body) {
+	public ForStatement(SourceSpan sourceSpan, ForInitializerType initializerType, Object initializer, Expression condition, Expression update, Statement body) {
+		this.sourceSpan = sourceSpan;
 		this.initializerType = initializerType;
 		this.initializer = initializer;
 		this.condition = condition;
@@ -21,6 +24,11 @@ public class ForStatement implements Statement {
 	@Override
 	public StatementType getType() {
 		return StatementType.ForStatement;
+	}
+
+	@Override
+	public SourceSpan getSourceSpan() {
+		return sourceSpan;
 	}
 
 	public ForInitializerType getInitializerType() {

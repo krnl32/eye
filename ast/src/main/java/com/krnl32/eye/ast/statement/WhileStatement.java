@@ -2,12 +2,15 @@ package com.krnl32.eye.ast.statement;
 
 import com.krnl32.eye.ast.expression.Expression;
 import com.krnl32.eye.ast.types.StatementType;
+import com.krnl32.eye.common.utility.SourceSpan;
 
 public class WhileStatement implements Statement {
+	private final SourceSpan sourceSpan;
 	private final Expression condition;
 	private final Statement body;
 
-	public WhileStatement(Expression condition, Statement body) {
+	public WhileStatement(SourceSpan sourceSpan, Expression condition, Statement body) {
+		this.sourceSpan = sourceSpan;
 		this.condition = condition;
 		this.body = body;
 	}
@@ -15,6 +18,11 @@ public class WhileStatement implements Statement {
 	@Override
 	public StatementType getType() {
 		return StatementType.WhileStatement;
+	}
+
+	@Override
+	public SourceSpan getSourceSpan() {
+		return sourceSpan;
 	}
 
 	public Expression getCondition() {
