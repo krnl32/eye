@@ -28,6 +28,46 @@ public class ParserStatementTest {
 		runTest("function");
 	}
 
+	@Test
+	void testExpression() throws IOException {
+		runTest("expression");
+	}
+
+	@Test
+	void testBlock() throws IOException {
+		runTest("block");
+	}
+
+	@Test
+	void testControl() throws IOException {
+		runTest("control");
+	}
+
+	@Test
+	void testWhile() throws IOException {
+		runTest("while");
+	}
+
+	@Test
+	void testDoWhile() throws IOException {
+		runTest("do_while");
+	}
+
+	@Test
+	void testFor() throws IOException {
+		runTest("for");
+	}
+
+	@Test
+	void testContinueBreak() throws IOException {
+		runTest("continue_break");
+	}
+
+	@Test
+	void testReturn() throws IOException {
+		runTest("return");
+	}
+
 	private void runTest(String testName) throws IOException {
 		String source = FileIO.readResourceFileContent("parser/statement/" + testName + ".eye");
 		String expected = FileIO.readResourceFileContent("parser/statement/" + testName + ".json");

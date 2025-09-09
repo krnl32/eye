@@ -1,0 +1,311 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 1,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 7,
+				"statements": [
+					{
+						"type": "ForStatement",
+						"initializer": {
+							"type": "VariableStatement",
+							"typeQualifier": null,
+							"datatype": "INT32_T",
+							"variableDeclarations": [
+								{
+									"type": "VariableDeclaration",
+									"identifier": "num",
+									"initializer": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 2
+									}
+								}
+							]
+						},
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": "<",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "num"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 10
+							}
+						},
+						"update": {
+							"type": "AssignmentExpression",
+							"operator": "+=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "num"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 2
+							}
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "ExpressionStatement",
+									"expression": {
+										"type": "AssignmentExpression",
+										"operator": "+=",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "num"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 1
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"type": "ForStatement",
+						"initializer": null,
+						"condition": null,
+						"update": null,
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "VariableStatement",
+									"typeQualifier": null,
+									"datatype": "INT32_T",
+									"variableDeclarations": [
+										{
+											"type": "VariableDeclaration",
+											"identifier": "num",
+											"initializer": {
+												"type": "LiteralExpression",
+												"literalType": "INT32",
+												"value": 1
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"type": "VariableStatement",
+						"typeQualifier": null,
+						"datatype": "INT32_T",
+						"variableDeclarations": [
+							{
+								"type": "VariableDeclaration",
+								"identifier": "x",
+								"initializer": null
+							}
+						]
+					},
+					{
+						"type": "ForStatement",
+						"initializer": {
+							"type": "AssignmentExpression",
+							"operator": "=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 13
+							}
+						},
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": ">",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 5
+							}
+						},
+						"update": {
+							"type": "AssignmentExpression",
+							"operator": "+=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 5
+							}
+						},
+						"body": {
+							"type": "ExpressionStatement",
+							"expression": {
+								"type": "AssignmentExpression",
+								"operator": "=",
+								"left": {
+									"type": "IdentifierExpression",
+									"value": "x"
+								},
+								"right": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 1
+								}
+							}
+						}
+					},
+					{
+						"type": "ForStatement",
+						"initializer": null,
+						"condition": null,
+						"update": null,
+						"body": null
+					},
+					{
+						"type": "ForStatement",
+						"initializer": {
+							"type": "VariableStatement",
+							"typeQualifier": null,
+							"datatype": "INT32_T",
+							"variableDeclarations": [
+								{
+									"type": "VariableDeclaration",
+									"identifier": "x",
+									"initializer": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 12
+									}
+								},
+								{
+									"type": "VariableDeclaration",
+									"identifier": "y",
+									"initializer": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 12
+									}
+								}
+							]
+						},
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": ">",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 10
+							}
+						},
+						"update": {
+							"type": "PostfixExpression",
+							"operator": "++",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							}
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "ExpressionStatement",
+									"expression": {
+										"type": "IdentifierExpression",
+										"value": "Hello"
+									}
+								}
+							]
+						}
+					},
+					{
+						"type": "ForStatement",
+						"initializer": {
+							"type": "VariableStatement",
+							"typeQualifier": null,
+							"datatype": "INT32_T",
+							"variableDeclarations": [
+								{
+									"type": "VariableDeclaration",
+									"identifier": "x",
+									"initializer": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 12
+									}
+								},
+								{
+									"type": "VariableDeclaration",
+									"identifier": "y",
+									"initializer": null
+								},
+								{
+									"type": "VariableDeclaration",
+									"identifier": "x",
+									"initializer": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 13
+									}
+								}
+							]
+						},
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": ">",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 10
+							}
+						},
+						"update": {
+							"type": "PostfixExpression",
+							"operator": "++",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							}
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 0,
+							"statements": []
+						}
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,327 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 7,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "test",
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "INT32_T",
+					"identifier": "args",
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 15
+					}
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ReturnStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "INT32",
+							"value": 87
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "FLOAT32_T",
+			"identifier": "test2",
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "INT32_T",
+					"identifier": "arg",
+					"initializer": null
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ReturnStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "FLOAT32",
+							"value": 12.15
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "FLOAT32_T",
+			"identifier": "add",
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": "CONST",
+					"datatype": "UINT32_T",
+					"identifier": "x",
+					"initializer": null
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "FLOAT64_T",
+					"identifier": "y",
+					"initializer": {
+						"type": "IdentifierExpression",
+						"value": "a"
+					}
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "STR8_T",
+					"identifier": "z",
+					"initializer": null
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ReturnStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "+",
+							"left": {
+								"type": "BinaryExpression",
+								"operator": "+",
+								"left": {
+									"type": "BinaryExpression",
+									"operator": "+",
+									"left": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 10
+									},
+									"right": {
+										"type": "IdentifierExpression",
+										"value": "x"
+									}
+								},
+								"right": {
+									"type": "IdentifierExpression",
+									"value": "y"
+								}
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "z"
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "BOOL8_T",
+			"identifier": "defaultValue",
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "BOOL8_T",
+					"identifier": "def",
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "BOOL8",
+						"value": false
+					}
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ReturnStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": false
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "VOID",
+			"identifier": "nothing",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 1,
+				"statements": [
+					{
+						"type": "ReturnStatement",
+						"expression": null
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "func",
+			"parameters": [
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "INT32_T",
+					"identifier": "x",
+					"initializer": null
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": null,
+					"datatype": "FLOAT64_T",
+					"identifier": "y",
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "FLOAT64",
+						"value": 12.55
+					}
+				},
+				{
+					"type": "FunctionParameter",
+					"typeQualifier": "CONST",
+					"datatype": "UINT32_T",
+					"identifier": "z",
+					"initializer": {
+						"type": "LiteralExpression",
+						"literalType": "INT32",
+						"value": 55
+					}
+				}
+			],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 2,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "AssignmentExpression",
+							"operator": "=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "y"
+							}
+						}
+					},
+					{
+						"type": "ReturnStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "x"
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 2,
+				"statements": [
+					{
+						"type": "WhileStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": true
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "ReturnStatement",
+									"expression": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 3
+									}
+								}
+							]
+						}
+					},
+					{
+						"type": "ControlStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": false
+						},
+						"consequent": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "ControlStatement",
+									"condition": {
+										"type": "BinaryExpression",
+										"operator": "==",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "x"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 5
+										}
+									},
+									"consequent": {
+										"type": "BlockStatement",
+										"statementCount": 1,
+										"statements": [
+											{
+												"type": "ReturnStatement",
+												"expression": {
+													"type": "LiteralExpression",
+													"literalType": "INT32",
+													"value": 1
+												}
+											}
+										]
+									},
+									"alternate": null
+								}
+							]
+						},
+						"alternate": null
+					}
+				]
+			}
+		}
+	]
+}

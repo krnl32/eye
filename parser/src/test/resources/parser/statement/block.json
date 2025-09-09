@@ -1,0 +1,128 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 1,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 3,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "AssignmentExpression",
+							"operator": "=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "num1"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 6
+							}
+						}
+					},
+					{
+						"type": "BlockStatement",
+						"statementCount": 4,
+						"statements": [
+							{
+								"type": "ExpressionStatement",
+								"expression": {
+									"type": "AssignmentExpression",
+									"operator": "=",
+									"left": {
+										"type": "IdentifierExpression",
+										"value": "num2"
+									},
+									"right": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 7
+									}
+								}
+							},
+							{
+								"type": "BlockStatement",
+								"statementCount": 3,
+								"statements": [
+									{
+										"type": "ExpressionStatement",
+										"expression": {
+											"type": "LiteralExpression",
+											"literalType": "STR8",
+											"value": "STRING"
+										}
+									},
+									{
+										"type": "ExpressionStatement",
+										"expression": {
+											"type": "AssignmentExpression",
+											"operator": "=",
+											"left": {
+												"type": "IdentifierExpression",
+												"value": "numBak"
+											},
+											"right": {
+												"type": "IdentifierExpression",
+												"value": "num1"
+											}
+										}
+									},
+									{
+										"type": "BlockStatement",
+										"statementCount": 2,
+										"statements": [
+											{
+												"type": "ExpressionStatement",
+												"expression": {
+													"type": "IdentifierExpression",
+													"value": "num2"
+												}
+											},
+											{
+												"type": "ExpressionStatement",
+												"expression": {
+													"type": "LiteralExpression",
+													"literalType": "FLOAT64",
+													"value": 55.12
+												}
+											}
+										]
+									}
+								]
+							},
+							{
+								"type": "ExpressionStatement",
+								"expression": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 12456
+								}
+							},
+							{
+								"type": "ExpressionStatement",
+								"expression": {
+									"type": "IdentifierExpression",
+									"value": "num2"
+								}
+							}
+						]
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "num1"
+						}
+					}
+				]
+			}
+		}
+	]
+}

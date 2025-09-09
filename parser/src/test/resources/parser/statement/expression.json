@@ -1,0 +1,98 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 1,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 9,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "INT32",
+							"value": 123456
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "xyz"
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "+",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 1
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 2
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "STR8",
+							"value": "hello world"
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "FLOAT32",
+							"value": 12.55
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "FLOAT64",
+							"value": 159.125
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": true
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": false
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "LiteralExpression",
+							"literalType": "CHAR8",
+							"value": "A"
+						}
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,147 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 1,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 5,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "num"
+						}
+					},
+					{
+						"type": "WhileStatement",
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": ">",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "num"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 5
+							}
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 2,
+							"statements": [
+								{
+									"type": "ExpressionStatement",
+									"expression": {
+										"type": "AssignmentExpression",
+										"operator": "+=",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "num"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 10
+										}
+									}
+								},
+								{
+									"type": "WhileStatement",
+									"condition": {
+										"type": "BinaryExpression",
+										"operator": "==",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "num"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 100
+										}
+									},
+									"body": {
+										"type": "ExpressionStatement",
+										"expression": {
+											"type": "AssignmentExpression",
+											"operator": "=",
+											"left": {
+												"type": "IdentifierExpression",
+												"value": "num"
+											},
+											"right": {
+												"type": "LiteralExpression",
+												"literalType": "INT32",
+												"value": 0
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"type": "WhileStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": true
+						},
+						"body": null
+					},
+					{
+						"type": "WhileStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": true
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 0,
+							"statements": []
+						}
+					},
+					{
+						"type": "WhileStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": false
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "ExpressionStatement",
+									"expression": {
+										"type": "AssignmentExpression",
+										"operator": "=",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "x"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 12
+										}
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+}

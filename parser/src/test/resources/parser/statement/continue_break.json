@@ -1,0 +1,157 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 1,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 3,
+				"statements": [
+					{
+						"type": "WhileStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": true
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 3,
+							"statements": [
+								{
+									"type": "ControlStatement",
+									"condition": {
+										"type": "BinaryExpression",
+										"operator": "==",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "x"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 2
+										}
+									},
+									"consequent": {
+										"type": "BreakStatement"
+									},
+									"alternate": null
+								},
+								{
+									"type": "ControlStatement",
+									"condition": {
+										"type": "BinaryExpression",
+										"operator": "==",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "x"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 4
+										}
+									},
+									"consequent": {
+										"type": "ContinueStatement"
+									},
+									"alternate": null
+								},
+								{
+									"type": "ExpressionStatement",
+									"expression": {
+										"type": "PostfixExpression",
+										"operator": "++",
+										"expression": {
+											"type": "IdentifierExpression",
+											"value": "x"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"type": "ForStatement",
+						"initializer": {
+							"type": "AssignmentExpression",
+							"operator": "=",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 0
+							}
+						},
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": "<",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 5
+							}
+						},
+						"update": {
+							"type": "PostfixExpression",
+							"operator": "++",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							}
+						},
+						"body": {
+							"type": "ControlStatement",
+							"condition": {
+								"type": "BinaryExpression",
+								"operator": "==",
+								"left": {
+									"type": "IdentifierExpression",
+									"value": "x"
+								},
+								"right": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 3
+								}
+							},
+							"consequent": {
+								"type": "BreakStatement"
+							},
+							"alternate": null
+						}
+					},
+					{
+						"type": "DoWhileStatement",
+						"condition": {
+							"type": "LiteralExpression",
+							"literalType": "BOOL8",
+							"value": true
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 1,
+							"statements": [
+								{
+									"type": "BreakStatement"
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,108 @@
+{
+	"type": "Program",
+	"topLevelStatementCount": 1,
+	"topLevelStatements": [
+		{
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 4,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "num"
+						}
+					},
+					{
+						"type": "DoWhileStatement",
+						"condition": {
+							"type": "BinaryExpression",
+							"operator": ">",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "num"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 5
+							}
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 2,
+							"statements": [
+								{
+									"type": "ExpressionStatement",
+									"expression": {
+										"type": "LiteralExpression",
+										"literalType": "INT32",
+										"value": 10
+									}
+								},
+								{
+									"type": "ControlStatement",
+									"condition": {
+										"type": "BinaryExpression",
+										"operator": "==",
+										"left": {
+											"type": "IdentifierExpression",
+											"value": "num"
+										},
+										"right": {
+											"type": "LiteralExpression",
+											"literalType": "INT32",
+											"value": 100
+										}
+									},
+									"consequent": {
+										"type": "ExpressionStatement",
+										"expression": {
+											"type": "AssignmentExpression",
+											"operator": "=",
+											"left": {
+												"type": "IdentifierExpression",
+												"value": "num"
+											},
+											"right": {
+												"type": "LiteralExpression",
+												"literalType": "INT32",
+												"value": 0
+											}
+										}
+									},
+									"alternate": null
+								}
+							]
+						}
+					},
+					{
+						"type": "DoWhileStatement",
+						"condition": {
+							"type": "IdentifierExpression",
+							"value": "y"
+						},
+						"body": null
+					},
+					{
+						"type": "DoWhileStatement",
+						"condition": {
+							"type": "IdentifierExpression",
+							"value": "y"
+						},
+						"body": {
+							"type": "BlockStatement",
+							"statementCount": 0,
+							"statements": []
+						}
+					}
+				]
+			}
+		}
+	]
+}
