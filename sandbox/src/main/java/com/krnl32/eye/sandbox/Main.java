@@ -36,7 +36,7 @@ public class Main {
 		lexer = new Lexer("while(x) { if (y) return 12; }");
 		lexer = new Lexer("int32_t x = 12;");
 		lexer = new Lexer("function void empty() { while(x) { if (y) return 12; } }");
-		
+
 		List<Token> tokens = lexer.tokenize();
 		if (tokens == null) {
 			Logger.error("Tokenizer Failed");

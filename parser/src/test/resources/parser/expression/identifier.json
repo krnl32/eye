@@ -1,26 +1,38 @@
 {
 	"type": "Program",
-	"topLevelStatementCount": 3,
+	"topLevelStatementCount": 1,
 	"topLevelStatements": [
 		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "IdentifierExpression",
-				"value": "numbers1"
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "IdentifierExpression",
-				"value": "_var2"
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "IdentifierExpression",
-				"value": "var33"
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 3,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "numbers1"
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "_var2"
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "IdentifierExpression",
+							"value": "var33"
+						}
+					}
+				]
 			}
 		}
 	]

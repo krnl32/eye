@@ -1,76 +1,88 @@
 {
 	"type": "Program",
-	"topLevelStatementCount": 6,
+	"topLevelStatementCount": 1,
 	"topLevelStatements": [
 		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "!",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "number"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "-",
-				"expression": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 4
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "+",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "number"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "!",
-				"expression": {
-					"type": "UnaryExpression",
-					"operator": "-",
-					"expression": {
-						"type": "IdentifierExpression",
-						"value": "number"
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 6,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "!",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "number"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "-",
+							"expression": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 4
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "+",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "number"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "!",
+							"expression": {
+								"type": "UnaryExpression",
+								"operator": "-",
+								"expression": {
+									"type": "IdentifierExpression",
+									"value": "number"
+								}
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "++",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "--",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "y"
+							}
+						}
 					}
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "++",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "x"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "--",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "y"
-				}
+				]
 			}
 		}
 	]

@@ -1,70 +1,82 @@
 {
 	"type": "Program",
-	"topLevelStatementCount": 2,
+	"topLevelStatementCount": 1,
 	"topLevelStatements": [
 		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "*",
-				"left": {
-					"type": "BinaryExpression",
-					"operator": "+",
-					"left": {
-						"type": "LiteralExpression",
-						"literalType": "INT32",
-						"value": 10
-					},
-					"right": {
-						"type": "LiteralExpression",
-						"literalType": "FLOAT64",
-						"value": 5.3
-					}
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 30
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "*",
-				"left": {
-					"type": "BinaryExpression",
-					"operator": "/",
-					"left": {
-						"type": "LiteralExpression",
-						"literalType": "INT32",
-						"value": 5
-					},
-					"right": {
-						"type": "BinaryExpression",
-						"operator": "+",
-						"left": {
-							"type": "LiteralExpression",
-							"literalType": "FLOAT64",
-							"value": 2.2
-						},
-						"right": {
-							"type": "UnaryExpression",
-							"operator": "-",
-							"expression": {
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 2,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "*",
+							"left": {
+								"type": "BinaryExpression",
+								"operator": "+",
+								"left": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 10
+								},
+								"right": {
+									"type": "LiteralExpression",
+									"literalType": "FLOAT64",
+									"value": 5.3
+								}
+							},
+							"right": {
 								"type": "LiteralExpression",
-								"literalType": "FLOAT64",
-								"value": 3.5
+								"literalType": "INT32",
+								"value": 30
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "*",
+							"left": {
+								"type": "BinaryExpression",
+								"operator": "/",
+								"left": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 5
+								},
+								"right": {
+									"type": "BinaryExpression",
+									"operator": "+",
+									"left": {
+										"type": "LiteralExpression",
+										"literalType": "FLOAT64",
+										"value": 2.2
+									},
+									"right": {
+										"type": "UnaryExpression",
+										"operator": "-",
+										"expression": {
+											"type": "LiteralExpression",
+											"literalType": "FLOAT64",
+											"value": 3.5
+										}
+									}
+								}
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 40
 							}
 						}
 					}
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 40
-				}
+				]
 			}
 		}
 	]

@@ -1,195 +1,207 @@
 {
 	"type": "Program",
-	"topLevelStatementCount": 11,
+	"topLevelStatementCount": 1,
 	"topLevelStatements": [
 		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "&",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 1
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "BOOL8",
-					"value": true
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "|",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "FLOAT64",
-					"value": 22.12
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 25
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "^",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "STR8",
-					"value": "Hello"
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "STR8",
-					"value": "bye"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "&",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 123459
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 4466
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "|",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 123
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 4456
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "^",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 999
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 123
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "|",
-				"left": {
-					"type": "BinaryExpression",
-					"operator": "&",
-					"left": {
-						"type": "LiteralExpression",
-						"literalType": "INT32",
-						"value": 123
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 11,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "&",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 1
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "BOOL8",
+								"value": true
+							}
+						}
 					},
-					"right": {
-						"type": "LiteralExpression",
-						"literalType": "INT32",
-						"value": 456
-					}
-				},
-				"right": {
-					"type": "BinaryExpression",
-					"operator": "^",
-					"left": {
-						"type": "LiteralExpression",
-						"literalType": "INT32",
-						"value": 789
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "|",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "FLOAT64",
+								"value": 22.12
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 25
+							}
+						}
 					},
-					"right": {
-						"type": "LiteralExpression",
-						"literalType": "INT32",
-						"value": 1011
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "^",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "STR8",
+								"value": "Hello"
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "STR8",
+								"value": "bye"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "&",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 123459
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 4466
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "|",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 123
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 4456
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "^",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 999
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 123
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "|",
+							"left": {
+								"type": "BinaryExpression",
+								"operator": "&",
+								"left": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 123
+								},
+								"right": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 456
+								}
+							},
+							"right": {
+								"type": "BinaryExpression",
+								"operator": "^",
+								"left": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 789
+								},
+								"right": {
+									"type": "LiteralExpression",
+									"literalType": "INT32",
+									"value": 1011
+								}
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "~",
+							"expression": {
+								"type": "LiteralExpression",
+								"literalType": "INT32",
+								"value": 1235
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "&",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "number"
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "number2"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "UnaryExpression",
+							"operator": "~",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "binaryNum"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "|",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "numbers"
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "numbers2"
+							}
+						}
 					}
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "~",
-				"expression": {
-					"type": "LiteralExpression",
-					"literalType": "INT32",
-					"value": 1235
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "&",
-				"left": {
-					"type": "IdentifierExpression",
-					"value": "number"
-				},
-				"right": {
-					"type": "IdentifierExpression",
-					"value": "number2"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "UnaryExpression",
-				"operator": "~",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "binaryNum"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "|",
-				"left": {
-					"type": "IdentifierExpression",
-					"value": "numbers"
-				},
-				"right": {
-					"type": "IdentifierExpression",
-					"value": "numbers2"
-				}
+				]
 			}
 		}
 	]

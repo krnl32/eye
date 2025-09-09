@@ -1,49 +1,61 @@
 {
 	"type": "Program",
-	"topLevelStatementCount": 4,
+	"topLevelStatementCount": 1,
 	"topLevelStatements": [
 		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "PostfixExpression",
-				"operator": "++",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "x"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "PostfixExpression",
-				"operator": "++",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "y"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "PostfixExpression",
-				"operator": "--",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "number"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "PostfixExpression",
-				"operator": "--",
-				"expression": {
-					"type": "IdentifierExpression",
-					"value": "boss"
-				}
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 4,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "PostfixExpression",
+							"operator": "++",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "x"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "PostfixExpression",
+							"operator": "++",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "y"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "PostfixExpression",
+							"operator": "--",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "number"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "PostfixExpression",
+							"operator": "--",
+							"expression": {
+								"type": "IdentifierExpression",
+								"value": "boss"
+							}
+						}
+					}
+				]
 			}
 		}
 	]

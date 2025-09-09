@@ -1,5 +1,8 @@
-10 == 50 != true;
-10 == 20;
-5 != 30;
-num != num2;
-num == 5;
+function int32_t main()
+{
+	10 == 50 != true;
+	10 == 20;
+	5 != 30;
+	num != num2;
+	num == 5;
+}

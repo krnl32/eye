@@ -1,92 +1,104 @@
 {
 	"type": "Program",
-	"topLevelStatementCount": 5,
+	"topLevelStatementCount": 1,
 	"topLevelStatements": [
 		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "||",
-				"left": {
-					"type": "IdentifierExpression",
-					"value": "cond1"
-				},
-				"right": {
-					"type": "IdentifierExpression",
-					"value": "cond2"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "&&",
-				"left": {
-					"type": "IdentifierExpression",
-					"value": "cond2"
-				},
-				"right": {
-					"type": "IdentifierExpression",
-					"value": "cond3"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "||",
-				"left": {
-					"type": "BinaryExpression",
-					"operator": "&&",
-					"left": {
-						"type": "IdentifierExpression",
-						"value": "cond1"
+			"type": "FunctionStatement",
+			"returnType": "INT32_T",
+			"identifier": "main",
+			"parameters": [],
+			"body": {
+				"type": "BlockStatement",
+				"statementCount": 5,
+				"statements": [
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "||",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "cond1"
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "cond2"
+							}
+						}
 					},
-					"right": {
-						"type": "IdentifierExpression",
-						"value": "cond2"
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "&&",
+							"left": {
+								"type": "IdentifierExpression",
+								"value": "cond2"
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "cond3"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "||",
+							"left": {
+								"type": "BinaryExpression",
+								"operator": "&&",
+								"left": {
+									"type": "IdentifierExpression",
+									"value": "cond1"
+								},
+								"right": {
+									"type": "IdentifierExpression",
+									"value": "cond2"
+								}
+							},
+							"right": {
+								"type": "IdentifierExpression",
+								"value": "cond1"
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "&&",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "BOOL8",
+								"value": true
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "BOOL8",
+								"value": false
+							}
+						}
+					},
+					{
+						"type": "ExpressionStatement",
+						"expression": {
+							"type": "BinaryExpression",
+							"operator": "||",
+							"left": {
+								"type": "LiteralExpression",
+								"literalType": "BOOL8",
+								"value": true
+							},
+							"right": {
+								"type": "LiteralExpression",
+								"literalType": "BOOL8",
+								"value": true
+							}
+						}
 					}
-				},
-				"right": {
-					"type": "IdentifierExpression",
-					"value": "cond1"
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "&&",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "BOOL8",
-					"value": true
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "BOOL8",
-					"value": false
-				}
-			}
-		},
-		{
-			"type": "ExpressionStatement",
-			"expression": {
-				"type": "BinaryExpression",
-				"operator": "||",
-				"left": {
-					"type": "LiteralExpression",
-					"literalType": "BOOL8",
-					"value": true
-				},
-				"right": {
-					"type": "LiteralExpression",
-					"literalType": "BOOL8",
-					"value": true
-				}
+				]
 			}
 		}
 	]
