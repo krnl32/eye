@@ -5,19 +5,13 @@
 		{
 			"type": "FunctionStatement",
 			"returnType": "INT32_T",
-			"identifier": {
-				"type": "IdentifierExpression",
-				"value": "test"
-			},
+			"identifier": "test",
 			"parameters": [
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "INT32_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "args"
-					},
+					"identifier": "args",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",
@@ -34,19 +28,13 @@
 		{
 			"type": "FunctionStatement",
 			"returnType": "FLOAT32_T",
-			"identifier": {
-				"type": "IdentifierExpression",
-				"value": "test2"
-			},
+			"identifier": "test2",
 			"parameters": [
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "INT32_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "arg"
-					},
+					"identifier": "arg",
 					"initializer": null
 				}
 			],
@@ -59,29 +47,20 @@
 		{
 			"type": "FunctionStatement",
 			"returnType": "FLOAT32_T",
-			"identifier": {
-				"type": "IdentifierExpression",
-				"value": "add"
-			},
+			"identifier": "add",
 			"parameters": [
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": "CONST",
 					"datatype": "UINT32_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x"
-					},
+					"identifier": "x",
 					"initializer": null
 				},
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "FLOAT64_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "y"
-					},
+					"identifier": "y",
 					"initializer": {
 						"type": "IdentifierExpression",
 						"value": "a"
@@ -91,10 +70,7 @@
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "STR8_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "z"
-					},
+					"identifier": "z",
 					"initializer": null
 				}
 			],
@@ -107,19 +83,13 @@
 		{
 			"type": "FunctionStatement",
 			"returnType": "BOOL8_T",
-			"identifier": {
-				"type": "IdentifierExpression",
-				"value": "defaultValue"
-			},
+			"identifier": "defaultValue",
 			"parameters": [
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "BOOL8_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "def"
-					},
+					"identifier": "def",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "BOOL8",
@@ -144,10 +114,7 @@
 		{
 			"type": "FunctionStatement",
 			"returnType": "VOID",
-			"identifier": {
-				"type": "IdentifierExpression",
-				"value": "nothing"
-			},
+			"identifier": "nothing",
 			"parameters": [],
 			"body": {
 				"type": "BlockStatement",
@@ -167,29 +134,20 @@
 		{
 			"type": "FunctionStatement",
 			"returnType": "INT32_T",
-			"identifier": {
-				"type": "IdentifierExpression",
-				"value": "func"
-			},
+			"identifier": "func",
 			"parameters": [
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "INT32_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x"
-					},
+					"identifier": "x",
 					"initializer": null
 				},
 				{
 					"type": "FunctionParameter",
 					"typeQualifier": null,
 					"datatype": "FLOAT64_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "y"
-					},
+					"identifier": "y",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "FLOAT64",
@@ -200,10 +158,7 @@
 					"type": "FunctionParameter",
 					"typeQualifier": "CONST",
 					"datatype": "UINT32_T",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "z"
-					},
+					"identifier": "z",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",

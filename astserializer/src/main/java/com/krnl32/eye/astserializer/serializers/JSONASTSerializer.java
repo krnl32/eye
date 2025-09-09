@@ -65,7 +65,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", stmt.getType().name());
 		node.put("returnType", stmt.getReturnType().name());
-		node.set("identifier", serializeIdentifierExpression(stmt.getIdentifier()));
+		node.put("identifier", stmt.getIdentifier());
 		node.set("parameters", paramsNode);
 		node.set("body", serializeStatement(stmt.getBody()));
 		return node;
@@ -82,7 +82,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		}
 
 		node.put("datatype", param.getDatatype().name());
-		node.set("identifier", serializeIdentifierExpression(param.getIdentifier()));
+		node.put("identifier", param.getIdentifier());
 
 		if (param.getInitializer() != null) {
 			node.set("initializer", serializeExpression(param.getInitializer()));
@@ -141,7 +141,7 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 	private ObjectNode serializeVariableDeclaration(VariableDeclaration variableDec) {
 		ObjectNode node = mapper.createObjectNode();
 		node.put("type", "VariableDeclaration");
-		node.set("identifier", serializeIdentifierExpression(variableDec.getIdentifier()));
+		node.put("identifier", variableDec.getIdentifier());
 
 		if (variableDec.getInitializer() != null) {
 			node.set("initializer", serializeExpression(variableDec.getInitializer()));

@@ -9,10 +9,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "isTrue"
-					},
+					"identifier": "isTrue",
 					"initializer": null
 				}
 			]
@@ -24,10 +21,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "isFalse"
-					},
+					"identifier": "isFalse",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "BOOL8",
@@ -43,10 +37,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "num2"
-					},
+					"identifier": "num2",
 					"initializer": {
 						"type": "IdentifierExpression",
 						"value": "number"
@@ -61,34 +52,22 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x1"
-					},
+					"identifier": "x1",
 					"initializer": null
 				},
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x2"
-					},
+					"identifier": "x2",
 					"initializer": null
 				},
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x3"
-					},
+					"identifier": "x3",
 					"initializer": null
 				},
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x4"
-					},
+					"identifier": "x4",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",
@@ -104,10 +83,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "text"
-					},
+					"identifier": "text",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "STR8",
@@ -123,10 +99,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x"
-					},
+					"identifier": "x",
 					"initializer": null
 				}
 			]
@@ -138,10 +111,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x"
-					},
+					"identifier": "x",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",
@@ -157,10 +127,7 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x"
-					},
+					"identifier": "x",
 					"initializer": {
 						"type": "IdentifierExpression",
 						"value": "y"
@@ -175,18 +142,12 @@
 			"variableDeclarations": [
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "x"
-					},
+					"identifier": "x",
 					"initializer": null
 				},
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "y"
-					},
+					"identifier": "y",
 					"initializer": {
 						"type": "LiteralExpression",
 						"literalType": "INT32",
@@ -195,10 +156,7 @@
 				},
 				{
 					"type": "VariableDeclaration",
-					"identifier": {
-						"type": "IdentifierExpression",
-						"value": "z"
-					},
+					"identifier": "z",
 					"initializer": {
 						"type": "IdentifierExpression",
 						"value": "b"

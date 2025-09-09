@@ -20,7 +20,7 @@
 <variable-declaration-list> ::= <variable-declaration>
                               | <variable-declaration-list> "," <variable-declaration>
 
-<variable-declaration> ::= <identifier-expression> <optional-variable-initializer>
+<variable-declaration> ::= <identifier-token> <optional-variable-initializer>
 
 <optional-variable-initializer> ::= <variable-initializer>
                                   | /* empty */
@@ -32,7 +32,7 @@
 // Function Declarations (Top-level Only)
 // =======================================
 
-<function-statement> ::= "function" <datatype-keyword> <identifier-expression> "(" <optional-function-parameter-list> ")" <block-statement>
+<function-statement> ::= "function" <datatype-keyword> <identifier-token> "(" <optional-function-parameter-list> ")" <block-statement>
 
 <optional-function-parameter-list> ::= <function-parameter-list>
                             | /* empty */
@@ -40,7 +40,7 @@
 <function-parameter-list> ::= <function-parameter>
                    | <function-parameter-list> "," <function-parameter>
 
-<function-parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-expression> <optional-variable-initializer>
+<function-parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-token> <optional-variable-initializer>
 
 
 // =======================================

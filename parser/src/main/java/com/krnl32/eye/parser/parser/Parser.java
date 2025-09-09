@@ -82,7 +82,72 @@ public class Parser {
 	}
 
 	/*
-		<function-statement> ::= "function" <datatype-keyword> <identifier-expression> "(" <optional-function-parameter-list> ")" <block-statement>
+		<variable-statement> ::= <optional-type-qualifier> <datatype-keyword> <variable-declaration-list> ";"
+	 */
+	private VariableStatement variableStatement() {
+		TypeQualifierType typeQualifier = null;
+
+		if (ParserUtility.isTypeQualifier(lookAheadToken.getType())) {
+			Token typeQualiferToken = eatToken(lookAheadToken.getType());
+			typeQualifier = ParserUtility.toTypeQualifierType(typeQualiferToken.getType());
+		}
+
+		if (!ParserUtility.isDatatype(lookAheadToken.getType())) {
+			throw new SyntaxErrorException("Unexpected Datatype: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
+		}
+
+		Token datatypeToken = eatToken(lookAheadToken.getType());
+		DatatypeType datatype = ParserUtility.toDatatypeType(datatypeToken.getType());
+
+		VariableStatement variableStmt = new VariableStatement(typeQualifier, datatype, variableDeclarationList());
+		eatToken(TokenType.SYMBOL_SEMI_COLON);
+
+		return variableStmt;
+	}
+
+	/*
+		<variable-declaration-list> ::= <variable-declaration>
+									  | <variable-declaration-list> "," <variable-declaration>
+	 */
+	List<VariableDeclaration> variableDeclarationList() {
+		List<VariableDeclaration> variableDeclarationList = new ArrayList<>();
+
+		do {
+			variableDeclarationList.add(variableDeclaration());
+		} while (isLookAheadToken(TokenType.OPERATOR_COMMA) && eatToken(TokenType.OPERATOR_COMMA) != null);
+
+		return variableDeclarationList;
+	}
+
+	/*
+		<variable-declaration> ::= <identifier-token> <optional-variable-initializer>
+
+		<optional-variable-initializer> ::= <variable-initializer>
+										  |
+	 */
+	private VariableDeclaration variableDeclaration() {
+		Token identifierToken = eatToken(TokenType.IDENTIFIER);
+		String identifier = identifierToken.getValue();
+
+		Expression initializer = null;
+
+		if (!isLookAheadToken(TokenType.SYMBOL_SEMI_COLON) && !isLookAheadToken(TokenType.OPERATOR_COMMA)) {
+			initializer = variableInitializer();
+		}
+
+		return new VariableDeclaration(identifier, initializer);
+	}
+
+	/*
+		<variable-initializer> ::= "=" <assignment-expression>
+	 */
+	private Expression variableInitializer() {
+		eatToken(TokenType.OPERATOR_ASSIGNMENT);
+		return assignmentExpression();
+	}
+
+	/*
+		<function-statement> ::= "function" <datatype-keyword> <identifier-token> "(" <optional-function-parameter-list> ")" <block-statement>
 
 		<optional-function-parameter-list> ::= <function-parameter-list>
 											 |
@@ -97,7 +162,8 @@ public class Parser {
 		Token datatypeToken = eatToken(lookAheadToken.getType());
 		DatatypeType returnType = ParserUtility.toDatatypeType(datatypeToken.getType());
 
-		IdentifierExpression identifier = identifierExpression();
+		Token identifierToken = eatToken(TokenType.IDENTIFIER);
+		String identifier = identifierToken.<String>getValue();
 
 		eatToken(TokenType.OPERATOR_LEFT_PARENTHESIS);
 
@@ -126,7 +192,7 @@ public class Parser {
 	}
 
 	/*
-		<function-parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-expression> <optional-variable-initializer>
+		<function-parameter> ::= <optional-type-qualifier> <datatype-keyword> <identifier-token> <optional-variable-initializer>
 	 */
 	private FunctionParameter functionParameter() {
 		TypeQualifierType typeQualifier = null;
@@ -143,9 +209,10 @@ public class Parser {
 		Token datatypeToken = eatToken(lookAheadToken.getType());
 		DatatypeType datatype = ParserUtility.toDatatypeType(datatypeToken.getType());
 
-		IdentifierExpression identifier = identifierExpression();
-		Expression initializer = null;
+		Token identifierToken = eatToken(TokenType.IDENTIFIER);
+		String identifier = identifierToken.<String>getValue();
 
+		Expression initializer = null;
 		boolean hasInitializer = !isLookAheadToken(TokenType.SYMBOL_RIGHT_PARENTHESIS) && !isLookAheadToken(TokenType.OPERATOR_COMMA);
 
 		if (hasInitializer) {
@@ -230,69 +297,6 @@ public class Parser {
 		eatToken(TokenType.SYMBOL_RIGHT_BRACE);
 
 		return new BlockStatement(statementList);
-	}
-
-	/*
-		<variable-statement> ::= <optional-type-qualifier> <datatype-keyword> <variable-declaration-list> ";"
-	 */
-	private VariableStatement variableStatement() {
-		TypeQualifierType typeQualifier = null;
-
-		if (ParserUtility.isTypeQualifier(lookAheadToken.getType())) {
-			Token typeQualiferToken = eatToken(lookAheadToken.getType());
-			typeQualifier = ParserUtility.toTypeQualifierType(typeQualiferToken.getType());
-		}
-
-		if (!ParserUtility.isDatatype(lookAheadToken.getType())) {
-			throw new SyntaxErrorException("Unexpected Datatype: '" + lookAheadToken.getType().name() + "'", lookAheadToken.getSpan());
-		}
-
-		Token datatypeToken = eatToken(lookAheadToken.getType());
-		DatatypeType datatype = ParserUtility.toDatatypeType(datatypeToken.getType());
-
-		VariableStatement variableStmt = new VariableStatement(typeQualifier, datatype, variableDeclarationList());
-		eatToken(TokenType.SYMBOL_SEMI_COLON);
-
-		return variableStmt;
-	}
-
-	/*
-		<variable-declaration-list> ::= <variable-declaration>
-									  | <variable-declaration-list> "," <variable-declaration>
-	 */
-	List<VariableDeclaration> variableDeclarationList() {
-		List<VariableDeclaration> variableDeclarationList = new ArrayList<>();
-
-		do {
-			variableDeclarationList.add(variableDeclaration());
-		} while (isLookAheadToken(TokenType.OPERATOR_COMMA) && eatToken(TokenType.OPERATOR_COMMA) != null);
-
-		return variableDeclarationList;
-	}
-
-	/*
-		<variable-declaration> ::= <identifier-expression> <optional-variable-initializer>
-
-		<optional-variable-initializer> ::= <variable-initializer>
-										  |
-	 */
-	private VariableDeclaration variableDeclaration() {
-		IdentifierExpression identifierExpr = identifierExpression();
-		Expression initializer = null;
-
-		if (!isLookAheadToken(TokenType.SYMBOL_SEMI_COLON) && !isLookAheadToken(TokenType.OPERATOR_COMMA)) {
-			initializer = variableInitializer();
-		}
-
-		return new VariableDeclaration(identifierExpr, initializer);
-	}
-
-	/*
-		<variable-initializer> ::= "=" <assignment-expression>
-	 */
-	private Expression variableInitializer() {
-		eatToken(TokenType.OPERATOR_ASSIGNMENT);
-		return assignmentExpression();
 	}
 
 	/*
