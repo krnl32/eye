@@ -49,8 +49,8 @@ public class Parser {
 		<top-level-statement-list> ::= <top-level-statement>
 									 | <top-level-statement-list> <top-level-statement>
 	 */
-	private List<TopLevelStatement> topLevelStatementList() {
-		List<TopLevelStatement> topLevelStatementList = new ArrayList<>();
+	private List<Statement> topLevelStatementList() {
+		List<Statement> topLevelStatementList = new ArrayList<>();
 
 		while (lookAheadToken != null && lookAheadToken.getType() != TokenType.END_OF_FILE) {
 			topLevelStatementList.add(topLevelStatement());
@@ -63,7 +63,7 @@ public class Parser {
 		<top-level-statement> ::= <variable-statement>
               					| <function-statement>
 	 */
-	private TopLevelStatement topLevelStatement() {
+	private Statement topLevelStatement() {
 		return switch (lookAheadToken.getType()) {
 			case KEYWORD_TYPE_QUALIFIER_CONST,
 				 KEYWORD_DATATYPE_INT32_T,

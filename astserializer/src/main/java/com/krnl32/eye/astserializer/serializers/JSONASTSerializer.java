@@ -23,14 +23,12 @@ public class JSONASTSerializer implements ASTSerializer<ObjectNode> {
 		return programNode;
 	}
 
-	private ArrayNode serializeTopLevelStatements(List<TopLevelStatement> topLevelStatements) {
+	private ArrayNode serializeTopLevelStatements(List<Statement> topLevelStatements) {
 		ArrayNode arrayNode = mapper.createArrayNode();
 
-		for (TopLevelStatement topLevelStatement : topLevelStatements) {
-			if (topLevelStatement instanceof Statement) {
-				ObjectNode statementNode = serializeStatement((Statement) topLevelStatement);
-				arrayNode.add(statementNode);
-			}
+		for (Statement topLevelStatement : topLevelStatements) {
+			ObjectNode statementNode = serializeStatement(topLevelStatement);
+			arrayNode.add(statementNode);
 		}
 
 		return arrayNode;
