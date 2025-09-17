@@ -11,8 +11,9 @@ application {
 
 dependencies {
 	implementation(project(":common"))
-	implementation(project(":parser"))
 	implementation(project(":ast"))
+	implementation(project(":parser"))
+	implementation(project(":semantic"))
 	implementation(project(":astserializer"))
 }
 

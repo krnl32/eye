@@ -18,7 +18,6 @@ import java.util.List;
 
 public class Parser {
 	private final List<Token> tokens;
-	private Program program;
 	private Token lookAheadToken;
 	private int currentTokenIndex;
 
@@ -29,13 +28,11 @@ public class Parser {
 	public Program parse() {
 		try {
 			this.lookAheadToken = nextToken();
-			this.program = program();
+			return program();
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
 			throw e;
 		}
-
-		return program;
 	}
 
 	/*

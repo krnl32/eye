@@ -1,8 +1,4 @@
 rootProject.name = "eye"
-include("common")
-include("ast")
-include("parser")
-
-include("sandbox")
-
+include("common", "ast", "parser", "semantic")
 include("astserializer")
+include("sandbox")
