@@ -1,0 +1,17 @@
+Source Code
+	↓
+Lexer
+	↓
+Parser
+	↓
+AST
+	↓
+Semantic Analysis...
+	↓
+Name Resolver
+	↓
+Type Checker
+	↓
+Typed AST
+	↓
+AST Interpreter

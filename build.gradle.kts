@@ -15,12 +15,16 @@ subprojects {
 	group = rootProject.group
 	version = rootProject.version
 
-	the<JavaPluginExtension>().apply {
-		sourceCompatibility = JavaVersion.VERSION_21
-		targetCompatibility = JavaVersion.VERSION_21
+	the<JavaPluginExtension>().toolchain {
+		languageVersion.set(JavaLanguageVersion.of(25))
 	}
 
 	repositories {
 		mavenCentral()
+	}
+
+	tasks.withType<JavaCompile>().configureEach {
+		sourceCompatibility = "25"
+		targetCompatibility = "25"
 	}
 }

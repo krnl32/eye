@@ -1,0 +1,14 @@
+Name Resolver:
+{
+	Variables must be Declared before Use
+    Variables should never be Redeclared within same scope
+    Functions must be Declared before Call
+    Functions should never be Redeclared within same scope
+}
+
+Type Checker:
+{
+	Static TypeChecker
+	Strong Typing
+	No Type Inference
+}
